@@ -22,10 +22,20 @@
       (map
        (lambda (x)
          (if (pair? x)
-             (if (eq? (car x) key) (list (cdr x)) (descendant (cdr x) key))
+             (if (equal? (car x) key) (list (cdr x)) (descendant (cdr x) key))
              (descendant x key)))
        obj))]
     [else null]
+    )
+  )
+
+; streq compares two strings for equality
+(define (streq str1 str2)
+  (cond
+    [(|| (empty? str1) (empty? str2))
+    #f
+    ]
+    [else (equal? str1 str2)]
     )
   )
 
@@ -33,3 +43,4 @@
 (provide child)
 (provide index)
 (provide descendant)
+(provide streq)

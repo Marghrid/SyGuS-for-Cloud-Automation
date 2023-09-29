@@ -39,6 +39,19 @@ def get_racket_keys_aux(i: Any) -> set[str]:
     raise NotImplementedError(f'to_racket not implemented for {i.__class__.__name__}')
 
 
+def get_racket_values_aux(i: Any) -> set[Any]:
+    if isinstance(i, str):
+        return {i}
+    if isinstance(i, int):
+        return {i}
+    if isinstance(i, list):
+        return set().union(*(get_racket_values_aux(e) for e in i))
+    if isinstance(i, dict):
+        return set().union(*(get_racket_values_aux(v) for v in i.values()))
+
+    raise NotImplementedError(f'to_racket not implemented for {i.__class__.__name__}')
+
+
 def get_racket_max_list_index(i: Any) -> int:
     if isinstance(i, str):
         return 0
@@ -56,6 +69,14 @@ def get_racket_keys(synth_ctrs: list[tuple[Any, Any]]) -> set[str]:
     keys = set()
     for io in synth_ctrs:
         keys.update(get_racket_keys_aux(io[0]))
+
+    return keys
+
+
+def get_racket_values(synth_ctrs: list[tuple[Any, Any]]) -> set[str]:
+    keys = set()
+    for io in synth_ctrs:
+        keys.update(get_racket_values_aux(io[0]))
 
     return keys
 
@@ -79,11 +100,17 @@ def rosette_file_preamble():
 
 
 def build_rosette_grammar(synth_ctrs):
-    keys = ' '.join(f'"{k}"' for k in get_racket_keys(synth_ctrs))
+    keys = ' '.join(f'"{k}"' for k in sorted(get_racket_keys(synth_ctrs)))
     indices = ' '.join(map(str, get_racket_indices(synth_ctrs)))
+    values = ' '.join(f'"{v}"' if isinstance(v, str) else f'{v}' for v in sorted(get_racket_values(synth_ctrs),
+                                                                                 key=lambda v: (isinstance(v, str), v)))
 
     return f"""
-(define-grammar (json-selector x)
+(define-grammar (json-selector x y)
+  [syntBool
+  (choose
+   (streq (syntJ) (syntV))
+  )]
   [syntJ
    (choose
     x
@@ -93,7 +120,9 @@ def build_rosette_grammar(synth_ctrs):
     )]
   [syntK (choose {keys})]
   [syntI (choose {indices})]
-  )\n
+  [syntV (choose y {values})]
+  )
+\n
 """
 
 
@@ -106,14 +135,14 @@ def build_rosette_samples(synth_ctrs):
 
 
 def build_rosette_synthesis_query(f_name: str, synth_ctrs: list[tuple]):
-    depth = 5
+    depth = 6
     asserts = []
     for io_idx, io in enumerate(synth_ctrs):
-        asserts.append(f'(assert (eq? ({f_name} sample{io_idx}) "{io[1]}"))')
+        asserts.append(f'(assert ({f_name} sample{io_idx} "{io[1]}"))')
 
     asserts_str = ('\n' + ' ' * 10).join(asserts)
-    s = f"""(define ({f_name} x)
-  (json-selector x #:depth {depth} #:start syntJ)
+    s = f"""(define ({f_name} x y)
+  (json-selector x y #:depth {depth} #:start syntBool)
   )
 
 (define sol
@@ -126,6 +155,22 @@ def build_rosette_synthesis_query(f_name: str, synth_ctrs: list[tuple]):
 (if (sat? sol)
     (print-forms sol) ; prints solution
     (println "unsat"))\n"""
+
+    s += f"""; (define ({f_name} x y)
+      ; (streq (child (child (index (child x "InstanceStatuses") 0) "InstanceState") "Name") y)
+;)
+
+"""
+    #
+    # (println ({f_name} sample0 "stopped"))
+    # (println ({f_name} sample1 "stopped"))
+    # (println ({f_name} sample2 "stopped"))
+    # (println ({f_name} sample3 "stopping"))
+    # (println ({f_name} sample4 "stopping"))
+    # (println ({f_name} sample5 "stopping"))
+    # """
+
+    # s += asserts_str
     return s
 
 
@@ -166,7 +211,7 @@ def main():
         rosette_text += build_rosette_samples(synth_ctrs)
         rosette_text += build_rosette_synthesis_query(s, synth_ctrs)
 
-        racket_filename = 'synthesis_example3.rkt'
+        racket_filename = 'synthesis_example4.rkt'
         with open(racket_filename, 'w') as f:
             f.write(rosette_text)
 
