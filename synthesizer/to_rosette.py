@@ -8,6 +8,8 @@ from synthesizer.util import human_time
 
 
 def to_racket(i: Any):
+    if isinstance(i, bool):
+        return '#t' if i else '#f'
     if isinstance(i, str):
         return f'"{i}"'
     if isinstance(i, int):
@@ -106,10 +108,10 @@ def build_rosette_grammar(synth_ctrs):
                                                                                  key=lambda v: (isinstance(v, str), v)))
 
     return f"""
-(define-grammar (json-selector x y)
+(define-grammar (json-selector x)
   [syntBool
   (choose
-   (streq (syntJ) (syntV))
+   (syntEq (syntJ) (syntV))
   )]
   [syntJ
    (choose
@@ -120,7 +122,7 @@ def build_rosette_grammar(synth_ctrs):
     )]
   [syntK (choose {keys})]
   [syntI (choose {indices})]
-  [syntV (choose y {values})]
+  [syntV (choose {values})]
   )
 \n
 """
@@ -135,14 +137,14 @@ def build_rosette_samples(synth_ctrs):
 
 
 def build_rosette_synthesis_query(f_name: str, synth_ctrs: list[tuple]):
-    depth = 6
+    depth = 8
     asserts = []
     for io_idx, io in enumerate(synth_ctrs):
-        asserts.append(f'(assert ({f_name} sample{io_idx} "{io[1]}"))')
+        asserts.append(f'(assert (equal? ({f_name} sample{io_idx}) {to_racket(io[1])}))')
 
     asserts_str = ('\n' + ' ' * 10).join(asserts)
-    s = f"""(define ({f_name} x y)
-  (json-selector x y #:depth {depth} #:start syntBool)
+    s = f"""(define ({f_name} x)
+  (json-selector x #:depth {depth} #:start syntBool)
   )
 
 (define sol
@@ -156,8 +158,8 @@ def build_rosette_synthesis_query(f_name: str, synth_ctrs: list[tuple]):
     (print-forms sol) ; prints solution
     (println "unsat"))\n"""
 
-    s += f"""; (define ({f_name} x y)
-      ; (streq (child (child (index (child x "InstanceStatuses") 0) "InstanceState") "Name") y)
+    s += f"""; (define ({f_name} x)
+      ; (syntEq (child (child (index (child x "InstanceStatuses") 0) "InstanceState") "Name") y)
 ;)
 
 """
@@ -203,8 +205,8 @@ def main():
         # FIXME CHEAT: select the right input
         synth_ctrs = []
         for io in synth_ctrs_evals:
-            # io = ([io[0][3]], io[1])
-            io = (io[0][3], io[0][3]['InstanceStatuses'][0]['InstanceState']['Name'])
+            io = (io[0][3], io[1])
+            # io = (io[0][3], io[0][3]['InstanceStatuses'][0]['InstanceState']['Name'])
             synth_ctrs.append(io)
 
         rosette_text += build_rosette_grammar(synth_ctrs)
