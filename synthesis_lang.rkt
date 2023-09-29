@@ -30,7 +30,7 @@
   )
 
 ; streq compares two strings for equality
-(define (streq str1 str2)
+(define (syntEq str1 str2)
   (cond
     [(|| (empty? str1) (empty? str2))
     #f
@@ -43,4 +43,4 @@
 (provide child)
 (provide index)
 (provide descendant)
-(provide streq)
+(provide syntEq)
