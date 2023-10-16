@@ -39,7 +39,7 @@
     )
   )
 
-; streq compares two objects for equality
+; syntEq compares two objects for equality
 (define (syntEq arg1 arg2)
   (cond
     [(and (and (string? arg1) (string? arg2))
@@ -50,7 +50,7 @@
     )
   )
 
-; streq compares two objects for equality
+; syntAdd concatenates two strings or adds the value of two numerical values.
 (define (syntAdd arg1 arg2)
   (cond
     [(and (string? arg1) (string? arg2))

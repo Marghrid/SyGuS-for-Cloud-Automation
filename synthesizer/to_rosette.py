@@ -24,6 +24,8 @@ def to_racket(i: Any):
 
 
 def get_racket_keys_aux(i: Any) -> set[str]:
+    if i is None:
+        return set()
     if isinstance(i, str):
         return set()
     if isinstance(i, int):
@@ -33,12 +35,14 @@ def get_racket_keys_aux(i: Any) -> set[str]:
     if isinstance(i, dict):
         return set(i.keys()).union(*(get_racket_keys_aux(v) for v in i.values()))
 
-    raise NotImplementedError(f'to_racket not implemented for {i.__class__.__name__}')
+    raise NotImplementedError(f'get_racket_keys_aux not implemented for {i.__class__.__name__}')
 
 
 def get_racket_values_aux(i: Any) -> set[Any]:
+    if i is None:
+        return set()
     if isinstance(i, bool):
-        return {}
+        return set()
     if isinstance(i, str):
         return {i}
     if isinstance(i, int):
@@ -48,7 +52,7 @@ def get_racket_values_aux(i: Any) -> set[Any]:
     if isinstance(i, dict):
         return set().union(*(get_racket_values_aux(v) for v in i.values()))
 
-    raise NotImplementedError(f'to_racket not implemented for {i.__class__.__name__}')
+    raise NotImplementedError(f'get_racket_values_aux not implemented for {i.__class__.__name__}')
 
 
 def get_racket_max_list_index(i: Any) -> int:
