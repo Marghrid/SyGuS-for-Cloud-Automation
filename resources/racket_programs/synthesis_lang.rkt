@@ -2,6 +2,15 @@
 
 (require rosette/lib/synthax)
 
+; check if an object is a dict
+(define (is_synt_dict obj)
+  (and (dict? obj)
+       (andmap
+        (lambda (el) (and (pair? el) (string? (car el))))
+        obj)
+       )
+  )
+
 ; select the child with key in obj
 (define (child obj key)
   (let ([x (assoc key obj)]) (if (not x) null (cdr x))))
@@ -9,6 +18,7 @@
 ; select the object at index in obj
 (define (index obj idx)
   (cond
+    [(is_synt_dict obj) null]
     [(list? obj) (if (> (length obj) idx) (list-ref obj idx) null)]
     [else null]
     )
@@ -29,13 +39,24 @@
     )
   )
 
-; streq compares two strings for equality
-(define (syntEq str1 str2)
+; streq compares two objects for equality
+(define (syntEq arg1 arg2)
   (cond
-    [(|| (empty? str1) (empty? str2))
-    #f
-    ]
-    [else (equal? str1 str2)]
+    [(and (and (string? arg1) (string? arg2))
+          (or (empty? arg1) (empty? arg2)))
+     #f
+     ]
+    [else (equal? arg1 arg2)]
+    )
+  )
+
+; streq compares two objects for equality
+(define (syntAdd arg1 arg2)
+  (cond
+    [(and (string? arg1) (string? arg2))
+     (string-append arg1 arg2)
+     ]
+    [else (+ arg1 arg2)]
     )
   )
 
@@ -44,3 +65,4 @@
 (provide index)
 (provide descendant)
 (provide syntEq)
+(provide syntAdd)
