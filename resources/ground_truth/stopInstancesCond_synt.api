@@ -1,0 +1,17 @@
+lambda _i_1
+let _c_1 = id(_i_1)
+let _x_1 = ec2.StopInstances(InstanceIds = _c_1, force = False)
+let _x_2 = ec2.DescribeInstanceStatus(InstanceIds = _c_1, IncludeAllInstances = True)
+let _x_4 = _f_1(_c_1, _i_1, _x_1, _x_2)
+if _x_4 {
+  return
+}
+let _x_3 = ec2.StopInstances(InstanceIds = _c_1, force = True)
+
+synt
+_f_1 s.t. [(_c_1="(...)", _i_1="(...)", _x_1="(...)", _x_2="(...)") --> True,
+	(_c_1="(...)", _i_1="(...)", _x_1="(...)", _x_2="(...)") --> True,
+	(_c_1="(...)", _i_1="(...)", _x_1="(...)", _x_2="(...)") --> True,
+	(_c_1="(...)", _i_1="(...)", _x_1="(...)", _x_2="(...)") --> False,
+	(_c_1="(...)", _i_1="(...)", _x_1="(...)", _x_2="(...)") --> False,
+	(_c_1="(...)", _i_1="(...)", _x_1="(...)", _x_2="(...)") --> False]

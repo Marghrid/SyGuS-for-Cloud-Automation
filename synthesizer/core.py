@@ -39,15 +39,17 @@ def synthesize_data_transforms(instance_name, synt_decls):
 
             try:
                 racket_out = pool_result.get(timeout=max_time)  # 20min
-                racket_out = '\n'.join(racket_out.splitlines()[1:])
+                if 'unsat' in racket_out:
+                    racket_out = 'unsat'
+                else:
+                    racket_out = '\n'.join(racket_out.splitlines()[1:])
             except multiprocessing.context.TimeoutError as e:
-                print(f'timeout {human_time(max_time)} {e}')
-                racket_out = '(timeout)'
-        print(racket_out)
+                racket_out = f'(timeout {human_time(max_time)})'
+        elapsed = time.perf_counter() - start_racket_call_time
+        print(f'Took {human_time(elapsed)}. Solution:\n{racket_out}')
         solution[func_name]["solution"] = racket_out
-        solution[func_name]["solve time"] = time.perf_counter() - start_racket_call_time
-        solution[func_name]["solve time (h)"] = human_time(time.perf_counter() - start_racket_call_time)
-        print(f'Took {solution[func_name]["solve time (h)"]}')
+        solution[func_name]["solve time"] = elapsed
+        solution[func_name]["solve time (h)"] = human_time(elapsed)
         solution_filename = instance_name + '.json'
         with open(solutions_dir + solution_filename, 'w') as sol_file:
             json.dump(solution, sol_file, indent=2)
@@ -65,13 +67,20 @@ def main():
     #     instance_name = os.path.basename(filename).replace('.pickle', '')
     #     synthesize_data_transforms(instance_name, synt_decls)
 
+    args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
         if "506259" in filename:
             continue
         with open(filename, 'r') as f:
             synt_decls = json.load(f)
         instance_name = os.path.basename(filename).replace('.json', '')
-        synthesize_data_transforms(instance_name, synt_decls)
+        args.append((instance_name, synt_decls))
+
+    # for arg in args:
+    #     synthesize_data_transforms(*arg)
+
+    with multiprocessing.Pool() as p:
+        p.starmap(synthesize_data_transforms, args)
 
 
 if __name__ == '__main__':
