@@ -1,4 +1,4 @@
-import subprocess
+from collections import deque
 from typing import Any
 
 
@@ -61,8 +61,12 @@ def get_racket_max_list_index(i: Any) -> int:
     if isinstance(i, int):
         return 0
     if isinstance(i, list):
+        if len(i) == 0:
+            return 0
         return max([len(i)] + [get_racket_max_list_index(e) for e in i])
     if isinstance(i, dict):
+        if len(i) == 0:
+            return 0
         return max([get_racket_max_list_index(e) for e in i.values()])
 
     raise NotImplementedError(f'to_racket not implemented for {i.__class__.__name__}')
@@ -190,20 +194,6 @@ def build_rosette_synthesis_query(synt_decl):
     return s
 
 
-def run_racket_command(racket_filename: str) -> str:
-    racket_command = ['racket', racket_filename]
-    print(f'Running "{" ".join(racket_command)}"...')
-    result = subprocess.run(
-        racket_command,
-        capture_output=True,  # Python >= 3.7 only
-        text=True  # Python >= 3.7 only
-    )
-
-    # print(result.stdout)
-    print(result.stderr)
-    return result.stdout
-
-
 def to_python(arg):
     try:
         return eval(arg)
@@ -212,3 +202,31 @@ def to_python(arg):
             return eval(arg.replace('true', 'True').replace('false', 'False'))
         except (NameError, SyntaxError) as e:
             return arg
+
+
+def parse_rosette_output_aux(tokens: deque):
+    two_arg_functions = ['child', 'index', 'descendant']
+    token = tokens.popleft()
+    if token[0] == '(':
+        func_name = token[1:]
+        if func_name in two_arg_functions:
+            arg0 = parse_rosette_output_aux(tokens)
+            arg1 = parse_rosette_output_aux(tokens)
+            return (func_name, (arg0, arg1))
+    if 'x' in token:
+        return 'x'
+    if token[-1] == ')':
+        return eval(token.replace(')', ''))
+
+    raise NotImplementedError(f'Handle parsing {token}')
+
+
+def parse_rosette_output(rosette: str):
+    tokens = deque(rosette.split())
+    # token = tokens.popleft()
+    token = tokens.popleft()
+    assert token == '(define'
+    token = tokens.popleft()  # func name
+    token = tokens.popleft()  # x
+
+    return parse_rosette_output_aux(tokens)

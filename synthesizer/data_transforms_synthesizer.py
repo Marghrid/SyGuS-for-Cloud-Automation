@@ -1,13 +1,12 @@
 import glob
 import json
-import multiprocessing.context
-import multiprocessing.pool
 import os.path
+import subprocess
 import time
 from typing import Any
 
 from synthesizer.to_rosette import build_rosette_grammar, build_rosette_samples, build_rosette_synthesis_query, \
-    rosette_file_preamble, run_racket_command
+    parse_rosette_output, rosette_file_preamble
 from synthesizer.util import human_time
 
 
@@ -81,6 +80,24 @@ def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dic
     return synt_decl, comment
 
 
+def run_racket_command(racket_filename: str, timeout: int) -> str:
+    racket_command = ['racket', racket_filename]
+    print(f'Running "{" ".join(racket_command)}"...')
+    try:
+        result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
+
+        if 'unsat' in result.stdout:
+            racket_out = 'unsat'
+        else:
+            racket_out = parse_rosette_output(result.stdout)
+        if len(result.stderr) > 0:
+            print('err:', result.stderr)
+        return racket_out
+
+    except subprocess.TimeoutExpired:
+        return f'(timeout {human_time(timeout)})'
+
+
 def synthesize_data_transforms(instance_name: str,
                                synt_decls: list[dict[str:Any]],
                                synthesis_timeout: int,
@@ -117,25 +134,14 @@ def synthesize_data_transforms(instance_name: str,
 
         # Using a ThreadPool to impose a timeout on Racket.
         start_racket_call_time = time.perf_counter()
-        with multiprocessing.pool.ThreadPool(processes=1) as pool:
-            pool_result = pool.apply_async(run_racket_command, args=(racket_filename,))
-            try:
-                racket_out = pool_result.get(timeout=synthesis_timeout)  # 20min
-                if 'unsat' in racket_out:
-                    racket_out = 'unsat'
-                else:
-                    racket_out = '\n'.join(racket_out.splitlines()[1:])
-            except multiprocessing.context.TimeoutError as e:
-                racket_out = f'(timeout {human_time(synthesis_timeout)})'
-                pool.terminate()
-                pool.join()
+        racket_out = run_racket_command(racket_filename, synthesis_timeout)
+
         elapsed = time.perf_counter() - start_racket_call_time
         print(f'Took {human_time(elapsed)}. Solution:\n{racket_out}')
         solution['solution'] = racket_out
         solution['solve time'] = elapsed
         solution['solve time (h)'] = human_time(elapsed)
         solution['comment'] = comment
-        print(comment)
         solutions.append(solution)
 
         # Write to solutions file, even if it has not computed solutions for all functions.
