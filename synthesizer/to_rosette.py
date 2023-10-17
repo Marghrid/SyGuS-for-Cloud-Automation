@@ -115,10 +115,16 @@ def build_rosette_grammar(synt_decl):
 
     s = f"""
 (define-grammar (json-selector x)
-  [syntBool
-  (choose
-   (syntEq (syntJ) (syntV))
-  )]
+  [syntBool"""
+
+    if len(values) > 0:
+        s += '\n  (choose'
+        s += '\n   (syntEq (syntJ) (syntV))'
+        s += '\n  )'
+    else:
+        s += '\'()'
+    s += """
+  ]
   [syntJ
    (choose
     x"""
@@ -127,20 +133,18 @@ def build_rosette_grammar(synt_decl):
     (child (syntJ) (syntK))
     (descendant (syntJ) (syntK))"""
 
-    s += """
-    (index (syntJ) (syntI))
-    (syntAdd (syntV) (syntJ))
-    )]"""
+    s += "\n    (index (syntJ) (syntI))"
+    if len(values) > 0:
+        s += '(syntAdd (syntV) (syntJ))'
+    s += "    )]"
 
     if len(keys) > 0:
         s += f'\n  [syntK (choose {keys})]'
 
-    s += f"""
-  [syntI (choose {indices})]
-  [syntV (choose {values})]
-  )
-\n
-"""
+    s += f"\n  [syntI (choose {indices})]"
+    if len(values) > 0:
+        s += f'\n  [syntV (choose {values})]'
+    s += '  )\n\n'
     return s
 
 
@@ -164,6 +168,7 @@ def build_rosette_synthesis_query(synt_decl):
         start_symb = 'syntBool'
     elif all(isinstance(ctr["output"], list) for ctr in synt_decl["constraints"]) or \
             all(isinstance(ctr["output"], dict) for ctr in synt_decl["constraints"]) or \
+            all(isinstance(ctr["output"], int) for ctr in synt_decl["constraints"]) or \
             all(isinstance(ctr["output"], str) for ctr in synt_decl["constraints"]):
         start_symb = 'syntJ'
     else:
@@ -205,7 +210,7 @@ def to_python(arg):
 
 
 def parse_rosette_output_aux(tokens: deque):
-    two_arg_functions = ['child', 'index', 'descendant']
+    two_arg_functions = ['child', 'index', 'descendant', 'syntEq']
     token = tokens.popleft()
     if token[0] == '(':
         func_name = token[1:]
@@ -213,6 +218,9 @@ def parse_rosette_output_aux(tokens: deque):
             arg0 = parse_rosette_output_aux(tokens)
             arg1 = parse_rosette_output_aux(tokens)
             return (func_name, (arg0, arg1))
+        if func_name == 'choose':
+            # ignore
+            return parse_rosette_output_aux(tokens)
     if 'x' in token:
         return 'x'
     if token[-1] == ')':
@@ -225,8 +233,38 @@ def parse_rosette_output(rosette: str):
     tokens = deque(rosette.split())
     # token = tokens.popleft()
     token = tokens.popleft()
-    assert token == '(define'
+    assert token == '(define', f'removed {token} from {tokens}.'
     token = tokens.popleft()  # func name
     token = tokens.popleft()  # x
 
     return parse_rosette_output_aux(tokens)
+
+
+def to_jsonpath(ast):
+    input_name = 'x'
+    if isinstance(ast, tuple):
+        f_name, f_args = ast
+
+        if f_name == 'child':
+            a0, a1 = f_args
+            return f'{to_jsonpath(a0)}.{a1}'
+        elif f_name == 'descendant':
+            a0, a1 = f_args
+            return f'{to_jsonpath(a0)}..{a1}'
+        elif f_name == 'index':
+            a0, a1 = f_args
+            return f'{to_jsonpath(a0)}[{a1}]'
+        elif f_name == 'syntEq':
+            a0, a1 = f_args
+            return f'{to_jsonpath(a0)} == {to_jsonpath(a1)}'
+    elif ast == input_name:
+        return '$'
+    if isinstance(ast, str):
+        return f'"{ast}"'
+    else:
+        return ast
+
+
+def convert_rosette_to_jsonpath(rosette: str):
+    ast = parse_rosette_output(rosette)
+    return to_jsonpath(ast)

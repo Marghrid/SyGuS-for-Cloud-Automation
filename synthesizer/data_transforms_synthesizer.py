@@ -1,12 +1,13 @@
 import glob
 import json
+import multiprocessing
 import os.path
 import subprocess
 import time
 from typing import Any
 
 from synthesizer.to_rosette import build_rosette_grammar, build_rosette_samples, build_rosette_synthesis_query, \
-    parse_rosette_output, rosette_file_preamble
+    convert_rosette_to_jsonpath, rosette_file_preamble
 from synthesizer.util import human_time
 
 
@@ -87,9 +88,14 @@ def run_racket_command(racket_filename: str, timeout: int) -> str:
         result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
 
         if 'unsat' in result.stdout:
-            racket_out = 'unsat'
+            racket_out = '(unsat)'
         else:
-            racket_out = parse_rosette_output(result.stdout)
+            racket_out = "\n".join(result.stdout.split('\n')[1:])
+            try:
+                racket_out = convert_rosette_to_jsonpath(racket_out)
+            except Exception as e:
+                print(f'Something wrong with racket output to {" ".join(racket_command)}: "{result.stdout}"')
+                raise RuntimeError(e)
         if len(result.stderr) > 0:
             print('err:', result.stderr)
         return racket_out
