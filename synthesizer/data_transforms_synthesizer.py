@@ -1,6 +1,5 @@
 import glob
 import json
-import multiprocessing
 import os.path
 import subprocess
 import time
@@ -83,7 +82,6 @@ def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dic
 
 def run_racket_command(racket_filename: str, timeout: int) -> str:
     racket_command = ['racket', racket_filename]
-    print(f'Running "{" ".join(racket_command)}"...')
     try:
         result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
 
@@ -94,10 +92,9 @@ def run_racket_command(racket_filename: str, timeout: int) -> str:
             try:
                 racket_out = convert_rosette_to_jsonpath(racket_out)
             except Exception as e:
-                print(f'Something wrong with racket output to {" ".join(racket_command)}: "{result.stdout}"')
-                raise RuntimeError(e)
+                raise RuntimeError(f'Something wrong with racket output to {" ".join(racket_command)}:\n{result.stdout}')
         if len(result.stderr) > 0:
-            print('err:', result.stderr)
+            print('racket call stderr:', result.stderr)
         return racket_out
 
     except subprocess.TimeoutExpired:
@@ -115,10 +112,10 @@ def synthesize_data_transforms(instance_name: str,
     :param synt_decls: Input read from the json file.
     :param synthesis_timeout: Max synthesis time in seconds.
     :param use_metadata: whether metadata should be used as input to the synthesis
-    :return solution
+    :return solution dictionary
     """
     racket_dir = "resources/racket_programs/"
-    solutions_dir = "synthesis_solutions/"
+    solutions_dir = "data_synthesis_solutions/"
     solutions = []
 
     for synt_decl in sorted(synt_decls, key=lambda decl: decl['name']):
@@ -135,6 +132,8 @@ def synthesize_data_transforms(instance_name: str,
         solution = {'name': func_name}
 
         racket_filename = os.path.join(racket_dir, f'{instance_name}{"" if func_name[0] == "_" else "_"}{func_name}.rkt')
+        if not os.path.isdir(racket_dir):
+            os.makedirs(racket_dir)
         with open(racket_filename, 'w') as f:
             f.write(rosette_text)
 
@@ -143,7 +142,6 @@ def synthesize_data_transforms(instance_name: str,
         racket_out = run_racket_command(racket_filename, synthesis_timeout)
 
         elapsed = time.perf_counter() - start_racket_call_time
-        print(f'Took {human_time(elapsed)}. Solution:\n{racket_out}')
         solution['solution'] = racket_out
         solution['solve time'] = elapsed
         solution['solve time (h)'] = human_time(elapsed)
@@ -152,7 +150,9 @@ def synthesize_data_transforms(instance_name: str,
 
         # Write to solutions file, even if it has not computed solutions for all functions.
         solution_filename = instance_name + '.json'
-        with open(solutions_dir + solution_filename, 'w') as sol_file:
+        if not os.path.isdir(solutions_dir):
+            os.makedirs(solutions_dir)
+        with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
             json.dump(solutions, sol_file, indent=2)
     return solutions
 
@@ -167,13 +167,18 @@ def main():
         instance_name = os.path.basename(filename).replace('.json', '')
         args.append((instance_name, synt_decls, 5 * 60, False))  # timeout of 5 minutes
 
-    # To disable multiprocessing, comment the following 2 lines
+    # To disable multiprocessing, comment the following 4 lines
     # with multiprocessing.Pool() as p:
-    #     p.starmap(synthesize_data_transforms, args)
+    #     results = p.starmap(synthesize_data_transforms, args)
+    # for i in range(len(results)):
+    #     for r in results[i]:
+    #         print(f'Solution for {args[i][0]}::{r["name"]} : {r["solution"]}')
 
-    # To disable multiprocessing uncomment the following 2 lines:
+    # To disable multiprocessing uncomment the following 3 lines:
     for arg in args:
-        synthesize_data_transforms(*arg)
+        result = synthesize_data_transforms(*arg)
+        for r in result:
+            print(f'Solution for {arg[0]}::{r["name"]} : {r["solution"]}')
 
 
 if __name__ == '__main__':
