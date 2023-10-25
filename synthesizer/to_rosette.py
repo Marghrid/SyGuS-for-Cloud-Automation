@@ -6,7 +6,7 @@ def to_racket(i: Any):
     if isinstance(i, bool):
         return '#t' if i else '#f'
     if isinstance(i, str):
-        return f'"{i}"'
+        return '"' + i.replace('"', '\\"') + '"'
     if isinstance(i, int):
         return str(i)
     if isinstance(i, list):
@@ -44,7 +44,7 @@ def get_racket_values_aux(i: Any) -> set[Any]:
     if isinstance(i, bool):
         return set()
     if isinstance(i, str):
-        return {i}
+        return {i.replace('"', '\\"')}
     if isinstance(i, int):
         return {i}
     if isinstance(i, list):
