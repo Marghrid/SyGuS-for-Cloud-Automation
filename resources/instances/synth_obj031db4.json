@@ -1,0 +1,223 @@
+[
+  {
+    "name": "f?_0",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "EncodingType": "url",
+            "IsTruncated": false,
+            "KeyCount": 0,
+            "MaxKeys": 1000,
+            "Name": "synth-bucket-00",
+            "Prefix": "standard-logs",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "content-type": "application/xml",
+                "date": "Mon, 23 Oct 2023 17:56:36 GMT",
+                "server": "AmazonS3",
+                "transfer-encoding": "chunked",
+                "x-amz-bucket-region": "us-east-1",
+                "x-amz-id-2": "24yOcabGlkw7jJxSCiS8pn5+Gro9UQ+woT8dpj8xEhdJbTzPfElqt2Fnx8SHND8k4Her+LPWKKM=",
+                "x-amz-request-id": "3R62FKA344R4M0Z9"
+              },
+              "HTTPStatusCode": 200,
+              "HostId": "24yOcabGlkw7jJxSCiS8pn5+Gro9UQ+woT8dpj8xEhdJbTzPfElqt2Fnx8SHND8k4Her+LPWKKM=",
+              "RequestId": "3R62FKA344R4M0Z9",
+              "RetryAttempts": 0
+            }
+          },
+          "synth-bucket-00",
+          "standard-logs"
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "EncodingType": "url",
+            "IsTruncated": false,
+            "KeyCount": 0,
+            "MaxKeys": 1000,
+            "Name": "synth-bucket-01",
+            "Prefix": "standard-logs/",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "content-type": "application/xml",
+                "date": "Mon, 23 Oct 2023 17:58:14 GMT",
+                "server": "AmazonS3",
+                "transfer-encoding": "chunked",
+                "x-amz-bucket-region": "us-east-1",
+                "x-amz-id-2": "6vTAIiaZJ4KPbN9IsRRetqy6mClCearnbwG4ePJJh14pyb1ITtkE5gWWoy1YrlIBPfXqKq4t+JI=",
+                "x-amz-request-id": "ANF12D73K1Q75A29"
+              },
+              "HTTPStatusCode": 200,
+              "HostId": "6vTAIiaZJ4KPbN9IsRRetqy6mClCearnbwG4ePJJh14pyb1ITtkE5gWWoy1YrlIBPfXqKq4t+JI=",
+              "RequestId": "ANF12D73K1Q75A29",
+              "RetryAttempts": 0
+            }
+          },
+          "synth-bucket-01",
+          "standard-logs/"
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "Contents": [
+              {
+                "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+                "Key": "standard-logs/",
+                "LastModified": "2023-10-23 17:58:15+00:00",
+                "Size": 0,
+                "StorageClass": "STANDARD"
+              }
+            ],
+            "EncodingType": "url",
+            "IsTruncated": false,
+            "KeyCount": 1,
+            "MaxKeys": 1000,
+            "Name": "synth-bucket-01",
+            "Prefix": "standard-logs/",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "content-type": "application/xml",
+                "date": "Mon, 23 Oct 2023 17:58:19 GMT",
+                "server": "AmazonS3",
+                "transfer-encoding": "chunked",
+                "x-amz-bucket-region": "us-east-1",
+                "x-amz-id-2": "Qn5QVf/RLQH4O7zOZI0sF0s/KAB9KwDY3NnVglOhn+6VxzrAnnFtAvvU9calEmo6OZHN2rjQB0M=",
+                "x-amz-request-id": "FM0RJ03WHFMV6SFY"
+              },
+              "HTTPStatusCode": 200,
+              "HostId": "Qn5QVf/RLQH4O7zOZI0sF0s/KAB9KwDY3NnVglOhn+6VxzrAnnFtAvvU9calEmo6OZHN2rjQB0M=",
+              "RequestId": "FM0RJ03WHFMV6SFY",
+              "RetryAttempts": 0
+            }
+          },
+          "synth-bucket-01",
+          "standard-logs/"
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Contents": [
+              {
+                "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+                "Key": "custom-logs/",
+                "LastModified": "2023-10-23 17:32:39+00:00",
+                "Size": 0,
+                "StorageClass": "STANDARD"
+              }
+            ],
+            "EncodingType": "url",
+            "IsTruncated": false,
+            "KeyCount": 1,
+            "MaxKeys": 1000,
+            "Name": "synth-bucket-00",
+            "Prefix": "custom-logs/",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "content-type": "application/xml",
+                "date": "Mon, 23 Oct 2023 17:57:50 GMT",
+                "server": "AmazonS3",
+                "transfer-encoding": "chunked",
+                "x-amz-bucket-region": "us-east-1",
+                "x-amz-id-2": "PY/sSjPPFfr+melDF0FwYUJg6oVeLLDTOQu6IJTq5uILMsRSPYtbQL0y4qz8Kvk/XQU96DOV6N8=",
+                "x-amz-request-id": "7N743DG361ACB190"
+              },
+              "HTTPStatusCode": 200,
+              "HostId": "PY/sSjPPFfr+melDF0FwYUJg6oVeLLDTOQu6IJTq5uILMsRSPYtbQL0y4qz8Kvk/XQU96DOV6N8=",
+              "RequestId": "7N743DG361ACB190",
+              "RetryAttempts": 0
+            }
+          },
+          "synth-bucket-00",
+          "custom-logs/"
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Contents": [
+              {
+                "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+                "Key": "custom-logs/",
+                "LastModified": "2023-10-23 17:32:39+00:00",
+                "Size": 0,
+                "StorageClass": "STANDARD"
+              }
+            ],
+            "EncodingType": "url",
+            "IsTruncated": false,
+            "KeyCount": 1,
+            "MaxKeys": 1000,
+            "Name": "synth-bucket-00",
+            "Prefix": "custom-logs",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "content-type": "application/xml",
+                "date": "Mon, 23 Oct 2023 17:57:15 GMT",
+                "server": "AmazonS3",
+                "transfer-encoding": "chunked",
+                "x-amz-bucket-region": "us-east-1",
+                "x-amz-id-2": "vTClNuGnR8Arseguyc5H3Kp2QIfLPfVc4sVGPfnXtdfVkXdP5eniOqLO9Us5XcFMehgC4Mko68c=",
+                "x-amz-request-id": "9TN0MDJ58ACRCM3Q"
+              },
+              "HTTPStatusCode": 200,
+              "HostId": "vTClNuGnR8Arseguyc5H3Kp2QIfLPfVc4sVGPfnXtdfVkXdP5eniOqLO9Us5XcFMehgC4Mko68c=",
+              "RequestId": "9TN0MDJ58ACRCM3Q",
+              "RetryAttempts": 0
+            }
+          },
+          "synth-bucket-00",
+          "custom-logs"
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "Contents": [
+              {
+                "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+                "Key": "custom-logs/",
+                "LastModified": "2023-10-23 17:33:08+00:00",
+                "Size": 0,
+                "StorageClass": "STANDARD"
+              }
+            ],
+            "EncodingType": "url",
+            "IsTruncated": false,
+            "KeyCount": 1,
+            "MaxKeys": 1000,
+            "Name": "synth-bucket-01",
+            "Prefix": "custom-logs/",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "content-type": "application/xml",
+                "date": "Mon, 23 Oct 2023 17:58:04 GMT",
+                "server": "AmazonS3",
+                "transfer-encoding": "chunked",
+                "x-amz-bucket-region": "us-east-1",
+                "x-amz-id-2": "nsg7WLlJiElRqp2zvavcmYa8FcAbwwbYsK/viz5g93OGyEpdnri8M7Z1bPkhgvWaEs/uYljx7rs=",
+                "x-amz-request-id": "6YVP0AZNNNP1EDBM"
+              },
+              "HTTPStatusCode": 200,
+              "HostId": "nsg7WLlJiElRqp2zvavcmYa8FcAbwwbYsK/viz5g93OGyEpdnri8M7Z1bPkhgvWaEs/uYljx7rs=",
+              "RequestId": "6YVP0AZNNNP1EDBM",
+              "RetryAttempts": 0
+            }
+          },
+          "synth-bucket-01",
+          "custom-logs/"
+        ],
+        "output": false
+      }
+    ]
+  }
+]

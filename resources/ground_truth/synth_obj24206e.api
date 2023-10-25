@@ -1,0 +1,22 @@
+lambda originTableName, destinationTableName, keyValue, keyId
+let itemKey = composeKey(keyValue, keyId)
+let itemResponse = dynamodb.GetItem(TableName=originTableName,Key=itemKey)
+let items = selectItem(itemResponse)
+if len(items) > 0 {
+  let item = first(items)
+  let response = dynamodb.PutItem(TableName=destinationTableName,Item=item)
+}
+where
+composeKey := (x, y) -> {y : {"S": x}}
+first := (x) -> x[0]
+selectItem := "$.Item"
+
+
+; Synthesized:
+
+λ  x_3, x_2, x_1, x_0
+let $_7_0 = dynamodb.GetItem(Key=x_0, TableName=x_1) 
+let s_0 = f?_0($_7_0, x_0)
+if s_0 { 
+  let $_7_1 = dynamodb.PutItem(Item=x_2, TableName=x_3)
+}

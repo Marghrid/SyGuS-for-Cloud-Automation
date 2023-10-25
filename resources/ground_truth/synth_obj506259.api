@@ -1,0 +1,8 @@
+lambda key, value
+let filters = makeFilterTag(key,value)
+let x = ec2.DescribeInstances(Filters=filters)
+let iids = extractIids(x)
+let resp = ec2.StartInstances(InstanceIds=iids)
+where
+extractIids := "$..InstanceId"
+makeFilterTag := (k,v) -> [{"Name": "tag:" + k, "Values" : [v]}]
