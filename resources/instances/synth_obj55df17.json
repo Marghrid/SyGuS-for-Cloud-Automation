@@ -27,7 +27,9 @@
           "ap-southeast-1",
           "ca-central-1"
         ],
-        "output": [ "ami-dab1frt483ds3d420" ]
+        "output": [
+          "ami-dab1frt483ds3d420"
+        ]
       },
       {
         "inputs": [
@@ -54,7 +56,9 @@
           "us-west-1",
           "us-east-1"
         ],
-        "output": [ "ami-0241f79681ba9c51a" ]
+        "output": [
+          "ami-0241f79681ba9c51a"
+        ]
       },
       {
         "inputs": [
@@ -81,7 +85,9 @@
           "us-east-2",
           "us-west-1"
         ],
-        "output": [ "ami-3241f79483ds3d32b" ]
+        "output": [
+          "ami-3241f79483ds3d32b"
+        ]
       },
       {
         "inputs": [
@@ -108,7 +114,9 @@
           "ap-southeast-1",
           "ap-south-1"
         ],
-        "output": [ "ami-e241frt483ds3d32b" ]
+        "output": [
+          "ami-e241frt483ds3d32b"
+        ]
       }
     ]
   }

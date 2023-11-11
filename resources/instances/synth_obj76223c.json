@@ -20,7 +20,11 @@
               "RetryAttempts": 0
             }
           },
-          { "itemId": { "S": "asdf" } },
+          {
+            "itemId": {
+              "S": "asdf"
+            }
+          },
           "synthesis-table-2"
         ],
         "output": false
@@ -43,7 +47,11 @@
               "RetryAttempts": 0
             }
           },
-          { "itemId": { "S": "x4" } },
+          {
+            "itemId": {
+              "S": "x4"
+            }
+          },
           "synthesis-table-2"
         ],
         "output": false
@@ -66,7 +74,11 @@
               "RetryAttempts": 0
             }
           },
-          { "itemId": { "S": "x5" } },
+          {
+            "itemId": {
+              "S": "x5"
+            }
+          },
           "synthesis-table"
         ],
         "output": false
@@ -76,9 +88,18 @@
           {
             "Item": {
               "checkpoints": {
-                "L": [ { "S": "exampleField1" }, { "S": "exampleField2" } ]
+                "L": [
+                  {
+                    "S": "exampleField1"
+                  },
+                  {
+                    "S": "exampleField2"
+                  }
+                ]
               },
-              "itemId": { "S": "x3" }
+              "itemId": {
+                "S": "x3"
+              }
             },
             "ResponseMetadata": {
               "HTTPHeaders": {
@@ -95,7 +116,11 @@
               "RetryAttempts": 0
             }
           },
-          { "itemId": { "S": "x3" } },
+          {
+            "itemId": {
+              "S": "x3"
+            }
+          },
           "synthesis-table-2"
         ],
         "output": true
@@ -118,7 +143,11 @@
               "RetryAttempts": 0
             }
           },
-          { "itemId": { "S": "x5" } },
+          {
+            "itemId": {
+              "S": "x5"
+            }
+          },
           "synthesis-table-2"
         ],
         "output": false
@@ -128,9 +157,18 @@
           {
             "Item": {
               "checkpoints": {
-                "L": [ { "S": "exampleField1" }, { "S": "exampleField2" } ]
+                "L": [
+                  {
+                    "S": "exampleField1"
+                  },
+                  {
+                    "S": "exampleField2"
+                  }
+                ]
               },
-              "itemId": { "S": "x3" }
+              "itemId": {
+                "S": "x3"
+              }
             },
             "ResponseMetadata": {
               "HTTPHeaders": {
@@ -147,7 +185,11 @@
               "RetryAttempts": 0
             }
           },
-          { "itemId": { "S": "x3" } },
+          {
+            "itemId": {
+              "S": "x3"
+            }
+          },
           "synthesis-table-2"
         ],
         "output": true
@@ -170,7 +212,11 @@
               "RetryAttempts": 0
             }
           },
-          { "itemId": { "S": "x5" } },
+          {
+            "itemId": {
+              "S": "x5"
+            }
+          },
           "synthesis-table"
         ],
         "output": false
@@ -178,7 +224,14 @@
       {
         "inputs": [
           {
-            "Item": { "count": { "N": "1" }, "itemId": { "S": "x1" } },
+            "Item": {
+              "count": {
+                "N": "1"
+              },
+              "itemId": {
+                "S": "x1"
+              }
+            },
             "ResponseMetadata": {
               "HTTPHeaders": {
                 "connection": "keep-alive",
@@ -194,7 +247,11 @@
               "RetryAttempts": 0
             }
           },
-          { "itemId": { "S": "x1" } },
+          {
+            "itemId": {
+              "S": "x1"
+            }
+          },
           "synthesis-table"
         ],
         "output": true

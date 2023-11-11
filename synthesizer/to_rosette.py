@@ -60,6 +60,8 @@ def get_racket_max_list_index(i: Any) -> int:
         return 0
     if isinstance(i, int):
         return 0
+    if i is None:
+        return 0
     if isinstance(i, list):
         if len(i) == 0:
             return 0
@@ -69,7 +71,7 @@ def get_racket_max_list_index(i: Any) -> int:
             return 0
         return max([get_racket_max_list_index(e) for e in i.values()])
 
-    raise NotImplementedError(f'to_racket not implemented for {i.__class__.__name__}')
+    raise NotImplementedError(f'get_racket_max_list_index not implemented for {i.__class__.__name__}')
 
 
 def get_racket_keys(synt_decl: dict[str:Any]) -> set[str]:
