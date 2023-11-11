@@ -209,10 +209,14 @@ def to_python(arg):
 
 def parse_rosette_output_aux(tokens: deque):
     two_arg_functions = ['child', 'index', 'descendant', 'syntEq']
+    one_arg_functions = ['not', 'empty?']
     token = tokens.popleft()
     if token[0] == '(':
         func_name = token[1:]
-        if func_name in two_arg_functions:
+        if func_name in one_arg_functions:
+            arg0 = parse_rosette_output_aux(tokens)
+            return (func_name, (arg0))
+        elif func_name in two_arg_functions:
             arg0 = parse_rosette_output_aux(tokens)
             arg1 = parse_rosette_output_aux(tokens)
             return (func_name, (arg0, arg1))
@@ -255,6 +259,14 @@ def to_jsonpath(ast):
         elif f_name == 'syntEq':
             a0, a1 = f_args
             return f'{to_jsonpath(a0)} == {to_jsonpath(a1)}'
+        elif f_name == 'not':
+            a0 = f_args
+            return f'!{to_jsonpath(a0)}'
+        elif f_name == 'empty?':
+            a0 = f_args
+            return f'(len({to_jsonpath(a0)}) == 0)'
+        else:
+            raise NotImplementedError(f'to_jsonpath not implemented for operation {f_name}.')
     elif ast == input_name:
         return '$'
     if isinstance(ast, str):

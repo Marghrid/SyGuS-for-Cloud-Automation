@@ -123,8 +123,8 @@ def run_racket_command(racket_filename: str, timeout: int) -> str:
             racket_out = "\n".join(result.stdout.split('\n')[1:])
             try:
                 racket_out = convert_rosette_to_jsonpath(racket_out)
-            except Exception:
-                raise RuntimeError(f'Something wrong with racket output to {" ".join(racket_command)}:\n{result.stdout}')
+            except Exception as e:
+                raise RuntimeError(f'Something wrong with racket output to {" ".join(racket_command)}:\n{result.stdout}\n{e}')
         if len(result.stderr) > 0:
             print('racket call stderr:', result.stderr)
         return racket_out
