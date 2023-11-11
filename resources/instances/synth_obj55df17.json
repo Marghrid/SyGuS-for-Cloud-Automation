@@ -1,0 +1,115 @@
+[
+  {
+    "name": "f?_57",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "ImageId": "ami-dab1frt483ds3d420",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          },
+          "i-fgdr83b13e46has8o",
+          "testImageName",
+          "testImageName-dest",
+          "ap-southeast-1",
+          "ca-central-1"
+        ],
+        "output": [ "ami-dab1frt483ds3d420" ]
+      },
+      {
+        "inputs": [
+          {
+            "ImageId": "ami-0241f79681ba9c51a",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          },
+          "i-0df9bb0cf8e176ee9",
+          "temp-test-image",
+          "temp-test-image-dest",
+          "us-west-1",
+          "us-east-1"
+        ],
+        "output": [ "ami-0241f79681ba9c51a" ]
+      },
+      {
+        "inputs": [
+          {
+            "ImageId": "ami-3241f79483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          },
+          "i-09dc83b13d328a589",
+          "imageTest",
+          "imageTest-dest",
+          "us-east-2",
+          "us-west-1"
+        ],
+        "output": [ "ami-3241f79483ds3d32b" ]
+      },
+      {
+        "inputs": [
+          {
+            "ImageId": "ami-e241frt483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          },
+          "i-56dr83b13e46ha58o",
+          "temp-test-image",
+          "temp-test-image-dest",
+          "ap-southeast-1",
+          "ap-south-1"
+        ],
+        "output": [ "ami-e241frt483ds3d32b" ]
+      }
+    ]
+  }
+]
