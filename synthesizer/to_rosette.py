@@ -106,45 +106,44 @@ def rosette_file_preamble():
 (require "synthesis_lang.rkt")\n\n"""
 
 
-def build_rosette_grammar(synt_decl):
-    keys = ' '.join(f'"{k}"' for k in sorted(get_racket_keys(synt_decl)))
-    indices = ' '.join(map(str, get_racket_indices(synt_decl)))
-    values = ' '.join(f'"{v}"' if isinstance(v, str)
-                      else f'{v}' for v in sorted(get_racket_values(synt_decl),
-                                                  key=lambda v: (isinstance(v, str), v)))
-
+def build_rosette_grammar(keys, indices, values):
+    keys_str = ' '.join(f'"{k}"' for k in keys)
+    values_str = ' '.join(f'"{v}"' if isinstance(v, str) else f'{v}' for v in values)
+    indices_str = ' '.join(map(str, indices))
     s = f"""
 (define-grammar (json-selector x)
-  [syntBool"""
+  [syntBool
+    (choose
+     (empty? (syntJ))
+     (not (syntBool))"""
 
     if len(values) > 0:
-        s += '\n  (choose'
-        s += '\n   (syntEq (syntJ) (syntV))'
-        s += '\n  )'
-    else:
-        s += '\'()'
+        s += '\n     (syntEq (syntJ) (syntVal))'
+
+    s += '\n    )'
     s += """
   ]
   [syntJ
    (choose
-    x"""
+    (index x (syntInt))
+    (length (syntJ))"""
     if len(keys) > 0:
         s += f"""
     (child (syntJ) (syntK))
     (descendant (syntJ) (syntK))"""
 
-    s += "\n    (index (syntJ) (syntI))"
+    s += "\n    (index (syntJ) (syntInt))"
     if len(values) > 0:
-        s += '(syntAdd (syntV) (syntJ))'
-    s += "    )]"
+        s += '\n(syntAdd (syntVal) (syntJ))'
+    s += "\n   )]"
 
     if len(keys) > 0:
-        s += f'\n  [syntK (choose {keys})]'
+        s += f'\n  [syntK (choose {keys_str})]'
 
-    s += f"\n  [syntI (choose {indices})]"
+    s += f"\n  [syntInt (choose {indices_str})]"
     if len(values) > 0:
-        s += f'\n  [syntV (choose {values})]'
-    s += '  )\n\n'
+        s += f'\n  [syntVal (choose {values_str})]'
+    s += '\n  )\n\n'
     return s
 
 
@@ -156,8 +155,7 @@ def build_rosette_samples(synt_decl):
     return s
 
 
-def build_rosette_synthesis_query(synt_decl):
-    depth = 4
+def build_rosette_synthesis_query(synt_decl, depth):
     asserts = []
     f_name = synt_decl["name"]
     for ctr_idx, ctr in enumerate(synt_decl["constraints"]):
@@ -176,9 +174,9 @@ def build_rosette_synthesis_query(synt_decl):
                                   f'{[ctr["output"].__class__.__name__ for ctr in synt_decl["constraints"]]}')
 
     s = f"""
- (define ({f_name} x)
-   (json-selector x #:depth {depth} #:start {start_symb})
-   )
+(define ({f_name} x)
+  (json-selector x #:depth {depth} #:start {start_symb})
+)
 
 (define sol
   (synthesize

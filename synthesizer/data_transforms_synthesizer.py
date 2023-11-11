@@ -1,4 +1,6 @@
+import datetime
 import glob
+import hashlib
 import json
 import os.path
 import subprocess
@@ -6,8 +8,32 @@ import time
 from typing import Any
 
 from synthesizer.to_rosette import build_rosette_grammar, build_rosette_samples, build_rosette_synthesis_query, \
-    convert_rosette_to_jsonpath, rosette_file_preamble
+    convert_rosette_to_jsonpath, get_racket_indices, get_racket_keys, get_racket_values, rosette_file_preamble
 from synthesizer.util import human_time
+
+
+def get_timestamp() -> str:
+    """
+    Get a timestamp in the format YYYYMMDDHHMMSS
+    :return: timestamp string
+    """
+    now = datetime.datetime.now()
+    timestamp = now.strftime("%Y%m%d%H%M%S")
+    return timestamp
+
+
+def my_hash(s: str) -> int:
+    return abs(int(hashlib.sha512(s.encode('utf-8')).hexdigest(), 16) % 10 ** 12)
+
+
+def get_racket_filename(depth: int, func_name: str, instance_name: str, racket_dir: str, keys: list[str],
+                        values: list[str]) -> str:
+    timestamp = get_timestamp()
+    return os.path.join(
+        racket_dir,
+        f'{instance_name}{"" if func_name[0] == "_" else "_"}{func_name}_'
+        f'{my_hash(str(keys) + str(values))}_{depth}_'
+        f'{timestamp}.rkt')
 
 
 def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dict[str:Any], str]:
@@ -81,6 +107,12 @@ def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dic
 
 
 def run_racket_command(racket_filename: str, timeout: int) -> str:
+    """
+    Runs a pre-written Racket file and returns the solution, in our jsonpath format.
+    :param racket_filename: The name of the file with the racket problem
+    :param timeout: Synthesis timeout in seconds
+    :return: solution in jsonpath format
+    """
     racket_command = ['racket', racket_filename]
     try:
         result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
@@ -91,7 +123,7 @@ def run_racket_command(racket_filename: str, timeout: int) -> str:
             racket_out = "\n".join(result.stdout.split('\n')[1:])
             try:
                 racket_out = convert_rosette_to_jsonpath(racket_out)
-            except Exception as e:
+            except Exception:
                 raise RuntimeError(f'Something wrong with racket output to {" ".join(racket_command)}:\n{result.stdout}')
         if len(result.stderr) > 0:
             print('racket call stderr:', result.stderr)
@@ -116,45 +148,115 @@ def synthesize_data_transforms(instance_name: str,
     """
     racket_dir = "resources/racket_programs/"
     solutions_dir = "data_synthesis_solutions/"
-    solutions = []
+    return_solutions = []
+    all_solutions = []
 
     for synt_decl in sorted(synt_decls, key=lambda decl: decl['name']):
-        synt_decl, comment = preprocess(synt_decl, use_metadata)
 
-        rosette_text = ''
-        rosette_text += rosette_file_preamble()
+        keys = sorted(get_racket_keys(synt_decl))
+        indices = get_racket_indices(synt_decl)
 
-        rosette_text += build_rosette_grammar(synt_decl)
-        rosette_text += build_rosette_samples(synt_decl)
-        rosette_text += build_rosette_synthesis_query(synt_decl)
+        values = sorted(get_racket_values(synt_decl), key=lambda v: (isinstance(v, str), v))
 
-        func_name = synt_decl['name']
-        solution = {'name': func_name}
+        if len(keys) > 30:
+            # If there is a large number of keys, the problem gets split into many subproblems
+            keys_sublists = [keys[i:i + 15] for i in range(0, len(keys), 15)]
+        else:
+            keys_sublists = [keys]
 
-        racket_filename = os.path.join(racket_dir, f'{instance_name}{"" if func_name[0] == "_" else "_"}{func_name}.rkt')
-        if not os.path.isdir(racket_dir):
-            os.makedirs(racket_dir)
-        with open(racket_filename, 'w') as f:
-            f.write(rosette_text)
+        if len(values) > 30:
+            # If there is a large number of values, the problem gets split into many subproblems
+            values_sublists = [values[i:i + 15] for i in range(0, len(values), 15)]
+        else:
+            values_sublists = [values]
 
-        # Using a ThreadPool to impose a timeout on Racket.
-        start_racket_call_time = time.perf_counter()
-        racket_out = run_racket_command(racket_filename, synthesis_timeout)
+        keys_values = [(k, []) for k in keys_sublists] + \
+                      [([], v) for v in values_sublists]  # Some subproblems have only keys, others have only values
 
-        elapsed = time.perf_counter() - start_racket_call_time
-        solution['solution'] = racket_out
-        solution['solve time'] = elapsed
-        solution['solve time (h)'] = human_time(elapsed)
-        solution['comment'] = comment
-        solutions.append(solution)
+        solved = False
+        for keys, values in keys_values:
+            if solved:
+                break
+            for depth in range(2, 7):
+                if solved:
+                    break
+                solution = write_and_solve_rosette_problem(synt_decl, indices, keys, values, depth, instance_name,
+                                                           racket_dir, synthesis_timeout, use_metadata, True)
+                # print(solution)
+                all_solutions.append(solution)
 
-        # Write to solutions file, even if it has not computed solutions for all functions.
-        solution_filename = instance_name + '.json'
-        if not os.path.isdir(solutions_dir):
-            os.makedirs(solutions_dir)
-        with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
-            json.dump(solutions, sol_file, indent=2)
-    return solutions
+                # Write all solutions to solutions file, even if it has not computed solutions for all functions.
+                solution_filename = instance_name + '.json'
+                if not os.path.isdir(solutions_dir):
+                    os.makedirs(solutions_dir)
+                with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
+                    json.dump(all_solutions, sol_file, indent=2)
+
+                if 'unsat' not in solution['solution'] and 'timeout' not in solution['solution']:
+                    # Only SAT results are saved in return_solutions
+                    solved = True
+                    return_solutions.append(solution)
+
+        # After trying to solve the subproblems, if none is solved, try to solve the complete problem:
+        if not solved:
+            solution = write_and_solve_rosette_problem(synt_decl, indices, keys, values, 6, instance_name,
+                                                       racket_dir, synthesis_timeout, use_metadata, False)
+            # print(solution)
+            all_solutions.append(solution)
+
+            # Write all solutions to solutions file, even if it has not computed solutions for all functions.
+            solution_filename = instance_name + '.json'
+            if not os.path.isdir(solutions_dir):
+                os.makedirs(solutions_dir)
+            with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
+                json.dump(all_solutions, sol_file, indent=2)
+
+            return_solutions.append(solution)
+
+    return return_solutions
+
+
+def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[str], values: list[str],
+                                    depth: int, instance_name: str, racket_dir: str, synthesis_timeout: int,
+                                    use_metadata: bool, is_subproblem):
+    """
+    Auxiliary function that, given information about a synthesis instance, writes a Rosette synthesis query in Racket
+    to a file and solves it.
+    :param synt_decl: The synthesis problem, read from the instance file.
+    :param indices: The constant values that should be considered for SyntInt.
+    :param keys: The strings that should be considered for SyntK.
+    :param values: The strings that should be considered for SyntVal.
+    :param depth: The maximum depth of the synthesized program.
+    :param instance_name: The instance name.
+    :param racket_dir: The directory where the Racket file is stored
+    :param synthesis_timeout: Synthesis timeout in seconds
+    :param use_metadata: Whether metadata fields should be used for synthesis.
+    :param is_subproblem: Whether this is a subproblem for a bigger synthesis problem.
+    :return:
+    """
+    synt_decl, comment = preprocess(synt_decl, use_metadata)
+    rosette_text = ''
+    rosette_text += rosette_file_preamble()
+    rosette_text += build_rosette_grammar(keys, indices, values)
+    rosette_text += build_rosette_samples(synt_decl)
+    rosette_text += build_rosette_synthesis_query(synt_decl, depth)
+    func_name = synt_decl['name']
+    racket_filename = get_racket_filename(depth, func_name, instance_name, racket_dir, keys, values)
+    if not os.path.isdir(racket_dir):
+        os.makedirs(racket_dir)
+    with open(racket_filename, 'w') as f:
+        f.write(rosette_text)
+    # Using a ThreadPool to impose a timeout on Racket.
+    start_racket_call_time = time.perf_counter()
+    racket_out = run_racket_command(racket_filename, synthesis_timeout)
+    elapsed = time.perf_counter() - start_racket_call_time
+    solution = {'name': func_name,
+                'solution': racket_out,
+                'solve time': elapsed,
+                'solve time (h)': human_time(elapsed),
+                'is subproblem': is_subproblem,
+                'comment': comment}
+    return solution
 
 
 def main():
@@ -162,12 +264,15 @@ def main():
 
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
+        # To solve a specific instance:
+        # if '0423cd' not in filename:
+        #     continue
         with open(filename, 'r') as f:
             synt_decls = json.load(f)
         instance_name = os.path.basename(filename).replace('.json', '')
         args.append((instance_name, synt_decls, 5 * 60, False))  # timeout of 5 minutes
 
-    # To disable multiprocessing, comment the following 4 lines
+    # To disable multiprocessing, comment the following 4 lines and uncomment below
     # with multiprocessing.Pool() as p:
     #     results = p.starmap(synthesize_data_transforms, args)
     # for i in range(len(results)):
