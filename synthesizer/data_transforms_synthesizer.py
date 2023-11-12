@@ -2,6 +2,7 @@ import datetime
 import glob
 import hashlib
 import json
+import multiprocessing
 import os.path
 import subprocess
 import time
@@ -270,7 +271,7 @@ def main():
         with open(filename, 'r') as f:
             synt_decls = json.load(f)
         instance_name = os.path.basename(filename).replace('.json', '')
-        args.append((instance_name, synt_decls, 5 * 60, False))  # timeout of 5 minutes
+        args.append((instance_name, synt_decls, 5 * 60, True))  # timeout of 5 minutes
 
     # To disable multiprocessing, comment the following 4 lines and uncomment below
     # with multiprocessing.Pool() as p:
