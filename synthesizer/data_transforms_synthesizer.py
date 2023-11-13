@@ -174,9 +174,11 @@ def synthesize_data_transforms(instance_name: str,
         keys_values = [(k, []) for k in keys_sublists] + \
                       [([], v) for v in values_sublists]  # Some subproblems have only keys, others have only values
 
-        num_calls = 4 + 1  # 5 depths explored sequentially
         num_processes = multiprocessing.cpu_count() // 2
-        timeout = synthesis_timeout // (num_calls // num_processes)
+        number_of_calls_per_iteration = max(1, int(1 + len(keys_values) / num_processes))
+        num_iterations = 4
+        num_calls = number_of_calls_per_iteration * num_iterations + 1  # final call
+        timeout = synthesis_timeout // num_calls
 
         solved = False
         for depth in range(2, 6):
@@ -270,6 +272,7 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
 
 def main():
     instances_dir = 'resources/instances/'
+    synthesis_timeout = 5 * 60
 
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
@@ -279,13 +282,16 @@ def main():
         with open(filename, 'r') as f:
             synt_decls = json.load(f)
         instance_name = os.path.basename(filename).replace('.json', '')
-        args.append((instance_name, synt_decls, 5 * 60, True))  # timeout of 5 minutes
+        args.append((instance_name, synt_decls, synthesis_timeout, True))  # timeout of 5 minutes
 
     # To disable multiprocessing uncomment the following 3 lines:
     for arg in args:
         start_time = time.perf_counter()
         result = synthesize_data_transforms(*arg)
         print("Took", human_time(time.perf_counter() - start_time))
+        if time.perf_counter() - start_time > synthesis_timeout:
+            print(f'WARNING: Took {human_time(time.perf_counter() - start_time)},'
+                  f'which is longer than the timeout of {human_time(synthesis_timeout)}.')
         # for r in result:
         #     print(f'Solution for {arg[0]}::{r["name"]} : {r["solution"]}')
 
