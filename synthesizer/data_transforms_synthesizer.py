@@ -200,11 +200,13 @@ def synthesize_data_transforms(instance_name: str,
             with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
                 json.dump(all_solutions, sol_file, indent=2)
 
-                for solution in keys_values_solutions:
-                    if 'unsat' not in solution['solution'] and 'timeout' not in solution['solution']:
-                        # Only SAT results are saved in return_solutions
-                        solved = True
-                        return_solutions.append(solution)
+            for solution in keys_values_solutions:
+                if solved:
+                    break
+                if 'unsat' not in solution['solution'] and 'timeout' not in solution['solution']:
+                    # Only SAT results are saved in return_solutions
+                    solved = True
+                    return_solutions.append(solution)
 
         # After trying to solve the subproblems, if none is solved, try to solve the complete problem:
         if not solved:
@@ -272,7 +274,7 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
 
 def main():
     instances_dir = 'resources/instances/'
-    synthesis_timeout = 5 * 60
+    synthesis_timeout = 10 * 60
 
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
@@ -287,13 +289,12 @@ def main():
     # To disable multiprocessing uncomment the following 3 lines:
     for arg in args:
         start_time = time.perf_counter()
-        result = synthesize_data_transforms(*arg)
-        print("Took", human_time(time.perf_counter() - start_time))
+        results = synthesize_data_transforms(*arg)
         if time.perf_counter() - start_time > synthesis_timeout:
             print(f'WARNING: Took {human_time(time.perf_counter() - start_time)},'
                   f'which is longer than the timeout of {human_time(synthesis_timeout)}.')
-        # for r in result:
-        #     print(f'Solution for {arg[0]}::{r["name"]} : {r["solution"]}')
+        for r in results:
+            print(f'Solution for {arg[0]}::{r["name"]} : {r["solution"]}')
 
 
 if __name__ == '__main__':
