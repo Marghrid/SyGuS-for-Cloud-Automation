@@ -174,34 +174,40 @@ def synthesize_data_transforms(instance_name: str,
         keys_values = [(k, []) for k in keys_sublists] + \
                       [([], v) for v in values_sublists]  # Some subproblems have only keys, others have only values
 
+        num_calls = 4 + 1  # 5 depths explored sequentially
+        num_processes = multiprocessing.cpu_count() // 2
+        timeout = synthesis_timeout // (num_calls // num_processes)
+
         solved = False
-        for keys, values in keys_values:
+        for depth in range(2, 6):
             if solved:
                 break
-            for depth in range(2, 7):
-                if solved:
-                    break
-                solution = write_and_solve_rosette_problem(synt_decl, indices, keys, values, depth, instance_name,
-                                                           racket_dir, synthesis_timeout, use_metadata, True)
-                # print(solution)
-                all_solutions.append(solution)
+            keys_values_solutions = []
 
-                # Write all solutions to solutions file, even if it has not computed solutions for all functions.
-                solution_filename = instance_name + '.json'
-                if not os.path.isdir(solutions_dir):
-                    os.makedirs(solutions_dir)
-                with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
-                    json.dump(all_solutions, sol_file, indent=2)
+            args = [(synt_decl, indices, keys, values, depth, instance_name, racket_dir, timeout, use_metadata, True) for
+                    keys, values in keys_values]
+            with multiprocessing.Pool(processes=num_processes) as pool:
+                keys_values_solutions = pool.starmap(write_and_solve_rosette_problem, args)
+            # print(solution)
+            all_solutions.extend(keys_values_solutions)
 
-                if 'unsat' not in solution['solution'] and 'timeout' not in solution['solution']:
-                    # Only SAT results are saved in return_solutions
-                    solved = True
-                    return_solutions.append(solution)
+            # Write all solutions to solutions file, even if it has not computed solutions for all functions.
+            solution_filename = instance_name + '.json'
+            if not os.path.isdir(solutions_dir):
+                os.makedirs(solutions_dir)
+            with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
+                json.dump(all_solutions, sol_file, indent=2)
+
+                for solution in keys_values_solutions:
+                    if 'unsat' not in solution['solution'] and 'timeout' not in solution['solution']:
+                        # Only SAT results are saved in return_solutions
+                        solved = True
+                        return_solutions.append(solution)
 
         # After trying to solve the subproblems, if none is solved, try to solve the complete problem:
         if not solved:
             solution = write_and_solve_rosette_problem(synt_decl, indices, keys, values, 6, instance_name,
-                                                       racket_dir, synthesis_timeout, use_metadata, False)
+                                                       racket_dir, timeout, use_metadata, False)
             # print(solution)
             all_solutions.append(solution)
 
@@ -257,6 +263,8 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
                 'solve time (h)': human_time(elapsed),
                 'is subproblem': is_subproblem,
                 'comment': comment}
+
+    # print(solution)
     return solution
 
 
@@ -266,25 +274,20 @@ def main():
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
         # To solve a specific instance:
-        # if '0423cd' not in filename:
+        # if '9830' not in filename:
         #     continue
         with open(filename, 'r') as f:
             synt_decls = json.load(f)
         instance_name = os.path.basename(filename).replace('.json', '')
         args.append((instance_name, synt_decls, 5 * 60, True))  # timeout of 5 minutes
 
-    # To disable multiprocessing, comment the following 4 lines and uncomment below
-    # with multiprocessing.Pool() as p:
-    #     results = p.starmap(synthesize_data_transforms, args)
-    # for i in range(len(results)):
-    #     for r in results[i]:
-    #         print(f'Solution for {args[i][0]}::{r["name"]} : {r["solution"]}')
-
     # To disable multiprocessing uncomment the following 3 lines:
     for arg in args:
+        start_time = time.perf_counter()
         result = synthesize_data_transforms(*arg)
-        for r in result:
-            print(f'Solution for {arg[0]}::{r["name"]} : {r["solution"]}')
+        print("Took", human_time(time.perf_counter() - start_time))
+        # for r in result:
+        #     print(f'Solution for {arg[0]}::{r["name"]} : {r["solution"]}')
 
 
 if __name__ == '__main__':
