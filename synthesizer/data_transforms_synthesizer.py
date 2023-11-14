@@ -68,16 +68,16 @@ def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dic
         synt_decl['constraints'].pop(i)
 
     # Remove inputs which are always the same
-    constraints = synt_decl['constraints']
-    in_idx_to_remove = []
-    for i in range(len(constraints[0]['inputs'])):
-        if all(ctr['inputs'][i] == constraints[0]['inputs'][i] for ctr in constraints):
-            in_idx_to_remove.append(i)
-    for i in sorted(in_idx_to_remove, reverse=True):
-        for ctr in synt_decl['constraints']:
-            ctr['inputs'].pop(i)
-    if len(in_idx_to_remove) > 0:
-        comment += f'Removing inputs {in_idx_to_remove} because always the same.\n'
+    # constraints = synt_decl['constraints']
+    # in_idx_to_remove = []
+    # for i in range(len(constraints[0]['inputs'])):
+    #     if all(ctr['inputs'][i] == constraints[0]['inputs'][i] for ctr in constraints):
+    #         in_idx_to_remove.append(i)
+    # for i in sorted(in_idx_to_remove, reverse=True):
+    #     for ctr in synt_decl['constraints']:
+    #         ctr['inputs'].pop(i)
+    # if len(in_idx_to_remove) > 0:
+    #     comment += f'Removing inputs {in_idx_to_remove} because always the same.\n'
 
     # Remove inputs which are undefined in some constraint
     constraints = synt_decl['constraints']
@@ -183,26 +183,28 @@ def synthesize_data_transforms(instance_name: str,
         # Define all subproblems
         subproblems_args = [
             (synt_decl, indices, keys, values, depth, instance_name, racket_dir, synthesis_timeout, use_metadata, True) for
-            keys, values in keys_values for depth in range(2, 7)]
+            keys, values in keys_values for depth in range(2, 6)]
 
         # Define whole main problem
-        complete_problem = [
-            (synt_decl, indices, keys, values, 6, instance_name, racket_dir, synthesis_timeout, use_metadata, True)]
+        complete_problem_args = [
+            (synt_decl, indices, keys, values, depth, instance_name, racket_dir, synthesis_timeout, use_metadata, False) for
+            depth in range(2, 6)]
 
         valid_sat_subproblem_solutions = []  # clear list from previous runs
 
         # Start processes solving subproblems
         with multiprocessing.dummy.Pool(processes=num_processes - 1) as subproblems_pool:
-            async_result_subproblems = subproblems_pool.starmap_async(write_and_solve_rosette_problem, subproblems_args)
+            async_result_subproblems = subproblems_pool.starmap_async(
+                write_and_solve_rosette_problem, subproblems_args)
 
             with multiprocessing.dummy.Pool(processes=1) as main_problem_pool:
-                async_result_complete_problem = main_problem_pool.starmap_async(write_and_solve_rosette_problem,
-                                                                                complete_problem)
+                async_result_complete_problem = main_problem_pool.starmap_async(
+                    write_and_solve_rosette_problem, complete_problem_args)
 
                 start_time = time.perf_counter()
 
                 # cycle that watches all threads:
-                while time.perf_counter() - start_time < synthesis_timeout + 5:
+                while time.perf_counter() - start_time < synthesis_timeout:
                     time.sleep(5)  # Check every 5 secs
                     if len(valid_sat_subproblem_solutions) > 0:
                         # One of the subproblems returned SAT
@@ -219,17 +221,18 @@ def synthesize_data_transforms(instance_name: str,
                 subproblems_pool.terminate()
                 main_problem_pool.close()
                 main_problem_pool.terminate()
-                # Write all solutions to solutions file, even if it has not computed solutions for all functions.
+
+                # Write all solutions to solutions file, even before it has not computed solutions for all functions.
                 solution_filename = instance_name + '.json'
                 if not os.path.isdir(solutions_dir):
                     os.makedirs(solutions_dir)
                 with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
                     json.dump(all_solutions, sol_file, indent=2)
 
-                subproblems_pool.close()
-                subproblems_pool.terminate()
-                main_problem_pool.close()
-                main_problem_pool.terminate()
+        subproblems_pool.close()
+        subproblems_pool.terminate()
+        main_problem_pool.close()
+        main_problem_pool.terminate()
 
     return all_solutions
 
@@ -272,28 +275,36 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
                 'solution': racket_out,
                 'solve time': elapsed,
                 'solve time (h)': human_time(elapsed),
+                'keys': keys,
+                'values': values,
+                'depth': depth,
                 'is subproblem': is_subproblem,
                 'comment': comment}
 
     if 'unsat' not in solution['solution'] and 'timeout' not in solution['solution']:
         # Only SAT results are saved in return_solutions
         valid_sat_subproblem_solutions.append(solution)
+    # print(len(keys), len(values), depth, solution)
     return solution
 
 
 def main():
     instances_dir = 'resources/instances/'
-    synthesis_timeout = 1 * 60
+    synthesis_timeout = 5 * 60
 
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
         # To solve a specific instance:
-        # if '9830' not in filename:
+        # if '9830c7' not in filename:
         #     continue
         with open(filename, 'r') as f:
             synt_decls = json.load(f)
         instance_name = os.path.basename(filename).replace('.json', '')
-        args.append((instance_name, synt_decls, synthesis_timeout, True))  # timeout of 5 minutes
+        args.append((instance_name,
+                     synt_decls,
+                     synthesis_timeout,
+                     False  # use_metadata
+                     ))
 
     for arg in args:
         start_time = time.perf_counter()
@@ -302,7 +313,7 @@ def main():
             print(f'WARNING: Took {human_time(time.perf_counter() - start_time)},'
                   f'which is longer than the timeout of {human_time(synthesis_timeout)}.')
         for r in results:
-            print(f'Solution for {arg[0]}::{r["name"]} with metadata: '
+            print(f'Solution for {arg[0]}::{r["name"]}: '
                   f'{r["solution"]}. '
                   f'Took {human_time((time.perf_counter() - start_time))}')
 
