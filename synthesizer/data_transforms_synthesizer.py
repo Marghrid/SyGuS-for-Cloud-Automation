@@ -3,14 +3,17 @@ import glob
 import hashlib
 import json
 import multiprocessing
+import multiprocessing.dummy  # So it uses threads, not processes
 import os.path
 import subprocess
 import time
 from typing import Any
 
-from synthesizer.to_rosette import build_rosette_grammar, build_rosette_samples, build_rosette_synthesis_query, \
+from synthesizer.to_rosette import build_general_rosette_grammar, build_rosette_samples, build_rosette_synthesis_query, \
     convert_rosette_to_jsonpath, get_racket_indices, get_racket_keys, get_racket_values, rosette_file_preamble
 from synthesizer.util import human_time
+
+valid_sat_subproblem_solutions = []  # Where each subproblem thread saves its positive solution
 
 
 def get_timestamp() -> str:
@@ -144,87 +147,91 @@ def synthesize_data_transforms(instance_name: str,
     :param instance_name: The instance name, which will be used to name auxiliary racket file and solution file.
     :param synt_decls: Input read from the json file.
     :param synthesis_timeout: Max synthesis time in seconds.
-    :param use_metadata: whether metadata should be used as input to the synthesis
+    :param use_metadata: Whether metadata should be used as input to the synthesis
     :return solution dictionary
     """
+    global valid_sat_subproblem_solutions
     racket_dir = "resources/racket_programs/"
     solutions_dir = "data_synthesis_solutions/"
-    return_solutions = []
     all_solutions = []
 
+    # The synthesis of each data transform is solved sequencially
     for synt_decl in sorted(synt_decls, key=lambda decl: decl['name']):
 
+        # String values collected from the instances, because Rosette's strings are not solvable types.
         keys = sorted(get_racket_keys(synt_decl))
         indices = get_racket_indices(synt_decl)
-
         values = sorted(get_racket_values(synt_decl), key=lambda v: (isinstance(v, str), v))
 
-        if len(keys) > 30:
-            # If there is a large number of keys, the problem gets split into many subproblems
-            keys_sublists = [keys[i:i + 15] for i in range(0, len(keys), 15)]
-        else:
-            keys_sublists = [keys]
-
-        if len(values) > 30:
-            # If there is a large number of values, the problem gets split into many subproblems
-            values_sublists = [values[i:i + 15] for i in range(0, len(values), 15)]
-        else:
-            values_sublists = [values]
-
-        keys_values = [(k, []) for k in keys_sublists] + \
-                      [([], v) for v in values_sublists]  # Some subproblems have only keys, others have only values
-
         num_processes = multiprocessing.cpu_count() // 2
-        number_of_calls_per_iteration = max(1, int(1 + len(keys_values) / num_processes))
-        num_iterations = 4
-        num_calls = number_of_calls_per_iteration * num_iterations + 1  # final call
-        timeout = synthesis_timeout // num_calls
 
-        solved = False
-        for depth in range(2, 6):
-            if solved:
-                break
-            keys_values_solutions = []
+        # If there are many keys and/or values and we have more than one CPU,
+        # we split the keys and values into subsets and make smaller subproblems.
+        if (len(keys) > 15 or len(values) > 15) and num_processes > 1:
+            # We split it, so we have (approximately) as many subproblems per depth as the computer has CPUs.
+            total_keys_vals = len(keys) + len(values)
+            list_size = max(1, int(total_keys_vals / max(1, num_processes - 1)))
+            keys_sublists = [keys[i:i + list_size] for i in range(0, len(keys), list_size)]
+            values_sublists = [values[i:i + list_size] for i in range(0, len(values), list_size)]
 
-            args = [(synt_decl, indices, keys, values, depth, instance_name, racket_dir, timeout, use_metadata, True) for
-                    keys, values in keys_values]
-            with multiprocessing.Pool(processes=num_processes) as pool:
-                keys_values_solutions = pool.starmap(write_and_solve_rosette_problem, args)
-            # print(solution)
-            all_solutions.extend(keys_values_solutions)
+            # Some subproblems have only keys, others have only values
+            keys_values = [(k, []) for k in keys_sublists] + \
+                          [([], v) for v in values_sublists]
+        else:
+            keys_values = []  # no subproblems otherwise
 
-            # Write all solutions to solutions file, even if it has not computed solutions for all functions.
-            solution_filename = instance_name + '.json'
-            if not os.path.isdir(solutions_dir):
-                os.makedirs(solutions_dir)
-            with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
-                json.dump(all_solutions, sol_file, indent=2)
+        # Define all subproblems
+        subproblems_args = [
+            (synt_decl, indices, keys, values, depth, instance_name, racket_dir, synthesis_timeout, use_metadata, True) for
+            keys, values in keys_values for depth in range(2, 7)]
 
-            for solution in keys_values_solutions:
-                if solved:
-                    break
-                if 'unsat' not in solution['solution'] and 'timeout' not in solution['solution']:
-                    # Only SAT results are saved in return_solutions
-                    solved = True
-                    return_solutions.append(solution)
+        # Define whole main problem
+        complete_problem = [
+            (synt_decl, indices, keys, values, 6, instance_name, racket_dir, synthesis_timeout, use_metadata, True)]
 
-        # After trying to solve the subproblems, if none is solved, try to solve the complete problem:
-        if not solved:
-            solution = write_and_solve_rosette_problem(synt_decl, indices, keys, values, 6, instance_name,
-                                                       racket_dir, timeout, use_metadata, False)
-            # print(solution)
-            all_solutions.append(solution)
+        valid_sat_subproblem_solutions = []  # clear list from previous runs
 
-            # Write all solutions to solutions file, even if it has not computed solutions for all functions.
-            solution_filename = instance_name + '.json'
-            if not os.path.isdir(solutions_dir):
-                os.makedirs(solutions_dir)
-            with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
-                json.dump(all_solutions, sol_file, indent=2)
+        # Start processes solving subproblems
+        with multiprocessing.dummy.Pool(processes=num_processes - 1) as subproblems_pool:
+            async_result_subproblems = subproblems_pool.starmap_async(write_and_solve_rosette_problem, subproblems_args)
 
-            return_solutions.append(solution)
+            with multiprocessing.dummy.Pool(processes=1) as main_problem_pool:
+                async_result_complete_problem = main_problem_pool.starmap_async(write_and_solve_rosette_problem,
+                                                                                complete_problem)
 
-    return return_solutions
+                start_time = time.perf_counter()
+
+                # cycle that watches all threads:
+                while time.perf_counter() - start_time < synthesis_timeout + 5:
+                    time.sleep(5)  # Check every 5 secs
+                    if len(valid_sat_subproblem_solutions) > 0:
+                        # One of the subproblems returned SAT
+                        all_solutions.extend(valid_sat_subproblem_solutions)
+                        break
+
+                    elif async_result_complete_problem.ready():  # Even if it times out, it should be caught here.
+                        # Complete problem finished (either successfully or not)
+                        # Kill every thread:
+                        all_solutions.extend(async_result_complete_problem.get())
+                        break
+
+                subproblems_pool.close()
+                subproblems_pool.terminate()
+                main_problem_pool.close()
+                main_problem_pool.terminate()
+                # Write all solutions to solutions file, even if it has not computed solutions for all functions.
+                solution_filename = instance_name + '.json'
+                if not os.path.isdir(solutions_dir):
+                    os.makedirs(solutions_dir)
+                with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
+                    json.dump(all_solutions, sol_file, indent=2)
+
+                subproblems_pool.close()
+                subproblems_pool.terminate()
+                main_problem_pool.close()
+                main_problem_pool.terminate()
+
+    return all_solutions
 
 
 def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[str], values: list[str],
@@ -245,10 +252,11 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
     :param is_subproblem: Whether this is a subproblem for a bigger synthesis problem.
     :return:
     """
+    global valid_sat_subproblem_solutions
     synt_decl, comment = preprocess(synt_decl, use_metadata)
     rosette_text = ''
     rosette_text += rosette_file_preamble()
-    rosette_text += build_rosette_grammar(keys, indices, values)
+    rosette_text += build_general_rosette_grammar(keys, indices, values)
     rosette_text += build_rosette_samples(synt_decl)
     rosette_text += build_rosette_synthesis_query(synt_decl, depth)
     func_name = synt_decl['name']
@@ -257,7 +265,6 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
         os.makedirs(racket_dir)
     with open(racket_filename, 'w') as f:
         f.write(rosette_text)
-    # Using a ThreadPool to impose a timeout on Racket.
     start_racket_call_time = time.perf_counter()
     racket_out = run_racket_command(racket_filename, synthesis_timeout)
     elapsed = time.perf_counter() - start_racket_call_time
@@ -268,13 +275,15 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
                 'is subproblem': is_subproblem,
                 'comment': comment}
 
-    # print(solution)
+    if 'unsat' not in solution['solution'] and 'timeout' not in solution['solution']:
+        # Only SAT results are saved in return_solutions
+        valid_sat_subproblem_solutions.append(solution)
     return solution
 
 
 def main():
     instances_dir = 'resources/instances/'
-    synthesis_timeout = 10 * 60
+    synthesis_timeout = 1 * 60
 
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
@@ -286,15 +295,16 @@ def main():
         instance_name = os.path.basename(filename).replace('.json', '')
         args.append((instance_name, synt_decls, synthesis_timeout, True))  # timeout of 5 minutes
 
-    # To disable multiprocessing uncomment the following 3 lines:
     for arg in args:
         start_time = time.perf_counter()
         results = synthesize_data_transforms(*arg)
-        if time.perf_counter() - start_time > synthesis_timeout:
+        if time.perf_counter() - start_time > synthesis_timeout + 5:
             print(f'WARNING: Took {human_time(time.perf_counter() - start_time)},'
                   f'which is longer than the timeout of {human_time(synthesis_timeout)}.')
         for r in results:
-            print(f'Solution for {arg[0]}::{r["name"]} : {r["solution"]}')
+            print(f'Solution for {arg[0]}::{r["name"]} with metadata: '
+                  f'{r["solution"]}. '
+                  f'Took {human_time((time.perf_counter() - start_time))}')
 
 
 if __name__ == '__main__':

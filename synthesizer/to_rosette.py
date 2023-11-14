@@ -108,7 +108,7 @@ def rosette_file_preamble():
 (require "synthesis_lang.rkt")\n\n"""
 
 
-def build_rosette_grammar(keys, indices, values):
+def build_general_rosette_grammar(keys, indices, values):
     keys_str = ' '.join(f'"{k}"' for k in keys)
     values_str = ' '.join(f'"{v}"' if isinstance(v, str) else f'{v}' for v in values)
     indices_str = ' '.join(map(str, indices))
@@ -143,6 +143,70 @@ def build_rosette_grammar(keys, indices, values):
         s += f'\n  [syntK (choose {keys_str})]'
 
     s += f"\n  [syntInt (choose {indices_str})]"
+    if len(values) > 0:
+        s += f'\n  [syntVal (choose {values_str})]'
+    s += '\n  )\n\n'
+    return s
+
+
+def build_specialized_rosette_grammar(keys, indices, values):
+    keys_str = ' '.join(f'"{k}"' for k in keys)
+    values_str = ' '.join(f'"{v}"' if isinstance(v, str) else f'{v}' for v in values)
+    indices_str = ' '.join(map(str, indices))
+    s = f"""
+(define-grammar (json-selector x)
+  [syntBool
+    (choose
+     (empty? (syntList))
+     (empty? (syntDict))
+     (not (syntBool))"""
+
+    if len(values) > 0:
+        s += '\n     (syntEq (syntJ) (syntVal))'
+
+    s += '\n    )'
+    s += """
+  ]"""
+
+    s = f"""
+  [syntList
+   (choose
+    (index x (syntInt))"""
+    if len(keys) > 0:
+        s += f"""
+    (child (syntDiec) (syntKey))
+    (descendant (syntList) (syntKey))
+    (descendant (syntDict) (syntKey))
+    (syntAdd (syntList) (syntList))"""
+
+    s += "\n    (index (syntList) (syntInt))"
+    if len(values) > 0:
+        s += '\n'
+    s += "\n   )]"
+
+    s = f"""
+  [syntDict
+    (choose
+      (index x (syntInt))
+"""
+    if len(keys) > 0:
+        s += f"""
+        (child (syntDict) (syntKey))
+        (descendant (syntJ) (syntKey))"""
+
+    s += "\n    (index (syntJ) (syntInt))"
+    if len(values) > 0:
+        s += '\n(syntAdd (syntVal) (syntJ))'
+    s += "\n   )]"
+
+    if len(keys) > 0:
+        s += f'\n  [syntKey (choose {keys_str})]'
+
+    s += f"""
+  [syntInt 
+    (choose {indices_str}
+    (length (syntJ))
+  )]"""
     if len(values) > 0:
         s += f'\n  [syntVal (choose {values_str})]'
     s += '\n  )\n\n'
