@@ -1,3 +1,4 @@
+import os
 from collections import deque
 from typing import Any
 
@@ -102,12 +103,12 @@ def get_racket_indices(synt_decl: dict[str:Any]) -> list[int]:
 
 
 def rosette_file_preamble():
-    return """#lang rosette
+    return f"""#lang rosette
     
 (require racket/include)
 (require racket/dict)
 (require rosette/lib/synthax)
-(require "synthesis_lang.rkt")\n\n"""
+(require (file "{os.getcwd()}/resources/racket_programs/synthesis_lang.rkt"))\n\n"""
 
 
 def build_general_rosette_grammar(keys, indices, values):

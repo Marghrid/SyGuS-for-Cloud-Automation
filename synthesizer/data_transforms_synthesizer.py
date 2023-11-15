@@ -6,6 +6,7 @@ import multiprocessing
 import multiprocessing.dummy  # So it uses threads, not processes
 import os.path
 import subprocess
+import tempfile
 import time
 from typing import Any
 
@@ -14,6 +15,7 @@ from synthesizer.to_rosette import build_general_rosette_grammar, build_rosette_
 from synthesizer.util import human_time
 
 valid_sat_subproblem_solutions = []  # Where each subproblem thread saves its positive solution
+timeout_complete_problem_solution = None  # Where the complete problem threads save the most recent timeout
 
 
 def get_timestamp() -> str:
@@ -30,14 +32,18 @@ def my_hash(s: str) -> int:
     return abs(int(hashlib.sha512(s.encode('utf-8')).hexdigest(), 16) % 10 ** 12)
 
 
-def get_racket_filename(depth: int, func_name: str, instance_name: str, racket_dir: str, keys: list[str],
+def get_racket_filename(depth: int, func_name: str, instance_name: str, keys: list[str],
                         values: list[str]) -> str:
     timestamp = get_timestamp()
-    return os.path.join(
-        racket_dir,
-        f'{instance_name}{"" if func_name[0] == "_" else "_"}{func_name}_'
-        f'{my_hash(str(keys) + str(values))}_{depth}_'
-        f'{timestamp}.rkt')
+    # return os.path.join(
+    #     racket_dir,
+    #     f'{instance_name}{"" if func_name[0] == "_" else "_"}{func_name}_'
+    # f'{my_hash(str(keys) + str(values))}_{depth}_'
+    # f'{timestamp}.rkt')
+
+    return (f'{instance_name}{"" if func_name[0] == "_" else "_"}'
+            f'{func_name}_{my_hash(str(keys) + str(values))}_'
+            f'{depth}_{timestamp}.rkt')
 
 
 def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dict[str:Any], str]:
@@ -117,6 +123,7 @@ def run_racket_command(racket_filename: str, timeout: int) -> str:
     :param timeout: Synthesis timeout in seconds
     :return: solution in jsonpath format
     """
+    # racket_command = ['timeout', timeout + 5, '-t', timeout + 10, 'racket', racket_filename]
     racket_command = ['racket', racket_filename]
     try:
         result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
@@ -151,7 +158,7 @@ def synthesize_data_transforms(instance_name: str,
     :return solution dictionary
     """
     global valid_sat_subproblem_solutions
-    racket_dir = "resources/racket_programs/"
+    global timeout_complete_problem_solution
     solutions_dir = "data_synthesis_solutions/"
     all_solutions = []
 
@@ -182,15 +189,16 @@ def synthesize_data_transforms(instance_name: str,
 
         # Define all subproblems
         subproblems_args = [
-            (synt_decl, indices, keys, values, depth, instance_name, racket_dir, synthesis_timeout, use_metadata, True) for
+            (synt_decl, indices, keys, values, depth, instance_name, synthesis_timeout, use_metadata, True) for
             keys, values in keys_values for depth in range(2, 6)]
 
-        # Define whole main problem
+        # Define the complete problem
         complete_problem_args = [
-            (synt_decl, indices, keys, values, depth, instance_name, racket_dir, synthesis_timeout, use_metadata, False) for
+            (synt_decl, indices, keys, values, depth, instance_name, synthesis_timeout, use_metadata, False) for
             depth in range(2, 6)]
 
         valid_sat_subproblem_solutions = []  # clear list from previous runs
+        timeout_complete_problem_solution = None  # clear list from previous runs
 
         # Start processes solving subproblems
         with multiprocessing.dummy.Pool(processes=num_processes - 1) as subproblems_pool:
@@ -222,6 +230,10 @@ def synthesize_data_transforms(instance_name: str,
                 main_problem_pool.close()
                 main_problem_pool.terminate()
 
+                if len(all_solutions) == 0:
+                    assert time.perf_counter() - start_time > synthesis_timeout
+                    all_solutions.append(timeout_complete_problem_solution)
+
                 # Write all solutions to solutions file, even before it has not computed solutions for all functions.
                 solution_filename = instance_name + '.json'
                 if not os.path.isdir(solutions_dir):
@@ -238,7 +250,7 @@ def synthesize_data_transforms(instance_name: str,
 
 
 def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[str], values: list[str],
-                                    depth: int, instance_name: str, racket_dir: str, synthesis_timeout: int,
+                                    depth: int, instance_name: str, synthesis_timeout: int,
                                     use_metadata: bool, is_subproblem):
     """
     Auxiliary function that, given information about a synthesis instance, writes a Rosette synthesis query in Racket
@@ -249,13 +261,13 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
     :param values: The strings that should be considered for SyntVal.
     :param depth: The maximum depth of the synthesized program.
     :param instance_name: The instance name.
-    :param racket_dir: The directory where the Racket file is stored
     :param synthesis_timeout: Synthesis timeout in seconds
     :param use_metadata: Whether metadata fields should be used for synthesis.
     :param is_subproblem: Whether this is a subproblem for a bigger synthesis problem.
     :return:
     """
     global valid_sat_subproblem_solutions
+    global timeout_complete_problem_solution
     synt_decl, comment = preprocess(synt_decl, use_metadata)
     rosette_text = ''
     rosette_text += rosette_file_preamble()
@@ -263,11 +275,11 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
     rosette_text += build_rosette_samples(synt_decl)
     rosette_text += build_rosette_synthesis_query(synt_decl, depth)
     func_name = synt_decl['name']
-    racket_filename = get_racket_filename(depth, func_name, instance_name, racket_dir, keys, values)
-    if not os.path.isdir(racket_dir):
-        os.makedirs(racket_dir)
-    with open(racket_filename, 'w') as f:
+    racket_suffix = get_racket_filename(depth, func_name, instance_name, keys, values)
+    with tempfile.NamedTemporaryFile('w', suffix=racket_suffix, delete=False) as f:
         f.write(rosette_text)
+        racket_filename = f.name
+        print(f'Racket file written to {racket_filename}')
     start_racket_call_time = time.perf_counter()
     racket_out = run_racket_command(racket_filename, synthesis_timeout)
     elapsed = time.perf_counter() - start_racket_call_time
@@ -284,18 +296,20 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
     if 'unsat' not in solution['solution'] and 'timeout' not in solution['solution']:
         # Only SAT results are saved in return_solutions
         valid_sat_subproblem_solutions.append(solution)
+    if 'timeout' in solution['solution'] and not is_subproblem:
+        timeout_complete_problem_solution = solution
     # print(len(keys), len(values), depth, solution)
     return solution
 
 
 def main():
     instances_dir = 'resources/instances/'
-    synthesis_timeout = 5 * 60
+    synthesis_timeout = 1 * 60
 
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
         # To solve a specific instance:
-        # if 'obj18a873' not in filename:
+        # if '84b5b3' not in filename:
         #     continue
         with open(filename, 'r') as f:
             synt_decls = json.load(f)
