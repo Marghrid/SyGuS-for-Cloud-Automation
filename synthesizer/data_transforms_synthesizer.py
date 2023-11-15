@@ -123,8 +123,7 @@ def run_racket_command(racket_filename: str, timeout: int) -> str:
     :param timeout: Synthesis timeout in seconds
     :return: solution in jsonpath format
     """
-    # racket_command = ['timeout', timeout + 5, '-t', timeout + 10, 'racket', racket_filename]
-    racket_command = ['racket', racket_filename]
+    racket_command = ['timeout', '-k', str(timeout + 10), str(timeout + 1), 'racket', racket_filename]
     try:
         result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
 
