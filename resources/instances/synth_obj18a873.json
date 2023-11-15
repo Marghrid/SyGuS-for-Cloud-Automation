@@ -1,0 +1,160 @@
+[
+  {
+    "name": "f?_6",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "application_fee_percent": null,
+            "canceled_at": null,
+            "created": 1596266479,
+            "current_period_end": 1596352879,
+            "current_period_start": 1596266479,
+            "customer": "cus_2343244jsdfghKRNC",
+            "days_until_due": null,
+            "ended_at": null,
+            "id": "sub_23423JFNFjdsfd",
+            "items": {
+              "data": [
+                {
+                  "created": 1596266479,
+                  "id": "si_134lgO452Lffeij",
+                  "metadata": {},
+                  "object": "subscription_item",
+                  "plan": {
+                    "amount": 29,
+                    "created": 1596266358,
+                    "currency": "usd",
+                    "id": "price_dfj23dcvnsdD33",
+                    "interval": "month",
+                    "interval_count": 1,
+                    "livemode": false,
+                    "metadata": {},
+                    "nickname": "Basic",
+                    "object": "plan",
+                    "product": "prod_IyYY3"
+                  }
+                }
+              ],
+              "object": "list"
+            },
+            "metadata": {},
+            "object": "subscription",
+            "plan": "price_dfj23dcvnsdD33",
+            "quantity": 1,
+            "start": 1596266479,
+            "status": "active",
+            "tax_percent": null,
+            "trial_end": null,
+            "trial_start": null
+          },
+          "sub_23423JFNFjdsfd",
+          29
+        ],
+        "output": "si_134lgO452Lffeij"
+      },
+      {
+        "inputs": [
+          {
+            "application_fee_percent": null,
+            "canceled_at": null,
+            "created": 1596266479,
+            "current_period_end": 1596352879,
+            "current_period_start": 1596266479,
+            "customer": "cus_2343244jsdfghKRNC",
+            "days_until_due": null,
+            "ended_at": null,
+            "id": "sub_2343244j39KRNC",
+            "items": {
+              "data": [
+                {
+                  "created": 1596266479,
+                  "id": "si_1IyYXzIpedjZuO",
+                  "metadata": {},
+                  "object": "subscription_item",
+                  "plan": {
+                    "amount": 342,
+                    "created": 1596266358,
+                    "currency": "usd",
+                    "id": "price_1IyYY2IpedjZvX",
+                    "interval": "month",
+                    "interval_count": 1,
+                    "livemode": false,
+                    "metadata": {},
+                    "nickname": "Basic",
+                    "object": "plan",
+                    "product": "prod_IyYY3"
+                  }
+                }
+              ],
+              "object": "list"
+            },
+            "metadata": {},
+            "object": "subscription",
+            "plan": "price_1IyYY2IpedjZvX",
+            "quantity": 1,
+            "start": 1596266479,
+            "status": "active",
+            "tax_percent": null,
+            "trial_end": null,
+            "trial_start": null
+          },
+          "sub_2343244j39KRNC",
+          300
+        ],
+        "output": "si_1IyYXzIpedjZuO"
+      },
+      {
+        "inputs": [
+          {
+            "application_fee_percent": null,
+            "canceled_at": null,
+            "created": 1596266479,
+            "current_period_end": 1596352879,
+            "current_period_start": 1596266479,
+            "customer": "cus_IyXXrIpe7Yx6Zz",
+            "days_until_due": null,
+            "ended_at": null,
+            "id": "sub_1IyYXrIpedjZXX",
+            "items": {
+              "data": [
+                {
+                  "created": 1596266479,
+                  "id": "si_1IyYXzIpedjZuO",
+                  "metadata": {},
+                  "object": "subscription_item",
+                  "plan": {
+                    "amount": 2000,
+                    "created": 1596266358,
+                    "currency": "usd",
+                    "id": "price_1IyYY2IpedjZvX",
+                    "interval": "month",
+                    "interval_count": 1,
+                    "livemode": false,
+                    "metadata": {},
+                    "nickname": "Basic",
+                    "object": "plan",
+                    "product": "prod_IyYY3"
+                  }
+                }
+              ],
+              "object": "list"
+            },
+            "metadata": {},
+            "object": "subscription",
+            "plan": "price_1IyYY2IpedjZvX",
+            "quantity": 1,
+            "start": 1596266479,
+            "status": "active",
+            "tax_percent": null,
+            "trial_end": null,
+            "trial_start": null
+          },
+          "sub_1IyYXrIpedjZXX",
+          2000
+        ],
+        "output": "si_1IyYXzIpedjZuO"
+      }
+    ]
+  }
+]

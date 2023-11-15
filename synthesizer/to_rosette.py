@@ -7,8 +7,10 @@ def to_racket(i: Any):
         return '#t' if i else '#f'
     if isinstance(i, str):
         return '"' + i.replace('"', '\\"') + '"'
-    if isinstance(i, int):
+    if isinstance(i, int) or isinstance(i, float):
         return str(i)
+    if i is None:
+        return "null"
     if isinstance(i, list):
         return f'(list {" ".join(map(to_racket, i))})'
     if isinstance(i, dict):

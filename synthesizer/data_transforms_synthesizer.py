@@ -295,7 +295,7 @@ def main():
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
         # To solve a specific instance:
-        # if '9830c7' not in filename:
+        # if 'obj18a873' not in filename:
         #     continue
         with open(filename, 'r') as f:
             synt_decls = json.load(f)
