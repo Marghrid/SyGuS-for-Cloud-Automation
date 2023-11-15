@@ -26,7 +26,9 @@ def to_racket(i: Any):
     raise NotImplementedError(f'to_racket not implemented for {i.__class__.__name__}')
 
 
-def get_racket_keys_aux(i: Any) -> set[str]:
+def get_racket_keys_aux(i: Any, depth: int = 0, max_depth: int = 100000) -> set[str]:
+    if depth >= max_depth:
+        return set()
     if i is None:
         return set()
     if isinstance(i, str):
@@ -34,9 +36,9 @@ def get_racket_keys_aux(i: Any) -> set[str]:
     if isinstance(i, int):
         return set()
     if isinstance(i, list):
-        return set().union(*(get_racket_keys_aux(e) for e in i))
+        return set().union(*(get_racket_keys_aux(e, depth + 1, max_depth) for e in i))
     if isinstance(i, dict):
-        return set(i.keys()).union(*(get_racket_keys_aux(v) for v in i.values()))
+        return set(i.keys()).union(*(get_racket_keys_aux(v, depth + 1, max_depth) for v in i.values()))
 
     raise NotImplementedError(f'get_racket_keys_aux not implemented for {i.__class__.__name__}')
 
@@ -77,10 +79,10 @@ def get_racket_max_list_index(i: Any) -> int:
     raise NotImplementedError(f'get_racket_max_list_index not implemented for {i.__class__.__name__}')
 
 
-def get_racket_keys(synt_decl: dict[str:Any]) -> set[str]:
+def get_racket_keys(synt_decl: dict[str:Any], max_depth: int = 100000) -> set[str]:
     keys = set()
     for ctr in synt_decl['constraints']:
-        keys.update(get_racket_keys_aux(ctr['inputs']))
+        keys.update(get_racket_keys_aux(ctr['inputs'], 0, max_depth))
 
     return keys
 
