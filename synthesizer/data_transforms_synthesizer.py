@@ -174,7 +174,6 @@ def synthesize_data_transforms(instance_name: str,
             # list_size = max(1, int(total_keys_vals / max(1, 4*num_processes - 1)))
             # Fixed listsize:
             list_size = 16
-            print('listsize', list_size)
             keys_sublists = [keys[i:i + list_size] for i in range(0, len(keys), list_size)]
             values_sublists = [values[i:i + list_size] for i in range(0, len(values), list_size)]
 
