@@ -205,7 +205,7 @@ def synthesize_data_transforms(instance_name: str,
 
                 # cycle that watches all threads:
                 while time.perf_counter() - start_time < synthesis_timeout:
-                    time.sleep(5)  # Check every 5 secs
+                    time.sleep(0.1)  # Check every 0.1 secs
                     if len(valid_sat_subproblem_solutions) > 0:
                         # One of the subproblems returned SAT
                         all_solutions.extend(valid_sat_subproblem_solutions)
