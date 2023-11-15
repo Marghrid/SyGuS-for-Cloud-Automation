@@ -186,8 +186,9 @@ def synthesize_data_transforms(instance_name: str,
 
         # Define all subproblems
         subproblems_args = [
-            (synt_decl, indices, keys, values, depth, instance_name, synthesis_timeout, use_metadata, True) for
-            keys, values in keys_values for depth in range(2, 6)]
+            (synt_decl, indices, keys, values, depth, instance_name, synthesis_timeout, use_metadata, True)
+            for depth in range(2, 6)
+            for keys, values in keys_values]
 
         # Define the complete problem
         complete_problem_args = [
