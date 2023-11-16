@@ -295,18 +295,19 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
         valid_sat_subproblem_solutions.append(solution)
     elif not is_subproblem:
         timeout_or_unsat_complete_problem_solution = solution
-    # print(len(keys), len(values), depth, solution)
+    # if not is_subproblem:
+    #     print(solution)
     return solution
 
 
 def main():
     instances_dir = 'resources/instances/'
-    synthesis_timeout = 1 * 60
+    synthesis_timeout = 5 * 60
 
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
         # To solve a specific instance:
-        # if '84b5b3' not in filename:
+        # if '0cd60c' not in filename:
         #     continue
         with open(filename, 'r') as f:
             synt_decls = json.load(f)

@@ -1,6 +1,8 @@
 import os
 from collections import deque
 from typing import Any
+import dateutil.parser
+
 
 
 def to_racket(i: Any):
@@ -49,7 +51,11 @@ def get_racket_values_aux(i: Any) -> set[Any]:
     if isinstance(i, bool):
         return set()
     if isinstance(i, str):
-        return {i.replace('"', '\\"')}
+        try:
+            dateutil.parser.parse(i)
+            return set()
+        except (dateutil.parser._parser.ParserError, OverflowError):
+            return {i.replace('"', '\\"')}
     if isinstance(i, int):
         return {i}
     if isinstance(i, list):

@@ -1,0 +1,2767 @@
+[
+  {
+    "name": "_fb?",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2783367990",
+                "x-amzn-requestid": "RMS9SA5LTKCTM8I34CG0226FQJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "RMS9SA5LTKCTM8I34CG0226FQJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1001272750",
+                "x-amzn-requestid": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "651",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:59:19 GMT",
+                "server": "Server",
+                "x-amz-crc32": "4094658198",
+                "x-amzn-requestid": "NEFLTEQ4QSOCIVQQLE08GJATNVVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "NEFLTEQ4QSOCIVQQLE08GJATNVVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartitionKey", "AttributeType": "S" },
+                { "AttributeName": "SortKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
+                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-2",
+              "TableId": "dd3f14a5-1f93-4889-80c3-68443b7c5816",
+              "TableName": "CreateTableThenInsertItem-2",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "662",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:59:18 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2400000119",
+                "x-amzn-requestid": "LA8JAO804FICL5V0J1N2032OMJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "LA8JAO804FICL5V0J1N2032OMJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartitionKey", "AttributeType": "S" },
+                { "AttributeName": "SortKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
+                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-2",
+              "TableId": "dd3f14a5-1f93-4889-80c3-68443b7c5816",
+              "TableName": "CreateTableThenInsertItem-2",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "639",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:00:54 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2476200315",
+                "x-amzn-requestid": "UDUHDST8JERMR0C3UVPK8P2GBNVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "UDUHDST8JERMR0C3UVPK8P2GBNVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "ItemCap", "AttributeType": "N" },
+                { "AttributeName": "ItemId", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "ItemId", "KeyType": "HASH" },
+                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "0b257aef-8bb5-4e80-90ef-25e5f03bf063",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "650",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:00:54 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3500732468",
+                "x-amzn-requestid": "DQSSOL56K6O1ULIEAUVNSEJHGJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "DQSSOL56K6O1ULIEAUVNSEJHGJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "ItemCap", "AttributeType": "N" },
+                { "AttributeName": "ItemId", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "ItemId", "KeyType": "HASH" },
+                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "0b257aef-8bb5-4e80-90ef-25e5f03bf063",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "655",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:09:30 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1881474224",
+                "x-amzn-requestid": "8TBI9I91GLGCEFD5SSFSDT10K7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "8TBI9I91GLGCEFD5SSFSDT10K7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartioningKey", "AttributeType": "S" },
+                { "AttributeName": "RangeKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
+                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-6",
+              "TableId": "2f616415-8223-45a3-bdf5-55e577f40175",
+              "TableName": "CreateTableThenInsertItem-6",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "666",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:09:30 GMT",
+                "server": "Server",
+                "x-amz-crc32": "478838049",
+                "x-amzn-requestid": "SH6HV32LHNBMT8HG102S7H29GJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "SH6HV32LHNBMT8HG102S7H29GJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartioningKey", "AttributeType": "S" },
+                { "AttributeName": "RangeKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
+                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-6",
+              "TableId": "2f616415-8223-45a3-bdf5-55e577f40175",
+              "TableName": "CreateTableThenInsertItem-6",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:02:33 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1739813547",
+                "x-amzn-requestid": "44898IGU8BSEPUE8C474DFMPM7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "44898IGU8BSEPUE8C474DFMPM7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-3",
+              "TableId": "5dc9e36e-5ab2-433f-9da3-4cbd27a7dcb3",
+              "TableName": "CreateTableThenInsertItem-3",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:02:33 GMT",
+                "server": "Server",
+                "x-amz-crc32": "4194014259",
+                "x-amzn-requestid": "M0671OV2JQUNB9SR66L4CO0KQRVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "M0671OV2JQUNB9SR66L4CO0KQRVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-3",
+              "TableId": "5dc9e36e-5ab2-433f-9da3-4cbd27a7dcb3",
+              "TableName": "CreateTableThenInsertItem-3",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:06:27 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3910626958",
+                "x-amzn-requestid": "K09026DA5262TGI0Q9EB1C6L37VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "K09026DA5262TGI0Q9EB1C6L37VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4",
+              "TableId": "cb0c1381-0b38-4514-9a0b-55eae474db3c",
+              "TableName": "CreateTableThenInsertItem-4",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:06:27 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2002749462",
+                "x-amzn-requestid": "E3O05D10U7M2DJLBHGMEQS3DH7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "E3O05D10U7M2DJLBHGMEQS3DH7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4",
+              "TableId": "cb0c1381-0b38-4514-9a0b-55eae474db3c",
+              "TableName": "CreateTableThenInsertItem-4",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:03:57 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1366073531",
+                "x-amzn-requestid": "SN3HV0CDB7T81KB11VJ3F1G5URVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "SN3HV0CDB7T81KB11VJ3F1G5URVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "4c2ed78a-6aa9-4eca-8e4c-0c82ea26e026",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:03:57 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3475260963",
+                "x-amzn-requestid": "RS7CJO1IATP095618GB7BAB49NVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "RS7CJO1IATP095618GB7BAB49NVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "4c2ed78a-6aa9-4eca-8e4c-0c82ea26e026",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2783367990",
+                "x-amzn-requestid": "RMS9SA5LTKCTM8I34CG0226FQJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "RMS9SA5LTKCTM8I34CG0226FQJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1001272750",
+                "x-amzn-requestid": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:05:36 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3802093030",
+                "x-amzn-requestid": "EIAALMUOKO9D6PESSD9FB4FSEVVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "EIAALMUOKO9D6PESSD9FB4FSEVVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-5",
+              "TableId": "36d8bc05-accc-4654-8695-0a7fdba11bb9",
+              "TableName": "CreateTableThenInsertItem-5",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:05:36 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2094510974",
+                "x-amzn-requestid": "U6IU0MB2J9BHVSLBA02OBCO9OJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "U6IU0MB2J9BHVSLBA02OBCO9OJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-5",
+              "TableId": "36d8bc05-accc-4654-8695-0a7fdba11bb9",
+              "TableName": "CreateTableThenInsertItem-5",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:32 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2783367990",
+                "x-amzn-requestid": "GMLDSV6V4FP7PK59QQP5JG8F7RVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "GMLDSV6V4FP7PK59QQP5JG8F7RVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1001272750",
+                "x-amzn-requestid": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "651",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:59:21 GMT",
+                "server": "Server",
+                "x-amz-crc32": "4094658198",
+                "x-amzn-requestid": "K4LFJFCFJBFR9SHSSJ0CERPPFBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "K4LFJFCFJBFR9SHSSJ0CERPPFBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartitionKey", "AttributeType": "S" },
+                { "AttributeName": "SortKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
+                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-2",
+              "TableId": "dd3f14a5-1f93-4889-80c3-68443b7c5816",
+              "TableName": "CreateTableThenInsertItem-2",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "662",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:59:18 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2400000119",
+                "x-amzn-requestid": "LA8JAO804FICL5V0J1N2032OMJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "LA8JAO804FICL5V0J1N2032OMJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartitionKey", "AttributeType": "S" },
+                { "AttributeName": "SortKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
+                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-2",
+              "TableId": "dd3f14a5-1f93-4889-80c3-68443b7c5816",
+              "TableName": "CreateTableThenInsertItem-2",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "639",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:00:57 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2476200315",
+                "x-amzn-requestid": "AE59K3H3DM1TGO3DMMSLR84K07VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "AE59K3H3DM1TGO3DMMSLR84K07VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "ItemCap", "AttributeType": "N" },
+                { "AttributeName": "ItemId", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "ItemId", "KeyType": "HASH" },
+                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "0b257aef-8bb5-4e80-90ef-25e5f03bf063",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "650",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:00:54 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3500732468",
+                "x-amzn-requestid": "DQSSOL56K6O1ULIEAUVNSEJHGJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "DQSSOL56K6O1ULIEAUVNSEJHGJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "ItemCap", "AttributeType": "N" },
+                { "AttributeName": "ItemId", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "ItemId", "KeyType": "HASH" },
+                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "0b257aef-8bb5-4e80-90ef-25e5f03bf063",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "655",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:09:32 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1881474224",
+                "x-amzn-requestid": "00OAPCK2S8HS2USHEUITF7Q207VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "00OAPCK2S8HS2USHEUITF7Q207VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartioningKey", "AttributeType": "S" },
+                { "AttributeName": "RangeKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
+                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-6",
+              "TableId": "2f616415-8223-45a3-bdf5-55e577f40175",
+              "TableName": "CreateTableThenInsertItem-6",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "666",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:09:30 GMT",
+                "server": "Server",
+                "x-amz-crc32": "478838049",
+                "x-amzn-requestid": "SH6HV32LHNBMT8HG102S7H29GJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "SH6HV32LHNBMT8HG102S7H29GJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartioningKey", "AttributeType": "S" },
+                { "AttributeName": "RangeKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
+                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-6",
+              "TableId": "2f616415-8223-45a3-bdf5-55e577f40175",
+              "TableName": "CreateTableThenInsertItem-6",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:02:35 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1739813547",
+                "x-amzn-requestid": "F6DIOHLQGR7B57GD9T7NSO2BVFVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "F6DIOHLQGR7B57GD9T7NSO2BVFVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-3",
+              "TableId": "5dc9e36e-5ab2-433f-9da3-4cbd27a7dcb3",
+              "TableName": "CreateTableThenInsertItem-3",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:02:33 GMT",
+                "server": "Server",
+                "x-amz-crc32": "4194014259",
+                "x-amzn-requestid": "M0671OV2JQUNB9SR66L4CO0KQRVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "M0671OV2JQUNB9SR66L4CO0KQRVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-3",
+              "TableId": "5dc9e36e-5ab2-433f-9da3-4cbd27a7dcb3",
+              "TableName": "CreateTableThenInsertItem-3",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:06:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3910626958",
+                "x-amzn-requestid": "V8RPB7IDP9KD063IP1H1GJLBNBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "V8RPB7IDP9KD063IP1H1GJLBNBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4",
+              "TableId": "cb0c1381-0b38-4514-9a0b-55eae474db3c",
+              "TableName": "CreateTableThenInsertItem-4",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:06:27 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2002749462",
+                "x-amzn-requestid": "E3O05D10U7M2DJLBHGMEQS3DH7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "E3O05D10U7M2DJLBHGMEQS3DH7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4",
+              "TableId": "cb0c1381-0b38-4514-9a0b-55eae474db3c",
+              "TableName": "CreateTableThenInsertItem-4",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:04:00 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1366073531",
+                "x-amzn-requestid": "HK9JJ9LROLMQMSEGR34AOIP8JJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "HK9JJ9LROLMQMSEGR34AOIP8JJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "4c2ed78a-6aa9-4eca-8e4c-0c82ea26e026",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:03:57 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3475260963",
+                "x-amzn-requestid": "RS7CJO1IATP095618GB7BAB49NVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "RS7CJO1IATP095618GB7BAB49NVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "4c2ed78a-6aa9-4eca-8e4c-0c82ea26e026",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:32 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2783367990",
+                "x-amzn-requestid": "GMLDSV6V4FP7PK59QQP5JG8F7RVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "GMLDSV6V4FP7PK59QQP5JG8F7RVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1001272750",
+                "x-amzn-requestid": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:05:39 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3802093030",
+                "x-amzn-requestid": "G86TAQQVO2A4LIFUHE86E7K9OJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "G86TAQQVO2A4LIFUHE86E7K9OJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-5",
+              "TableId": "36d8bc05-accc-4654-8695-0a7fdba11bb9",
+              "TableName": "CreateTableThenInsertItem-5",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:05:36 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2094510974",
+                "x-amzn-requestid": "U6IU0MB2J9BHVSLBA02OBCO9OJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "U6IU0MB2J9BHVSLBA02OBCO9OJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-5",
+              "TableId": "36d8bc05-accc-4654-8695-0a7fdba11bb9",
+              "TableName": "CreateTableThenInsertItem-5",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "619",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:36 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2096586359",
+                "x-amzn-requestid": "I7V55LK7SEO0VKTIDI3J193RLJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "I7V55LK7SEO0VKTIDI3J193RLJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "ACTIVE"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1001272750",
+                "x-amzn-requestid": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "649",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:59:25 GMT",
+                "server": "Server",
+                "x-amz-crc32": "4048986012",
+                "x-amzn-requestid": "DUFUR2BEOPV79S481LNMMI29I7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "DUFUR2BEOPV79S481LNMMI29I7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartitionKey", "AttributeType": "S" },
+                { "AttributeName": "SortKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
+                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-2",
+              "TableId": "dd3f14a5-1f93-4889-80c3-68443b7c5816",
+              "TableName": "CreateTableThenInsertItem-2",
+              "TableSizeBytes": 0,
+              "TableStatus": "ACTIVE"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "662",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:59:18 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2400000119",
+                "x-amzn-requestid": "LA8JAO804FICL5V0J1N2032OMJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "LA8JAO804FICL5V0J1N2032OMJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartitionKey", "AttributeType": "S" },
+                { "AttributeName": "SortKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
+                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-2",
+              "TableId": "dd3f14a5-1f93-4889-80c3-68443b7c5816",
+              "TableName": "CreateTableThenInsertItem-2",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "637",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:01:01 GMT",
+                "server": "Server",
+                "x-amz-crc32": "858485169",
+                "x-amzn-requestid": "CJ6NCIP7IG3T8IK5F98L4QE7HBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "CJ6NCIP7IG3T8IK5F98L4QE7HBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "ItemCap", "AttributeType": "N" },
+                { "AttributeName": "ItemId", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "ItemId", "KeyType": "HASH" },
+                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "0b257aef-8bb5-4e80-90ef-25e5f03bf063",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "ACTIVE"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "650",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:00:54 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3500732468",
+                "x-amzn-requestid": "DQSSOL56K6O1ULIEAUVNSEJHGJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "DQSSOL56K6O1ULIEAUVNSEJHGJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "ItemCap", "AttributeType": "N" },
+                { "AttributeName": "ItemId", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "ItemId", "KeyType": "HASH" },
+                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "0b257aef-8bb5-4e80-90ef-25e5f03bf063",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "653",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:09:37 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1452607509",
+                "x-amzn-requestid": "OSDP7USFDT7QQD9STPV3QGVC3RVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "OSDP7USFDT7QQD9STPV3QGVC3RVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartioningKey", "AttributeType": "S" },
+                { "AttributeName": "RangeKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
+                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-6",
+              "TableId": "2f616415-8223-45a3-bdf5-55e577f40175",
+              "TableName": "CreateTableThenInsertItem-6",
+              "TableSizeBytes": 0,
+              "TableStatus": "ACTIVE"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "666",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:09:30 GMT",
+                "server": "Server",
+                "x-amz-crc32": "478838049",
+                "x-amzn-requestid": "SH6HV32LHNBMT8HG102S7H29GJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "SH6HV32LHNBMT8HG102S7H29GJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartioningKey", "AttributeType": "S" },
+                { "AttributeName": "RangeKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
+                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-6",
+              "TableId": "2f616415-8223-45a3-bdf5-55e577f40175",
+              "TableName": "CreateTableThenInsertItem-6",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "619",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:02:39 GMT",
+                "server": "Server",
+                "x-amz-crc32": "708387617",
+                "x-amzn-requestid": "2KIM6IS0LBDQ87ID16DSAJ8LT3VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "2KIM6IS0LBDQ87ID16DSAJ8LT3VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-3",
+              "TableId": "5dc9e36e-5ab2-433f-9da3-4cbd27a7dcb3",
+              "TableName": "CreateTableThenInsertItem-3",
+              "TableSizeBytes": 0,
+              "TableStatus": "ACTIVE"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:02:33 GMT",
+                "server": "Server",
+                "x-amz-crc32": "4194014259",
+                "x-amzn-requestid": "M0671OV2JQUNB9SR66L4CO0KQRVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "M0671OV2JQUNB9SR66L4CO0KQRVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-3",
+              "TableId": "5dc9e36e-5ab2-433f-9da3-4cbd27a7dcb3",
+              "TableName": "CreateTableThenInsertItem-3",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:06:33 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3910626958",
+                "x-amzn-requestid": "NT5OLS62BBLVMHU78GFFQ5MGAVVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "NT5OLS62BBLVMHU78GFFQ5MGAVVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4",
+              "TableId": "cb0c1381-0b38-4514-9a0b-55eae474db3c",
+              "TableName": "CreateTableThenInsertItem-4",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:06:27 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2002749462",
+                "x-amzn-requestid": "E3O05D10U7M2DJLBHGMEQS3DH7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "E3O05D10U7M2DJLBHGMEQS3DH7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4",
+              "TableId": "cb0c1381-0b38-4514-9a0b-55eae474db3c",
+              "TableName": "CreateTableThenInsertItem-4",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:04:04 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1366073531",
+                "x-amzn-requestid": "THNTB82GS26OAMIDVROAB2ID8VVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "THNTB82GS26OAMIDVROAB2ID8VVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "4c2ed78a-6aa9-4eca-8e4c-0c82ea26e026",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:03:57 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3475260963",
+                "x-amzn-requestid": "RS7CJO1IATP095618GB7BAB49NVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "RS7CJO1IATP095618GB7BAB49NVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "4c2ed78a-6aa9-4eca-8e4c-0c82ea26e026",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "621",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:32 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2783367990",
+                "x-amzn-requestid": "GMLDSV6V4FP7PK59QQP5JG8F7RVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "GMLDSV6V4FP7PK59QQP5JG8F7RVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1001272750",
+                "x-amzn-requestid": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "619",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:05:43 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1424702663",
+                "x-amzn-requestid": "1A3F9N0LTCGMAABRREV203QU17VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "1A3F9N0LTCGMAABRREV203QU17VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-5",
+              "TableId": "36d8bc05-accc-4654-8695-0a7fdba11bb9",
+              "TableName": "CreateTableThenInsertItem-5",
+              "TableSizeBytes": 0,
+              "TableStatus": "ACTIVE"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:05:36 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2094510974",
+                "x-amzn-requestid": "U6IU0MB2J9BHVSLBA02OBCO9OJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "U6IU0MB2J9BHVSLBA02OBCO9OJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-5",
+              "TableId": "36d8bc05-accc-4654-8695-0a7fdba11bb9",
+              "TableName": "CreateTableThenInsertItem-5",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1001272750",
+                "x-amzn-requestid": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "662",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:59:18 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2400000119",
+                "x-amzn-requestid": "LA8JAO804FICL5V0J1N2032OMJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "LA8JAO804FICL5V0J1N2032OMJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartitionKey", "AttributeType": "S" },
+                { "AttributeName": "SortKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
+                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-2",
+              "TableId": "dd3f14a5-1f93-4889-80c3-68443b7c5816",
+              "TableName": "CreateTableThenInsertItem-2",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "650",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:00:54 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3500732468",
+                "x-amzn-requestid": "DQSSOL56K6O1ULIEAUVNSEJHGJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "DQSSOL56K6O1ULIEAUVNSEJHGJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "ItemCap", "AttributeType": "N" },
+                { "AttributeName": "ItemId", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "ItemId", "KeyType": "HASH" },
+                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "0b257aef-8bb5-4e80-90ef-25e5f03bf063",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "666",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:09:30 GMT",
+                "server": "Server",
+                "x-amz-crc32": "478838049",
+                "x-amzn-requestid": "SH6HV32LHNBMT8HG102S7H29GJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "SH6HV32LHNBMT8HG102S7H29GJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PartioningKey", "AttributeType": "S" },
+                { "AttributeName": "RangeKey", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
+                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-6",
+              "TableId": "2f616415-8223-45a3-bdf5-55e577f40175",
+              "TableName": "CreateTableThenInsertItem-6",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:02:33 GMT",
+                "server": "Server",
+                "x-amz-crc32": "4194014259",
+                "x-amzn-requestid": "M0671OV2JQUNB9SR66L4CO0KQRVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "M0671OV2JQUNB9SR66L4CO0KQRVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-3",
+              "TableId": "5dc9e36e-5ab2-433f-9da3-4cbd27a7dcb3",
+              "TableName": "CreateTableThenInsertItem-3",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "619",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:06:42 GMT",
+                "server": "Server",
+                "x-amz-crc32": "53592885",
+                "x-amzn-requestid": "88MUEA9SPO1N60H9SVLKHQC7EBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "88MUEA9SPO1N60H9SVLKHQC7EBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4",
+              "TableId": "cb0c1381-0b38-4514-9a0b-55eae474db3c",
+              "TableName": "CreateTableThenInsertItem-4",
+              "TableSizeBytes": 0,
+              "TableStatus": "ACTIVE"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:06:27 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2002749462",
+                "x-amzn-requestid": "E3O05D10U7M2DJLBHGMEQS3DH7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "E3O05D10U7M2DJLBHGMEQS3DH7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4",
+              "TableId": "cb0c1381-0b38-4514-9a0b-55eae474db3c",
+              "TableName": "CreateTableThenInsertItem-4",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "619",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:04:12 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1691502095",
+                "x-amzn-requestid": "LC0HOTEMI1ROUTUK6UCNL4LO77VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "LC0HOTEMI1ROUTUK6UCNL4LO77VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "4c2ed78a-6aa9-4eca-8e4c-0c82ea26e026",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "ACTIVE"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:03:57 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3475260963",
+                "x-amzn-requestid": "RS7CJO1IATP095618GB7BAB49NVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "RS7CJO1IATP095618GB7BAB49NVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "4c2ed78a-6aa9-4eca-8e4c-0c82ea26e026",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "619",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:36 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2096586359",
+                "x-amzn-requestid": "I7V55LK7SEO0VKTIDI3J193RLJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "I7V55LK7SEO0VKTIDI3J193RLJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "Table": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "ACTIVE"
+            }
+          },
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 13:54:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1001272750",
+                "x-amzn-requestid": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "69I0SFGSHLEKFLP4L1DE6M72R7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "S" },
+                { "AttributeName": "SK", "AttributeType": "S" }
+              ],
+              "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1",
+              "TableId": "5819cecc-e213-4e87-8cfd-5ee45a93375c",
+              "TableName": "CreateTableThenInsertItem-1",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "632",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:05:36 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2094510974",
+                "x-amzn-requestid": "U6IU0MB2J9BHVSLBA02OBCO9OJVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "U6IU0MB2J9BHVSLBA02OBCO9OJVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            },
+            "TableDescription": {
+              "AttributeDefinitions": [
+                { "AttributeName": "PK", "AttributeType": "N" },
+                { "AttributeName": "SK", "AttributeType": "N" }
+              ],
+              "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
+              "DeletionProtectionEnabled": false,
+              "ItemCount": 0,
+              "KeySchema": [
+                { "AttributeName": "PK", "KeyType": "HASH" },
+                { "AttributeName": "SK", "KeyType": "RANGE" }
+              ],
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 5,
+                "WriteCapacityUnits": 5
+              },
+              "TableArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-5",
+              "TableId": "36d8bc05-accc-4654-8695-0a7fdba11bb9",
+              "TableName": "CreateTableThenInsertItem-5",
+              "TableSizeBytes": 0,
+              "TableStatus": "CREATING"
+            }
+          }
+        ],
+        "output": null
+      }
+    ]
+  }
+]
