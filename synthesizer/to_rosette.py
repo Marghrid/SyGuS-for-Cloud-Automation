@@ -15,10 +15,10 @@ def to_racket(i: Any):
     if isinstance(i, list):
         return f'(list {" ".join(map(to_racket, i))})'
     if isinstance(i, dict):
-        # dict is a list of pairs
+        # dict is a list of KV structs
         s = "(list "
         for k, v in i.items():
-            s += f'(cons {to_racket(k)} {to_racket(v)}) '
+            s += f'(KV {to_racket(k)} {to_racket(v)}) '
             # s += f'({to_racket(k)} . {to_racket(v)}) '
         s += ")"
         return s
@@ -106,7 +106,7 @@ def get_racket_indices(synt_decl: dict[str:Any]) -> list[int]:
 
 def rosette_file_preamble():
     return f"""#lang rosette
-    
+
 (require racket/include)
 (require racket/dict)
 (require rosette/lib/synthax)
@@ -208,7 +208,7 @@ def build_specialized_rosette_grammar(keys, indices, values):
         s += f'\n  [syntKey (choose {keys_str})]'
 
     s += f"""
-  [syntInt 
+  [syntInt
     (choose {indices_str}
     (length (syntJ))
   )]"""
