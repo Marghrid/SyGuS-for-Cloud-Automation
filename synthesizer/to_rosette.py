@@ -329,10 +329,10 @@ def to_jsonpath(ast):
             return f'{to_jsonpath(a0)}[{a1}]'
         elif f_name == 'syntEq':
             a0, a1 = f_args
-            return f'{to_jsonpath(a0)} == {to_jsonpath(a1)}'
+            return f'({to_jsonpath(a0)} == {to_jsonpath(a1)})'
         elif f_name == 'not':
             a0 = f_args
-            return f'!{to_jsonpath(a0)}'
+            return f'! ({to_jsonpath(a0)})'
         elif f_name == 'empty?':
             a0 = f_args
             return f'(len({to_jsonpath(a0)}) == 0)'
