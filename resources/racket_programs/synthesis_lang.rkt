@@ -2,42 +2,50 @@
 
 (require rosette/lib/synthax)
 
+(struct KV (K V) #:transparent)
+
 ; check if an object is a dict
 (define (is_synt_dict obj)
   (and (dict? obj)
        (andmap
-        (lambda (el) (and (pair? el) (string? (car el))))
+        (lambda (el) (and (KV? el) (string? (KV-K el))))
         obj)
        )
   )
 
 ; select the child with key in obj
 (define (child obj key)
-  (let ([x (assoc key obj)]) (if (not x) null (cdr x))))
+  (if (list? obj)
+      (let ([maybe-child (findf (lambda (arg) (and (KV? arg) (equal? (KV-K arg) key))) obj)])
+        (if maybe-child (KV-V maybe-child) null))
+      null))
 
 ; select the object at index in obj
 (define (index obj idx)
   (cond
     [(is_synt_dict obj) null]
-    [(list? obj) (if (> (length obj) idx) (list-ref obj idx) null)]
+    [(list? obj) (if (> (length obj) idx) (list-ref obj idx) (list))]
     [else null]
     )
   )
 
 ; descendant selects all descendants with key key
 (define (descendant obj key)
-  (cond
-    [(list? obj)
-     (flatten
-      (map
-       (lambda (x)
-         (if (pair? x)
-             (if (equal? (car x) key) (list (cdr x)) (descendant (cdr x) key))
-             (descendant x key)))
-       obj))]
-    [else null]
-    )
-  )
+  (append* (cond
+             [(list? obj)
+              (append
+               (map
+                (lambda (x)
+                  (if (KV? x)
+                      (if
+                       (equal? (KV-K x) key)
+                       (list (KV-V x))
+                       (descendant (KV-V x) key))
+                      (descendant x key)))
+                obj))]
+             [else (list)]
+             )))
+
 
 ; syntEq compares two objects for equality
 (define (syntEq arg1 arg2)
@@ -66,3 +74,4 @@
 (provide descendant)
 (provide syntEq)
 (provide syntAdd)
+(provide KV)
