@@ -11,7 +11,8 @@ import time
 from typing import Any
 
 from synthesizer.to_rosette import build_general_rosette_grammar, build_rosette_samples, build_rosette_synthesis_query, \
-    convert_rosette_to_jsonpath, get_racket_indices, get_racket_keys, get_racket_values, rosette_file_preamble
+    convert_rosette_to_jsonpath, get_rosette_start_symbol, rosette_file_preamble
+from synthesizer.to_synthesis import get_synthesis_indices, get_synthesis_keys, get_synthesis_values
 from synthesizer.util import human_time
 
 valid_sat_subproblem_solutions = []  # Where each subproblem thread saves its positive solution
@@ -32,13 +33,13 @@ def my_hash(s: str) -> int:
     return abs(int(hashlib.sha512(s.encode('utf-8')).hexdigest(), 16) % 10 ** 12)
 
 
-def get_racket_filename(depth: int, func_name: str, instance_name: str, keys: list[str],
-                        values: list[str]) -> str:
+def get_synthesis_filename(depth: int, func_name: str, instance_name: str, keys: list[str],
+                           values: list[str], extenstion: str = 'txt') -> str:
     timestamp = get_timestamp()
 
     return (f'{instance_name}{"" if func_name[0] == "_" else "_"}'
             f'{func_name}_{my_hash(str(keys) + str(values))}_'
-            f'{depth}_{timestamp}.rkt')
+            f'{depth}_{timestamp}.{extenstion}')
 
 
 def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dict[str:Any], str]:
@@ -129,10 +130,31 @@ def run_racket_command(racket_filename: str, timeout: int) -> str:
             try:
                 racket_out = convert_rosette_to_jsonpath(racket_out)
             except Exception as e:
-                raise RuntimeError(f'Something wrong with racket output to {" ".join(racket_command)}:\n{result.stdout}\n{e}')
+                raise RuntimeError(
+                    f'Something wrong with racket output to {" ".join(racket_command)}:\n{result.stdout}\n{e}')
         if len(result.stderr) > 0:
             print('racket call stderr:', result.stderr)
         return racket_out
+
+    except subprocess.TimeoutExpired:
+        return f'(timeout {human_time(timeout)})'
+
+
+def run_cvc5_command(cvc5_filename: str, timeout: int) -> str:
+    """
+    Runs a pre-written CVC5 Sygus file and returns the solution, in our jsonpath format.
+    :param cvc5_filename: The name of the file with the sygus problem
+    :param timeout: Synthesis timeout in seconds
+    :return: solution in jsonpath format
+    """
+    racket_command = ['timeout', '-k', str(timeout + 10), str(timeout + 1), 'cvc5', cvc5_filename]
+    try:
+        result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
+
+        cvc5_out = ""
+        raise NotImplementedError("TODO: parse cvc5 output to jsonpath format")
+
+        return cvc5_out
 
     except subprocess.TimeoutExpired:
         return f'(timeout {human_time(timeout)})'
@@ -160,17 +182,18 @@ def synthesize_data_transforms(instance_name: str,
     for synt_decl in sorted(synt_decls, key=lambda decl: decl['name']):
 
         # String values collected from the instances, because Rosette's strings are not solvable types.
-        keys = sorted(get_racket_keys(synt_decl))
-        indices = get_racket_indices(synt_decl)
-        values = sorted(get_racket_values(synt_decl), key=lambda v: (isinstance(v, str), v))
+        keys = sorted(get_synthesis_keys(synt_decl))
+        indices = get_synthesis_indices(synt_decl)
+        values = sorted(get_synthesis_values(synt_decl), key=lambda v: (isinstance(v, str), v))
 
         num_processes = multiprocessing.cpu_count() // 2
 
-        # If there are many keys and/or values and we have more than one CPU,
+        # If there are many keys and/or values, and we have more than one CPU,
         # we split the keys and values into subsets and make smaller subproblems.
         if (len(keys) > 15 or len(values) > 15) and num_processes > 1:
-            # We split it, so we have (approximately) as many subproblems per depth as the computer has CPUs.
-            # total_keys_vals = len(keys) + len(values)
+            # We split it, so we have (approximately) as many subproblems
+            # per depth as the computer has CPUs.
+            # Total_keys_vals = len(keys) + len(values)
             # list_size = max(1, int(total_keys_vals / max(1, 4*num_processes - 1)))
             # Fixed listsize:
             list_size = 16
@@ -266,13 +289,14 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
     global valid_sat_subproblem_solutions
     global timeout_or_unsat_complete_problem_solution
     synt_decl, comment = preprocess(synt_decl, use_metadata)
+    start_symbol = get_rosette_start_symbol(synt_decl['constraints'])
     rosette_text = ''
     rosette_text += rosette_file_preamble()
     rosette_text += build_general_rosette_grammar(keys, indices, values)
     rosette_text += build_rosette_samples(synt_decl)
-    rosette_text += build_rosette_synthesis_query(synt_decl, depth)
+    rosette_text += build_rosette_synthesis_query(synt_decl, depth, start_symbol)
     func_name = synt_decl['name']
-    racket_suffix = get_racket_filename(depth, func_name, instance_name, keys, values)
+    racket_suffix = get_synthesis_filename(depth, func_name, instance_name, keys, values, 'rkt')
     with tempfile.NamedTemporaryFile('w', suffix=racket_suffix, delete=False) as f:
         f.write(rosette_text)
         racket_filename = f.name
@@ -306,7 +330,7 @@ def main():
 
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
-        # To solve a specific instance:
+        # Edit below to solve a specific instance:
         # if '0cd60c' not in filename:
         #     continue
         with open(filename, 'r') as f:

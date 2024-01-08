@@ -1,8 +1,6 @@
 import os
 from collections import deque
 from typing import Any
-import dateutil.parser
-
 
 
 def to_racket(i: Any):
@@ -26,88 +24,6 @@ def to_racket(i: Any):
         return s
 
     raise NotImplementedError(f'to_racket not implemented for {i.__class__.__name__}')
-
-
-def get_racket_keys_aux(i: Any, depth: int = 0, max_depth: int = 100000) -> set[str]:
-    if depth >= max_depth:
-        return set()
-    if i is None:
-        return set()
-    if isinstance(i, str):
-        return set()
-    if isinstance(i, int):
-        return set()
-    if isinstance(i, list):
-        return set().union(*(get_racket_keys_aux(e, depth + 1, max_depth) for e in i))
-    if isinstance(i, dict):
-        return set(i.keys()).union(*(get_racket_keys_aux(v, depth + 1, max_depth) for v in i.values()))
-
-    raise NotImplementedError(f'get_racket_keys_aux not implemented for {i.__class__.__name__}')
-
-
-def get_racket_values_aux(i: Any) -> set[Any]:
-    if i is None:
-        return set()
-    if isinstance(i, bool):
-        return set()
-    if isinstance(i, str):
-        try:
-            dateutil.parser.parse(i)
-            return set()
-        except (dateutil.parser._parser.ParserError, OverflowError):
-            return {i.replace('"', '\\"')}
-    if isinstance(i, int):
-        return {i}
-    if isinstance(i, list):
-        return set().union(*(get_racket_values_aux(e) for e in i))
-    if isinstance(i, dict):
-        return set().union(*(get_racket_values_aux(v) for v in i.values()))
-
-    raise NotImplementedError(f'get_racket_values_aux not implemented for {i.__class__.__name__}')
-
-
-def get_racket_max_list_index(i: Any) -> int:
-    if isinstance(i, str):
-        return 0
-    if isinstance(i, int):
-        return 0
-    if i is None:
-        return 0
-    if isinstance(i, list):
-        if len(i) == 0:
-            return 0
-        return max([len(i)] + [get_racket_max_list_index(e) for e in i])
-    if isinstance(i, dict):
-        if len(i) == 0:
-            return 0
-        return max([get_racket_max_list_index(e) for e in i.values()])
-
-    raise NotImplementedError(f'get_racket_max_list_index not implemented for {i.__class__.__name__}')
-
-
-def get_racket_keys(synt_decl: dict[str:Any], max_depth: int = 100000) -> set[str]:
-    keys = set()
-    for ctr in synt_decl['constraints']:
-        keys.update(get_racket_keys_aux(ctr['inputs'], 0, max_depth))
-
-    return keys
-
-
-def get_racket_values(synt_decl) -> set[str]:
-    values = set()
-    for ctr in synt_decl['constraints']:
-        values.update(get_racket_values_aux(ctr['inputs']))
-
-    return values
-
-
-def get_racket_indices(synt_decl: dict[str:Any]) -> list[int]:
-    current_max = 2  # Ensures there are at least 2 values for indices
-    for ctr in synt_decl['constraints']:
-        n = get_racket_max_list_index(ctr['inputs'])
-        if n > current_max:
-            current_max = n
-    return list(range(current_max))
 
 
 def rosette_file_preamble():
@@ -160,70 +76,6 @@ def build_general_rosette_grammar(keys, indices, values):
     return s
 
 
-def build_specialized_rosette_grammar(keys, indices, values):
-    keys_str = ' '.join(f'"{k}"' for k in keys)
-    values_str = ' '.join(f'"{v}"' if isinstance(v, str) else f'{v}' for v in values)
-    indices_str = ' '.join(map(str, indices))
-    s = f"""
-(define-grammar (json-selector x)
-  [syntBool
-    (choose
-     (empty? (syntList))
-     (empty? (syntDict))
-     (not (syntBool))"""
-
-    if len(values) > 0:
-        s += '\n     (syntEq (syntJ) (syntVal))'
-
-    s += '\n    )'
-    s += """
-  ]"""
-
-    s = f"""
-  [syntList
-   (choose
-    (index x (syntInt))"""
-    if len(keys) > 0:
-        s += f"""
-    (child (syntDiec) (syntKey))
-    (descendant (syntList) (syntKey))
-    (descendant (syntDict) (syntKey))
-    (syntAdd (syntList) (syntList))"""
-
-    s += "\n    (index (syntList) (syntInt))"
-    if len(values) > 0:
-        s += '\n'
-    s += "\n   )]"
-
-    s = f"""
-  [syntDict
-    (choose
-      (index x (syntInt))
-"""
-    if len(keys) > 0:
-        s += f"""
-        (child (syntDict) (syntKey))
-        (descendant (syntJ) (syntKey))"""
-
-    s += "\n    (index (syntJ) (syntInt))"
-    if len(values) > 0:
-        s += '\n(syntAdd (syntVal) (syntJ))'
-    s += "\n   )]"
-
-    if len(keys) > 0:
-        s += f'\n  [syntKey (choose {keys_str})]'
-
-    s += f"""
-  [syntInt
-    (choose {indices_str}
-    (length (syntJ))
-  )]"""
-    if len(values) > 0:
-        s += f'\n  [syntVal (choose {values_str})]'
-    s += '\n  )\n\n'
-    return s
-
-
 def build_rosette_samples(synt_decl):
     s = ''
     for io_idx, io in enumerate(synt_decl['constraints']):
@@ -232,23 +84,27 @@ def build_rosette_samples(synt_decl):
     return s
 
 
-def build_rosette_synthesis_query(synt_decl, depth):
+def get_rosette_start_symbol(ctrs: list[dict[str, Any]]) -> str:
+    if all(isinstance(ctr["output"], bool) for ctr in ctrs):
+        start_symb = 'syntBool'
+    elif all(isinstance(ctr["output"], list) for ctr in ctrs) or \
+            all(isinstance(ctr["output"], dict) for ctr in ctrs) or \
+            all(isinstance(ctr["output"], int) for ctr in ctrs) or \
+            all(isinstance(ctr["output"], str) for ctr in ctrs):
+        start_symb = 'syntJ'
+    else:
+        raise NotImplementedError(f'Which startSymbol for '
+                                  f'{[ctr["output"].__class__.__name__ for ctr in ctrs]}')
+    return start_symb
+
+
+def build_rosette_synthesis_query(synt_decl, depth: int, start_symb: str):
     asserts = []
     f_name = synt_decl["name"]
     for ctr_idx, ctr in enumerate(synt_decl["constraints"]):
         asserts.append(f'(assert (equal? ({f_name} sample{ctr_idx}) {to_racket(ctr["output"])}))')
 
     asserts_str = ('\n' + ' ' * 10).join(asserts)
-    if all(isinstance(ctr["output"], bool) for ctr in synt_decl["constraints"]):
-        start_symb = 'syntBool'
-    elif all(isinstance(ctr["output"], list) for ctr in synt_decl["constraints"]) or \
-            all(isinstance(ctr["output"], dict) for ctr in synt_decl["constraints"]) or \
-            all(isinstance(ctr["output"], int) for ctr in synt_decl["constraints"]) or \
-            all(isinstance(ctr["output"], str) for ctr in synt_decl["constraints"]):
-        start_symb = 'syntJ'
-    else:
-        raise NotImplementedError(f'Which startSymbol for '
-                                  f'{[ctr["output"].__class__.__name__ for ctr in synt_decl["constraints"]]}')
 
     s = f"""
 (define ({f_name} x)
