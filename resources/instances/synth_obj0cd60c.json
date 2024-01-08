@@ -18,8 +18,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PartitionKey", "KeyType": "HASH" },
-                  { "AttributeName": "SortKey", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PartitionKey",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "SortKey",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -91,8 +97,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PK", "KeyType": "HASH" },
-                  { "AttributeName": "SK", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PK",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "SK",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -164,8 +176,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PK", "KeyType": "HASH" },
-                  { "AttributeName": "SK", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PK",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "SK",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -237,8 +255,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PartioningKey", "KeyType": "HASH" },
-                  { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PartioningKey",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "RangeKey",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -310,8 +334,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PK", "KeyType": "HASH" },
-                  { "AttributeName": "SK", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PK",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "SK",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -383,8 +413,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PK", "KeyType": "HASH" },
-                  { "AttributeName": "SK", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PK",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "SK",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -456,8 +492,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PartitionKey", "KeyType": "HASH" },
-                  { "AttributeName": "SortKey", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PartitionKey",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "SortKey",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -559,8 +601,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PK", "KeyType": "HASH" },
-                  { "AttributeName": "SK", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PK",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "SK",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -632,8 +680,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PartioningKey", "KeyType": "HASH" },
-                  { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PartioningKey",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "RangeKey",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -705,8 +759,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PK", "KeyType": "HASH" },
-                  { "AttributeName": "SK", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PK",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "SK",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -778,8 +838,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PK", "KeyType": "HASH" },
-                  { "AttributeName": "SK", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PK",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "SK",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,
@@ -851,8 +917,14 @@
                 "BillingMode": "PROVISIONED",
                 "ItemCount": 0,
                 "KeySchema": [
-                  { "AttributeName": "PartitionKey", "KeyType": "HASH" },
-                  { "AttributeName": "SortKey", "KeyType": "RANGE" }
+                  {
+                    "AttributeName": "PartitionKey",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "SortKey",
+                    "KeyType": "RANGE"
+                  }
                 ],
                 "ProvisionedThroughput": {
                   "ReadCapacityUnits": 5,

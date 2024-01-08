@@ -21,15 +21,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -60,15 +72,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -104,15 +128,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartitionKey", "AttributeType": "S" },
-                { "AttributeName": "SortKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
-                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -143,15 +179,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartitionKey", "AttributeType": "S" },
-                { "AttributeName": "SortKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
-                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -187,15 +235,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "ItemCap", "AttributeType": "N" },
-                { "AttributeName": "ItemId", "AttributeType": "S" }
+                {
+                  "AttributeName": "ItemCap",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "ItemId",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "ItemId", "KeyType": "HASH" },
-                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "ItemId",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "ItemCap",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -226,15 +286,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "ItemCap", "AttributeType": "N" },
-                { "AttributeName": "ItemId", "AttributeType": "S" }
+                {
+                  "AttributeName": "ItemCap",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "ItemId",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "ItemId", "KeyType": "HASH" },
-                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "ItemId",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "ItemCap",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -270,15 +342,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartioningKey", "AttributeType": "S" },
-                { "AttributeName": "RangeKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
-                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -309,15 +393,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartioningKey", "AttributeType": "S" },
-                { "AttributeName": "RangeKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
-                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -353,15 +449,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -392,15 +500,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -436,15 +556,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -475,15 +607,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -519,15 +663,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -558,15 +714,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -602,15 +770,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -641,15 +821,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -685,15 +877,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -724,15 +928,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -768,15 +984,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -807,15 +1035,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -851,15 +1091,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartitionKey", "AttributeType": "S" },
-                { "AttributeName": "SortKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
-                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -890,15 +1142,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartitionKey", "AttributeType": "S" },
-                { "AttributeName": "SortKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
-                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -934,15 +1198,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "ItemCap", "AttributeType": "N" },
-                { "AttributeName": "ItemId", "AttributeType": "S" }
+                {
+                  "AttributeName": "ItemCap",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "ItemId",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "ItemId", "KeyType": "HASH" },
-                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "ItemId",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "ItemCap",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -973,15 +1249,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "ItemCap", "AttributeType": "N" },
-                { "AttributeName": "ItemId", "AttributeType": "S" }
+                {
+                  "AttributeName": "ItemCap",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "ItemId",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "ItemId", "KeyType": "HASH" },
-                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "ItemId",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "ItemCap",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1017,15 +1305,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartioningKey", "AttributeType": "S" },
-                { "AttributeName": "RangeKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
-                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1056,15 +1356,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartioningKey", "AttributeType": "S" },
-                { "AttributeName": "RangeKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
-                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1100,15 +1412,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1139,15 +1463,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1183,15 +1519,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1222,15 +1570,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1266,15 +1626,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1305,15 +1677,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1349,15 +1733,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1388,15 +1784,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1432,15 +1840,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1471,15 +1891,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1515,15 +1947,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1554,15 +1998,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1598,15 +2054,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartitionKey", "AttributeType": "S" },
-                { "AttributeName": "SortKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
-                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1637,15 +2105,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartitionKey", "AttributeType": "S" },
-                { "AttributeName": "SortKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
-                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1681,15 +2161,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "ItemCap", "AttributeType": "N" },
-                { "AttributeName": "ItemId", "AttributeType": "S" }
+                {
+                  "AttributeName": "ItemCap",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "ItemId",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "ItemId", "KeyType": "HASH" },
-                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "ItemId",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "ItemCap",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1720,15 +2212,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "ItemCap", "AttributeType": "N" },
-                { "AttributeName": "ItemId", "AttributeType": "S" }
+                {
+                  "AttributeName": "ItemCap",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "ItemId",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "ItemId", "KeyType": "HASH" },
-                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "ItemId",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "ItemCap",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1764,15 +2268,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartioningKey", "AttributeType": "S" },
-                { "AttributeName": "RangeKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
-                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1803,15 +2319,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartioningKey", "AttributeType": "S" },
-                { "AttributeName": "RangeKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
-                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1847,15 +2375,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1886,15 +2426,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1930,15 +2482,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -1969,15 +2533,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2013,15 +2589,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2052,15 +2640,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2096,15 +2696,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2135,15 +2747,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2179,15 +2803,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2218,15 +2854,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2263,15 +2911,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2308,15 +2968,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartitionKey", "AttributeType": "S" },
-                { "AttributeName": "SortKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:59:18.936000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartitionKey", "KeyType": "HASH" },
-                { "AttributeName": "SortKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartitionKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SortKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2353,15 +3025,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "ItemCap", "AttributeType": "N" },
-                { "AttributeName": "ItemId", "AttributeType": "S" }
+                {
+                  "AttributeName": "ItemCap",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "ItemId",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:00:54.668000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "ItemId", "KeyType": "HASH" },
-                { "AttributeName": "ItemCap", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "ItemId",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "ItemCap",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2398,15 +3082,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PartioningKey", "AttributeType": "S" },
-                { "AttributeName": "RangeKey", "AttributeType": "S" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:09:30.476000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PartioningKey", "KeyType": "HASH" },
-                { "AttributeName": "RangeKey", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PartioningKey",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "RangeKey",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2443,15 +3139,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:02:33.055000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2487,15 +3195,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2526,15 +3246,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:06:27.343000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2570,15 +3302,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2609,15 +3353,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:03:57.816000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2653,15 +3409,27 @@
             },
             "Table": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2692,15 +3460,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "S" },
-                { "AttributeName": "SK", "AttributeType": "S" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "S"
+                }
               ],
               "CreationDateTime": "2023-09-29 09:54:29.749000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,
@@ -2737,15 +3517,27 @@
             },
             "TableDescription": {
               "AttributeDefinitions": [
-                { "AttributeName": "PK", "AttributeType": "N" },
-                { "AttributeName": "SK", "AttributeType": "N" }
+                {
+                  "AttributeName": "PK",
+                  "AttributeType": "N"
+                },
+                {
+                  "AttributeName": "SK",
+                  "AttributeType": "N"
+                }
               ],
               "CreationDateTime": "2023-09-29 10:05:36.806000-04:00",
               "DeletionProtectionEnabled": false,
               "ItemCount": 0,
               "KeySchema": [
-                { "AttributeName": "PK", "KeyType": "HASH" },
-                { "AttributeName": "SK", "KeyType": "RANGE" }
+                {
+                  "AttributeName": "PK",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "SK",
+                  "KeyType": "RANGE"
+                }
               ],
               "ProvisionedThroughput": {
                 "NumberOfDecreasesToday": 0,

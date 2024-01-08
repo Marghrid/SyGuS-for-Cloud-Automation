@@ -8,15 +8,18 @@ import os.path
 import subprocess
 import tempfile
 import time
+from enum import Enum
 from typing import Any
 
-from synthesizer.to_rosette import build_general_rosette_grammar, build_rosette_samples, build_rosette_synthesis_query, \
-    convert_rosette_to_jsonpath, get_rosette_start_symbol, rosette_file_preamble
+from synthesizer.to_cvc5 import get_cvc5_query
+from synthesizer.to_rosette import convert_rosette_to_jsonpath, get_rosette_query
 from synthesizer.to_synthesis import get_synthesis_indices, get_synthesis_keys, get_synthesis_values
 from synthesizer.util import human_time
 
 valid_sat_subproblem_solutions = []  # Where each subproblem thread saves its positive solution
 timeout_or_unsat_complete_problem_solution = None  # Where the complete problem threads save the most recent timeout or unsat solution
+
+SynthesisSolver = Enum('SynthesisSolver', ['CVC5', 'Rosette'])
 
 
 def get_timestamp() -> str:
@@ -147,9 +150,9 @@ def run_cvc5_command(cvc5_filename: str, timeout: int) -> str:
     :param timeout: Synthesis timeout in seconds
     :return: solution in jsonpath format
     """
-    racket_command = ['timeout', '-k', str(timeout + 10), str(timeout + 1), 'cvc5', cvc5_filename]
+    cvc5_command = ['timeout', '-k', str(timeout + 10), str(timeout + 1), 'cvc5', cvc5_filename]
     try:
-        result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
+        result = subprocess.run(cvc5_command, capture_output=True, text=True, timeout=timeout)
 
         cvc5_out = ""
         raise NotImplementedError("TODO: parse cvc5 output to jsonpath format")
@@ -160,14 +163,14 @@ def run_cvc5_command(cvc5_filename: str, timeout: int) -> str:
         return f'(timeout {human_time(timeout)})'
 
 
-def synthesize_data_transforms(instance_name: str,
-                               synt_decls: list[dict[str:Any]],
-                               synthesis_timeout: int,
-                               use_metadata: bool = True) -> list[dict[str:Any]]:
+def synthesize_data_transforms(
+        instance_name: str, synt_decls: list[dict[str:Any]],
+        synthesis_timeout: int, use_metadata: bool = True) \
+        -> list[dict[str:Any]]:
     """
     Given synthesis function declarations, with a name and a list of constraints,
     synthesize a JSONPath expression for each undefined function.
-    :param instance_name: The instance name, which will be used to name auxiliary racket file and solution file.
+    :param instance_name: The instance name, which will be used to name auxiliary synthesis file and solution file.
     :param synt_decls: Input read from the json file.
     :param synthesis_timeout: Max synthesis time in seconds.
     :param use_metadata: Whether metadata should be used as input to the synthesis
@@ -214,7 +217,8 @@ def synthesize_data_transforms(instance_name: str,
 
         # Define the complete problem
         complete_problem_args = [
-            (synt_decl, indices, keys, values, depth, instance_name, synthesis_timeout, use_metadata, False) for
+            (synt_decl, indices, keys, values, depth, instance_name, SynthesisSolver.Rosette, synthesis_timeout,
+             use_metadata, False) for
             depth in range(2, 6)]
 
         valid_sat_subproblem_solutions = []  # clear list from previous runs
@@ -223,11 +227,11 @@ def synthesize_data_transforms(instance_name: str,
         # Start processes solving subproblems
         with multiprocessing.dummy.Pool(processes=num_processes - 1) as subproblems_pool:
             async_result_subproblems = subproblems_pool.starmap_async(
-                write_and_solve_rosette_problem, subproblems_args)
+                write_and_solve_synthesis_problem, subproblems_args)
 
             with multiprocessing.dummy.Pool(processes=1) as main_problem_pool:
                 async_result_complete_problem = main_problem_pool.starmap_async(
-                    write_and_solve_rosette_problem, complete_problem_args)
+                    write_and_solve_synthesis_problem, complete_problem_args)
 
                 start_time = time.perf_counter()
 
@@ -269,18 +273,19 @@ def synthesize_data_transforms(instance_name: str,
     return all_solutions
 
 
-def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[str], values: list[str],
-                                    depth: int, instance_name: str, synthesis_timeout: int,
-                                    use_metadata: bool, is_subproblem):
+def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[str], values: list[str],
+                                      depth: int, instance_name: str, synthesis_solver: SynthesisSolver,
+                                      synthesis_timeout: int, use_metadata: bool, is_subproblem: bool):
     """
-    Auxiliary function that, given information about a synthesis instance, writes a Rosette synthesis query in Racket
-    to a file and solves it.
+    Auxiliary function that, given information about a synthesis instance,
+    writes a synthesis query in synthesis_solver language to a file and solves it.
     :param synt_decl: The synthesis problem, read from the instance file.
     :param indices: The constant values that should be considered for SyntInt.
     :param keys: The strings that should be considered for SyntK.
     :param values: The strings that should be considered for SyntVal.
     :param depth: The maximum depth of the synthesized program.
     :param instance_name: The instance name.
+    :param synthesis_solver: The synthesis solver to use.
     :param synthesis_timeout: Synthesis timeout in seconds
     :param use_metadata: Whether metadata fields should be used for synthesis.
     :param is_subproblem: Whether this is a subproblem for a bigger synthesis problem.
@@ -289,23 +294,30 @@ def write_and_solve_rosette_problem(synt_decl, indices: list[int], keys: list[st
     global valid_sat_subproblem_solutions
     global timeout_or_unsat_complete_problem_solution
     synt_decl, comment = preprocess(synt_decl, use_metadata)
-    start_symbol = get_rosette_start_symbol(synt_decl['constraints'])
-    rosette_text = ''
-    rosette_text += rosette_file_preamble()
-    rosette_text += build_general_rosette_grammar(keys, indices, values)
-    rosette_text += build_rosette_samples(synt_decl)
-    rosette_text += build_rosette_synthesis_query(synt_decl, depth, start_symbol)
+    if synthesis_solver == SynthesisSolver.Rosette:
+        synthesis_text = get_rosette_query(depth, indices, keys, synt_decl, values)
+        extension = 'rkt'
+    elif synthesis_solver == SynthesisSolver.CVC5:
+        synthesis_text = get_cvc5_query(depth, indices, keys, synt_decl, values)
+        extension = 'smt2'
+    else:
+        raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
     func_name = synt_decl['name']
-    racket_suffix = get_synthesis_filename(depth, func_name, instance_name, keys, values, 'rkt')
-    with tempfile.NamedTemporaryFile('w', suffix=racket_suffix, delete=False) as f:
-        f.write(rosette_text)
-        racket_filename = f.name
-        print(f'Racket file written to {racket_filename}')
-    start_racket_call_time = time.perf_counter()
-    racket_out = run_racket_command(racket_filename, synthesis_timeout)
-    elapsed = time.perf_counter() - start_racket_call_time
+    suffix = get_synthesis_filename(depth, func_name, instance_name, keys, values, extension)
+    with tempfile.NamedTemporaryFile('w', suffix=suffix, delete=False) as f:
+        f.write(synthesis_text)
+        synthesis_filename = f.name
+        print(f'{synthesis_solver} file written to {synthesis_filename}')
+    start_call_time = time.perf_counter()
+    if synthesis_solver == SynthesisSolver.CVC5:
+        synthesis_ans_out = run_cvc5_command(synthesis_filename, synthesis_timeout)
+    elif synthesis_solver == SynthesisSolver.Rosette:
+        synthesis_ans_out = run_racket_command(synthesis_filename, synthesis_timeout)
+    else:
+        raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
+    elapsed = time.perf_counter() - start_call_time
     solution = {'name': func_name,
-                'solution': racket_out,
+                'solution': synthesis_ans_out,
                 'solve time': elapsed,
                 'solve time (h)': human_time(elapsed),
                 'keys': keys,
@@ -338,6 +350,7 @@ def main():
         instance_name = os.path.basename(filename).replace('.json', '')
         args.append((instance_name,
                      synt_decls,
+                     # SynthesisSolver.Rosette,
                      synthesis_timeout,
                      False  # use_metadata
                      ))

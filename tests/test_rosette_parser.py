@@ -18,5 +18,6 @@ class RosetteParserTests(unittest.TestCase):
 
     def test4(self):
         self.assertEqual(
-            convert_rosette_to_jsonpath('(define (f$_4 x) (syntEq (index (descendant (index x 1) "Name") 0) "stopping"))'),
-            '$[1]..Name[0] == "stopping"')
+            convert_rosette_to_jsonpath(
+                '(define (f$_4 x) (syntEq (index (descendant (index x 1) "Name") 0) "stopping"))'),
+            '($[1]..Name[0] == "stopping")')

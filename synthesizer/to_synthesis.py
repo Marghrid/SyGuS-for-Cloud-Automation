@@ -88,3 +88,17 @@ def get_synthesis_indices(synt_decl: dict[str:Any]) -> list[int]:
         if n > current_max:
             current_max = n
     return list(range(current_max))
+
+
+def get_start_symbol(ctrs: list[dict[str, Any]]) -> str:
+    if all(isinstance(ctr["output"], bool) for ctr in ctrs):
+        start_symb = 'syntBool'
+    elif all(isinstance(ctr["output"], list) for ctr in ctrs) or \
+            all(isinstance(ctr["output"], dict) for ctr in ctrs) or \
+            all(isinstance(ctr["output"], int) for ctr in ctrs) or \
+            all(isinstance(ctr["output"], str) for ctr in ctrs):
+        start_symb = 'syntJ'
+    else:
+        raise NotImplementedError(f'Which startSymbol for '
+                                  f'{[ctr["output"].__class__.__name__ for ctr in ctrs]}')
+    return start_symb

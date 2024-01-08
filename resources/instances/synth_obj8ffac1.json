@@ -28,19 +28,28 @@
                       "CapacityReservationPreference": "open"
                     },
                     "ClientToken": "46e991d1-fe6c-4f63-9baf-911e4dae3d2a",
-                    "CpuOptions": { "CoreCount": 1, "ThreadsPerCore": 1 },
+                    "CpuOptions": {
+                      "CoreCount": 1,
+                      "ThreadsPerCore": 1
+                    },
                     "CurrentInstanceBootMode": "legacy-bios",
                     "EbsOptimized": false,
                     "EnaSupport": true,
-                    "EnclaveOptions": { "Enabled": false },
-                    "HibernationOptions": { "Configured": false },
+                    "EnclaveOptions": {
+                      "Enabled": false
+                    },
+                    "HibernationOptions": {
+                      "Configured": false
+                    },
                     "Hypervisor": "xen",
                     "ImageId": "ami-05c13eab67c5d8861",
                     "InstanceId": "i-03207aab238d12d92",
                     "InstanceType": "t2.nano",
                     "KeyName": "ec2-test-1-creds",
                     "LaunchTime": "2023-11-15 20:52:21+00:00",
-                    "MaintenanceOptions": { "AutoRecovery": "default" },
+                    "MaintenanceOptions": {
+                      "AutoRecovery": "default"
+                    },
                     "MetadataOptions": {
                       "HttpEndpoint": "enabled",
                       "HttpProtocolIpv6": "disabled",
@@ -49,7 +58,9 @@
                       "InstanceMetadataTags": "disabled",
                       "State": "applied"
                     },
-                    "Monitoring": { "State": "disabled" },
+                    "Monitoring": {
+                      "State": "disabled"
+                    },
                     "NetworkInterfaces": [
                       {
                         "Association": {
@@ -122,10 +133,18 @@
                       }
                     ],
                     "SourceDestCheck": true,
-                    "State": { "Code": 16, "Name": "running" },
+                    "State": {
+                      "Code": 16,
+                      "Name": "running"
+                    },
                     "StateTransitionReason": "",
                     "SubnetId": "subnet-073e890f346d676a9",
-                    "Tags": [ { "Key": "Name", "Value": "test-instance-x" } ],
+                    "Tags": [
+                      {
+                        "Key": "Name",
+                        "Value": "test-instance-x"
+                      }
+                    ],
                     "UsageOperation": "RunInstances",
                     "UsageOperationUpdateTime": "2023-11-13 16:04:28+00:00",
                     "VirtualizationType": "hvm",
@@ -152,7 +171,9 @@
               "RetryAttempts": 0
             }
           },
-          [ "i-03207aab238d12d92" ],
+          [
+            "i-03207aab238d12d92"
+          ],
           null
         ],
         "output": false
@@ -183,19 +204,28 @@
                       "CapacityReservationPreference": "open"
                     },
                     "ClientToken": "46e991d1-fe6c-4f63-9baf-911e4dae3d2a",
-                    "CpuOptions": { "CoreCount": 1, "ThreadsPerCore": 1 },
+                    "CpuOptions": {
+                      "CoreCount": 1,
+                      "ThreadsPerCore": 1
+                    },
                     "CurrentInstanceBootMode": "legacy-bios",
                     "EbsOptimized": false,
                     "EnaSupport": true,
-                    "EnclaveOptions": { "Enabled": false },
-                    "HibernationOptions": { "Configured": false },
+                    "EnclaveOptions": {
+                      "Enabled": false
+                    },
+                    "HibernationOptions": {
+                      "Configured": false
+                    },
                     "Hypervisor": "xen",
                     "ImageId": "ami-05c13eab67c5d8861",
                     "InstanceId": "i-05e1b8dec5d6eab87",
                     "InstanceType": "t2.nano",
                     "KeyName": "ec2-test-1-creds",
                     "LaunchTime": "2023-11-14 15:27:45+00:00",
-                    "MaintenanceOptions": { "AutoRecovery": "default" },
+                    "MaintenanceOptions": {
+                      "AutoRecovery": "default"
+                    },
                     "MetadataOptions": {
                       "HttpEndpoint": "enabled",
                       "HttpProtocolIpv6": "disabled",
@@ -204,7 +234,9 @@
                       "InstanceMetadataTags": "disabled",
                       "State": "applied"
                     },
-                    "Monitoring": { "State": "disabled" },
+                    "Monitoring": {
+                      "State": "disabled"
+                    },
                     "NetworkInterfaces": [
                       {
                         "Attachment": {
@@ -266,14 +298,22 @@
                       }
                     ],
                     "SourceDestCheck": true,
-                    "State": { "Code": 80, "Name": "stopped" },
+                    "State": {
+                      "Code": 80,
+                      "Name": "stopped"
+                    },
                     "StateReason": {
                       "Code": "Client.UserInitiatedShutdown",
                       "Message": "Client.UserInitiatedShutdown: User initiated shutdown"
                     },
                     "StateTransitionReason": "User initiated (2023-11-14 15:41:56 GMT)",
                     "SubnetId": "subnet-073e890f346d676a9",
-                    "Tags": [ { "Key": "Name", "Value": "test-instance-x" } ],
+                    "Tags": [
+                      {
+                        "Key": "Name",
+                        "Value": "test-instance-x"
+                      }
+                    ],
                     "UsageOperation": "RunInstances",
                     "UsageOperationUpdateTime": "2023-11-13 16:04:28+00:00",
                     "VirtualizationType": "hvm",
@@ -300,8 +340,12 @@
               "RetryAttempts": 0
             }
           },
-          [ "i-05e1b8dec5d6eab87" ],
-          [ "i-05e1b8dec5d6eab87" ]
+          [
+            "i-05e1b8dec5d6eab87"
+          ],
+          [
+            "i-05e1b8dec5d6eab87"
+          ]
         ],
         "output": true
       },
@@ -331,19 +375,28 @@
                       "CapacityReservationPreference": "open"
                     },
                     "ClientToken": "46e991d1-fe6c-4f63-9baf-911e4dae3d2a",
-                    "CpuOptions": { "CoreCount": 1, "ThreadsPerCore": 1 },
+                    "CpuOptions": {
+                      "CoreCount": 1,
+                      "ThreadsPerCore": 1
+                    },
                     "CurrentInstanceBootMode": "legacy-bios",
                     "EbsOptimized": false,
                     "EnaSupport": true,
-                    "EnclaveOptions": { "Enabled": false },
-                    "HibernationOptions": { "Configured": false },
+                    "EnclaveOptions": {
+                      "Enabled": false
+                    },
+                    "HibernationOptions": {
+                      "Configured": false
+                    },
                     "Hypervisor": "xen",
                     "ImageId": "ami-05c13eab67c5d8861",
                     "InstanceId": "i-054623807e50cb7d6",
                     "InstanceType": "t2.nano",
                     "KeyName": "ec2-test-1-creds",
                     "LaunchTime": "2023-11-14 15:27:45+00:00",
-                    "MaintenanceOptions": { "AutoRecovery": "default" },
+                    "MaintenanceOptions": {
+                      "AutoRecovery": "default"
+                    },
                     "MetadataOptions": {
                       "HttpEndpoint": "enabled",
                       "HttpProtocolIpv6": "disabled",
@@ -352,7 +405,9 @@
                       "InstanceMetadataTags": "disabled",
                       "State": "applied"
                     },
-                    "Monitoring": { "State": "disabled" },
+                    "Monitoring": {
+                      "State": "disabled"
+                    },
                     "NetworkInterfaces": [
                       {
                         "Attachment": {
@@ -414,14 +469,22 @@
                       }
                     ],
                     "SourceDestCheck": true,
-                    "State": { "Code": 80, "Name": "stopped" },
+                    "State": {
+                      "Code": 80,
+                      "Name": "stopped"
+                    },
                     "StateReason": {
                       "Code": "Client.UserInitiatedShutdown",
                       "Message": "Client.UserInitiatedShutdown: User initiated shutdown"
                     },
                     "StateTransitionReason": "User initiated (2023-11-14 15:41:56 GMT)",
                     "SubnetId": "subnet-073e890f346d676a9",
-                    "Tags": [ { "Key": "Name", "Value": "test-instance-x" } ],
+                    "Tags": [
+                      {
+                        "Key": "Name",
+                        "Value": "test-instance-x"
+                      }
+                    ],
                     "UsageOperation": "RunInstances",
                     "UsageOperationUpdateTime": "2023-11-13 16:04:28+00:00",
                     "VirtualizationType": "hvm",
@@ -448,8 +511,12 @@
               "RetryAttempts": 0
             }
           },
-          [ "i-054623807e50cb7d6" ],
-          [ "i-054623807e50cb7d6" ]
+          [
+            "i-054623807e50cb7d6"
+          ],
+          [
+            "i-054623807e50cb7d6"
+          ]
         ],
         "output": true
       },
@@ -478,19 +545,28 @@
                       "CapacityReservationPreference": "open"
                     },
                     "ClientToken": "786ad7a3-0326-460c-adaa-c4ff5de6eb60",
-                    "CpuOptions": { "CoreCount": 8, "ThreadsPerCore": 2 },
+                    "CpuOptions": {
+                      "CoreCount": 8,
+                      "ThreadsPerCore": 2
+                    },
                     "CurrentInstanceBootMode": "legacy-bios",
                     "EbsOptimized": true,
                     "EnaSupport": true,
-                    "EnclaveOptions": { "Enabled": false },
-                    "HibernationOptions": { "Configured": false },
+                    "EnclaveOptions": {
+                      "Enabled": false
+                    },
+                    "HibernationOptions": {
+                      "Configured": false
+                    },
                     "Hypervisor": "xen",
                     "ImageId": "ami-0fc5d935ebf8bc3bc",
                     "InstanceId": "i-0599899ce8171a667",
                     "InstanceType": "c5.4xlarge",
                     "KeyName": "benchmarking-instance-key",
                     "LaunchTime": "2023-11-15 19:08:38+00:00",
-                    "MaintenanceOptions": { "AutoRecovery": "default" },
+                    "MaintenanceOptions": {
+                      "AutoRecovery": "default"
+                    },
                     "MetadataOptions": {
                       "HttpEndpoint": "enabled",
                       "HttpProtocolIpv6": "disabled",
@@ -499,7 +575,9 @@
                       "InstanceMetadataTags": "disabled",
                       "State": "applied"
                     },
-                    "Monitoring": { "State": "disabled" },
+                    "Monitoring": {
+                      "State": "disabled"
+                    },
                     "NetworkInterfaces": [
                       {
                         "Association": {
@@ -572,11 +650,17 @@
                       }
                     ],
                     "SourceDestCheck": true,
-                    "State": { "Code": 16, "Name": "running" },
+                    "State": {
+                      "Code": 16,
+                      "Name": "running"
+                    },
                     "StateTransitionReason": "",
                     "SubnetId": "subnet-073e890f346d676a9",
                     "Tags": [
-                      { "Key": "Name", "Value": "benchmarking-instance-1" }
+                      {
+                        "Key": "Name",
+                        "Value": "benchmarking-instance-1"
+                      }
                     ],
                     "UsageOperation": "RunInstances",
                     "UsageOperationUpdateTime": "2023-11-15 19:08:38+00:00",
@@ -604,7 +688,9 @@
               "RetryAttempts": 0
             }
           },
-          [ "i-0599899ce8171a667" ],
+          [
+            "i-0599899ce8171a667"
+          ],
           null
         ],
         "output": false
@@ -635,19 +721,28 @@
                       "CapacityReservationPreference": "open"
                     },
                     "ClientToken": "46e991d1-fe6c-4f63-9baf-911e4dae3d2a",
-                    "CpuOptions": { "CoreCount": 1, "ThreadsPerCore": 1 },
+                    "CpuOptions": {
+                      "CoreCount": 1,
+                      "ThreadsPerCore": 1
+                    },
                     "CurrentInstanceBootMode": "legacy-bios",
                     "EbsOptimized": false,
                     "EnaSupport": true,
-                    "EnclaveOptions": { "Enabled": false },
-                    "HibernationOptions": { "Configured": false },
+                    "EnclaveOptions": {
+                      "Enabled": false
+                    },
+                    "HibernationOptions": {
+                      "Configured": false
+                    },
                     "Hypervisor": "xen",
                     "ImageId": "ami-05c13eab67c5d8861",
                     "InstanceId": "i-03207aab238d12d92",
                     "InstanceType": "t2.nano",
                     "KeyName": "ec2-test-1-creds",
                     "LaunchTime": "2023-11-14 15:27:45+00:00",
-                    "MaintenanceOptions": { "AutoRecovery": "default" },
+                    "MaintenanceOptions": {
+                      "AutoRecovery": "default"
+                    },
                     "MetadataOptions": {
                       "HttpEndpoint": "enabled",
                       "HttpProtocolIpv6": "disabled",
@@ -656,7 +751,9 @@
                       "InstanceMetadataTags": "disabled",
                       "State": "applied"
                     },
-                    "Monitoring": { "State": "disabled" },
+                    "Monitoring": {
+                      "State": "disabled"
+                    },
                     "NetworkInterfaces": [
                       {
                         "Attachment": {
@@ -718,14 +815,22 @@
                       }
                     ],
                     "SourceDestCheck": true,
-                    "State": { "Code": 80, "Name": "stopped" },
+                    "State": {
+                      "Code": 80,
+                      "Name": "stopped"
+                    },
                     "StateReason": {
                       "Code": "Client.UserInitiatedShutdown",
                       "Message": "Client.UserInitiatedShutdown: User initiated shutdown"
                     },
                     "StateTransitionReason": "User initiated (2023-11-14 15:41:56 GMT)",
                     "SubnetId": "subnet-073e890f346d676a9",
-                    "Tags": [ { "Key": "Name", "Value": "test-instance-x" } ],
+                    "Tags": [
+                      {
+                        "Key": "Name",
+                        "Value": "test-instance-x"
+                      }
+                    ],
                     "UsageOperation": "RunInstances",
                     "UsageOperationUpdateTime": "2023-11-13 16:04:28+00:00",
                     "VirtualizationType": "hvm",
@@ -752,8 +857,12 @@
               "RetryAttempts": 0
             }
           },
-          [ "i-03207aab238d12d92" ],
-          [ "i-03207aab238d12d92" ]
+          [
+            "i-03207aab238d12d92"
+          ],
+          [
+            "i-03207aab238d12d92"
+          ]
         ],
         "output": true
       }
