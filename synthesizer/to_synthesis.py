@@ -99,6 +99,6 @@ def get_start_symbol(ctrs: list[dict[str, Any]]) -> str:
             all(isinstance(ctr["output"], str) for ctr in ctrs):
         start_symb = 'syntJ'
     else:
-        raise NotImplementedError(f'Which startSymbol for '
+        raise NotImplementedError(f'Which start symbol for '
                                   f'{[ctr["output"].__class__.__name__ for ctr in ctrs]}')
     return start_symb

@@ -1,8 +1,10 @@
 import os
+import subprocess
 from collections import deque
 from typing import Any
 
 from synthesizer.to_synthesis import get_start_symbol
+from synthesizer.util import human_time
 
 
 def to_racket(i: Any):
@@ -163,29 +165,29 @@ def parse_rosette_output(rosette: str):
     return parse_rosette_output_aux(tokens)
 
 
-def to_jsonpath(ast):
+def rosette_to_jsonpath(ast):
     input_name = 'x'
     if isinstance(ast, tuple):
         f_name, f_args = ast
 
         if f_name == 'child':
             a0, a1 = f_args
-            return f'{to_jsonpath(a0)}.{a1}'
+            return f'{rosette_to_jsonpath(a0)}.{a1}'
         elif f_name == 'descendant':
             a0, a1 = f_args
-            return f'{to_jsonpath(a0)}..{a1}'
+            return f'{rosette_to_jsonpath(a0)}..{a1}'
         elif f_name == 'index':
             a0, a1 = f_args
-            return f'{to_jsonpath(a0)}[{a1}]'
+            return f'{rosette_to_jsonpath(a0)}[{a1}]'
         elif f_name == 'syntEq':
             a0, a1 = f_args
-            return f'({to_jsonpath(a0)} == {to_jsonpath(a1)})'
+            return f'({rosette_to_jsonpath(a0)} == {rosette_to_jsonpath(a1)})'
         elif f_name == 'not':
             a0 = f_args
-            return f'! ({to_jsonpath(a0)})'
+            return f'! ({rosette_to_jsonpath(a0)})'
         elif f_name == 'empty?':
             a0 = f_args
-            return f'(len({to_jsonpath(a0)}) == 0)'
+            return f'(len({rosette_to_jsonpath(a0)}) == 0)'
         else:
             raise NotImplementedError(f'to_jsonpath not implemented for operation {f_name}.')
     elif ast == input_name:
@@ -198,7 +200,7 @@ def to_jsonpath(ast):
 
 def convert_rosette_to_jsonpath(rosette: str):
     ast = parse_rosette_output(rosette)
-    return to_jsonpath(ast)
+    return rosette_to_jsonpath(ast)
 
 
 def get_rosette_query(depth, indices, keys, synt_decl, values):
@@ -209,3 +211,31 @@ def get_rosette_query(depth, indices, keys, synt_decl, values):
     start_symbol = get_start_symbol(synt_decl['constraints'])
     rosette_text += build_rosette_synthesis_query(synt_decl, depth, start_symbol)
     return rosette_text
+
+
+def run_racket_command(racket_filename: str, timeout: int) -> str:
+    """
+    Runs a pre-written Racket file and returns the solution, in our jsonpath format.
+    :param racket_filename: The name of the file with the racket problem
+    :param timeout: Synthesis timeout in seconds
+    :return: solution in jsonpath format
+    """
+    racket_command = ['timeout', '-k', str(timeout + 10), str(timeout + 1), 'racket', racket_filename]
+    try:
+        result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
+
+        if 'unsat' in result.stdout:
+            racket_out = '(unsat)'
+        else:
+            racket_out = "\n".join(result.stdout.split('\n')[1:])
+            try:
+                racket_out = convert_rosette_to_jsonpath(racket_out)
+            except Exception as e:
+                raise RuntimeError(
+                    f'Something wrong with racket output to {" ".join(racket_command)}:\n{result.stdout}\n{e}')
+        if len(result.stderr) > 0:
+            print('racket call stderr:', result.stderr)
+        return racket_out
+
+    except subprocess.TimeoutExpired:
+        return f'(timeout {human_time(timeout)})'

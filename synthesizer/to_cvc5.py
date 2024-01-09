@@ -1,8 +1,10 @@
 import os
+import subprocess
 from collections import deque
 from typing import Any
 
 from synthesizer.to_synthesis import get_start_symbol
+from synthesizer.util import human_time
 
 
 def get_cvc5_list(lst: list[Any]):
@@ -20,13 +22,14 @@ def get_cvc5_dict(dct: dict[str, Any] or list[str, Any]):
             ldict = list(sorted(dct.items(), key=lambda x: x[0]))
         else:
             ldict = dct
-        return (f'(dict_cons {to_cvc5(ldict[0][0])} {to_cvc5(ldict[0][1])} '
+        key_str = '"' + ldict[0][0].replace('"', '\\"') + '"'
+        return (f'(dict_cons {key_str} {to_cvc5(ldict[0][1])} '
                 f'{get_cvc5_dict(ldict[1:])})')
 
 
 def to_cvc5(i: Any):
     if isinstance(i, bool):
-        return str(i).lower()
+        return f'(jB {str(i).lower()})'
     if isinstance(i, str):
         return '(jS "' + i.replace('"', '\\"') + '")'
     if isinstance(i, int) or isinstance(i, float):
@@ -34,9 +37,9 @@ def to_cvc5(i: Any):
     if i is None:
         return "jNull"
     if isinstance(i, list):
-        return get_cvc5_list(i)
+        return f'(jL {get_cvc5_list(i)})'
     if isinstance(i, dict):
-        return get_cvc5_dict(i)
+        return f'(jD {get_cvc5_dict(i)})'
 
     raise NotImplementedError(f'to_cvc5 not implemented for {i.__class__.__name__}')
 
@@ -48,43 +51,68 @@ def cvc5_file_preamble():
 
 def build_sygus_grammar(keys, indices, values, start_symb: str):
     keys_str = ' '.join(f'"{k}"' for k in keys)
-    values_str = ' '.join(f'"{v}"' if isinstance(v, str) else f'{v}' for v in values)
+    values_str = ' '.join(to_cvc5(v) for v in values)
     indices_str = ' '.join(map(str, indices))
 
+    if start_symb == 'SyntJ':
+        start_type = 'Json'
+    elif start_symb == 'SyntBool':
+        start_type = 'Bool'
+    else:
+        raise NotImplementedError(f'Unknown type for start symbol {start_symb}')
+
+    non_terminals = {}
+    synth_bool_definition = """
+    (SyntBool Bool (
+      (empty SyntJ)
+      (not SyntBool)"""
+    if len(values) > 0:
+        synth_bool_definition += '\n      (= SyntJ SySV)'
+    synth_bool_definition += '\n    ))'
+    non_terminals['(SyntBool Bool)'] = synth_bool_definition
+
+    synth_json_defintion = """
+   (SyntJ Json (
+      (get_idx_list x SyntInt)"""
+    if len(keys) > 0:
+        synth_json_defintion += f"""
+    (get_val_dict SyntJ SySK)
+    (get_descendants_named SyntJ SySK)"""
+
+    synth_json_defintion += "\n      (get_idx_list SyntJ SyntInt)"
+    synth_json_defintion += "\n   ))"
+
+    non_terminals['(SyntJ Json)'] = synth_json_defintion
+
+    if len(keys) > 0:
+        non_terminals['(SySK String)'] = f'\n    (SySK String ({keys_str}))'
+
+    if len(values) > 0:
+        non_terminals['(SySV Json)'] = f'\n    (SySV Json ({values_str}))'
+
+    non_terminals['(SyntInt Int)'] = f'''\n    (SyntInt Int (
+      {indices_str}
+      (length SyntJ)
+    ))'''
+
+    non_terminals_list = list(sorted(non_terminals.items()))
+    start_symbol_pair = tuple(filter(lambda p: start_symb in p[0], non_terminals_list))
+    assert len(start_symbol_pair) == 1, (f'Expected to find exactly one start symbol, but found {start_symbol_pair}.\n '
+                                         f'Looking for {start_symb} in {non_terminals.keys()}')
+    start_symbol_pair = start_symbol_pair[0]
+    non_terminals_list.remove(start_symbol_pair)
+    non_terminals_list.insert(0, start_symbol_pair)
+
     s = f"""
-(synth-fun json-selector ((x Json)) Json
+(synth-fun json-selector ((x Json)) {start_type}
   ;;Non terminals of the grammar
-  ((SynthJ Json) (SySK String) (SySV String) (SynthInt Int) (SynthBool Bool))
+  ( """
+    s += ' '.join(map(lambda p: p[0], non_terminals_list))
+    s += """ )
   ;;Define the grammar
-  (
-    (SynthBool Bool (
-      (empty SynthJ)
-      (not SynthBool)"""
-    if len(values) > 0:
-        s += '\n      (= SynthJ (jS SySV))'
-    s += '\n    )'
-    s += """
-  ]
-   (SynthJ Json (
-      (get_idx_list x SynthInt)
-    (length (syntJ))"""
-    if len(keys) > 0:
-        s += f"""
-    (get_val_dict SynthJ SySK)
-    (get_descendants_named SynthJ SySK)"""
-
-    s += "\n      (get_idx_list SynthJ SynthInt)"
-    if len(values) > 0:
-        s += '\n(syntAdd (syntVal) (syntJ))'
-    s += "\n   )]"
-
-    if len(keys) > 0:
-        s += f'\n    (SySK String ({keys_str}))'
-
-    s += f"\n    (SynthInt Int ({indices_str}))"
-    if len(values) > 0:
-        s += f'\n    (SySV String (choose {values_str}))'
-    s += '\n  )\n\n'
+  ("""
+    s += '\n  '.join(map(lambda p: p[1], non_terminals_list))
+    s += '\n  )\n)\n'
     return s
 
 
@@ -119,32 +147,36 @@ def to_python(arg):
 
 
 def parse_cvc5_output_aux(tokens: deque):
-    raise NotImplementedError(f'Handle parsing {tokens}')
-    two_arg_functions = ['child', 'index', 'descendant', 'syntEq']
-    one_arg_functions = ['not', 'empty?']
+    two_arg_functions = ['get_idx_list', '=']
+    one_arg_functions = ['not', 'empty', 'jI']
     token = tokens.popleft()
     if token[0] == '(':
         func_name = token[1:]
         if func_name in one_arg_functions:
-            arg0 = parse_rosette_output_aux(tokens)
+            arg0 = parse_cvc5_output_aux(tokens)
             return (func_name, (arg0))
         elif func_name in two_arg_functions:
-            arg0 = parse_rosette_output_aux(tokens)
-            arg1 = parse_rosette_output_aux(tokens)
+            arg0 = parse_cvc5_output_aux(tokens)
+            arg1 = parse_cvc5_output_aux(tokens)
             return (func_name, (arg0, arg1))
         if func_name == 'choose':
             # ignore
-            return parse_rosette_output_aux(tokens)
+            return parse_cvc5_output_aux(tokens)
     if 'x' in token:
         return 'x'
     if token[-1] == ')':
         return eval(token.replace(')', ''))
 
-    raise NotImplementedError(f'Handle parsing {token}')
+    raise NotImplementedError(f'Handle parsing {token}, {tokens}')
 
 
 def parse_cvc5_output(rosette: str):
     tokens = deque(rosette.split())
+    try:
+        token = tokens.popleft()
+    except IndexError:
+        raise RuntimeError(f'Empty output from CVC5.')
+    assert token == '(', f'removed {token} from {tokens}.'
     token = tokens.popleft()
     assert token == '(define-fun', f'removed {token} from {tokens}.'
     token = tokens.popleft()  # func name
@@ -155,29 +187,32 @@ def parse_cvc5_output(rosette: str):
     return parse_cvc5_output_aux(tokens)
 
 
-def to_jsonpath(ast):
+def cvc5_to_jsonpath(ast):
     input_name = 'x'
     if isinstance(ast, tuple):
         f_name, f_args = ast
 
         if f_name == 'child':
             a0, a1 = f_args
-            return f'{to_jsonpath(a0)}.{a1}'
+            return f'{cvc5_to_jsonpath(a0)}.{a1}'
         elif f_name == 'descendant':
             a0, a1 = f_args
-            return f'{to_jsonpath(a0)}..{a1}'
-        elif f_name == 'index':
+            return f'{cvc5_to_jsonpath(a0)}..{a1}'
+        elif f_name == 'get_idx_list':
             a0, a1 = f_args
-            return f'{to_jsonpath(a0)}[{a1}]'
-        elif f_name == 'syntEq':
+            return f'{cvc5_to_jsonpath(a0)}[{a1}]'
+        elif f_name == '=':
             a0, a1 = f_args
-            return f'({to_jsonpath(a0)} == {to_jsonpath(a1)})'
+            return f'({cvc5_to_jsonpath(a0)} == {cvc5_to_jsonpath(a1)})'
         elif f_name == 'not':
             a0 = f_args
-            return f'! ({to_jsonpath(a0)})'
+            return f'! ({cvc5_to_jsonpath(a0)})'
         elif f_name == 'empty?':
             a0 = f_args
-            return f'(len({to_jsonpath(a0)}) == 0)'
+            return f'(len({cvc5_to_jsonpath(a0)}) == 0)'
+        elif f_name == 'jI':
+            a0 = f_args
+            return f'{cvc5_to_jsonpath(a0)}'
         else:
             raise NotImplementedError(f'to_jsonpath not implemented for operation {f_name}.')
     elif ast == input_name:
@@ -190,14 +225,44 @@ def to_jsonpath(ast):
 
 def convert_cvc5_to_jsonpath(rosette: str):
     ast = parse_cvc5_output(rosette)
-    return to_jsonpath(ast)
+    return cvc5_to_jsonpath(ast)
 
 
 def get_cvc5_query(depth, indices, keys, synt_decl, values):
-    rosette_text = ''
-    rosette_text += cvc5_file_preamble()
+    cvc5_text = ''
+    cvc5_text += cvc5_file_preamble()
     start_symbol = get_start_symbol(synt_decl['constraints'])
-    rosette_text += build_sygus_grammar(keys, indices, values, start_symbol)
-    rosette_text += build_cvc5_samples(synt_decl)
-    rosette_text += build_cvc5_synthesis_query(synt_decl, depth)
-    return rosette_text
+    start_symbol = start_symbol[0].upper() + start_symbol[1:]
+    cvc5_text += build_sygus_grammar(keys, indices, values, start_symbol)
+    cvc5_text += build_cvc5_samples(synt_decl)
+    cvc5_text += build_cvc5_synthesis_query(synt_decl, depth)
+    return cvc5_text
+
+
+def run_cvc5_command(cvc5_filename: str, timeout: int) -> str:
+    """
+    Runs a pre-written CVC5 Sygus file and returns the solution, in our jsonpath format.
+    :param cvc5_filename: The name of the file with the sygus problem
+    :param timeout: Synthesis timeout in seconds
+    :return: solution in jsonpath format
+    """
+    cvc5_command = ['timeout', '-k', str(timeout + 10), str(timeout + 1),
+                    'cvc5', cvc5_filename]
+    try:
+        result = subprocess.run(cvc5_command, capture_output=True, text=True, timeout=timeout)
+
+        if 'unsat' in result.stdout:
+            cvc5_out = '(unsat)'
+        else:
+            cvc5_out = "\n".join(result.stdout.split('\n'))
+            # try:
+            cvc5_out = convert_cvc5_to_jsonpath(cvc5_out)
+            # except Exception as e:
+            #     raise RuntimeError(
+            #         f'Something wrong with racket output to {" ".join(cvc5_command)}:\n{result.stdout}\n{e}')
+        if len(result.stderr) > 0:
+            print('CVC5 call stderr:', result.stderr)
+        return cvc5_out
+
+    except subprocess.TimeoutExpired:
+        return f'(timeout {human_time(timeout)})'

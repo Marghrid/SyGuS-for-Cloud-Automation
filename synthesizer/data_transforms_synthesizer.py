@@ -5,14 +5,13 @@ import json
 import multiprocessing
 import multiprocessing.dummy  # So it uses threads, not processes
 import os.path
-import subprocess
 import tempfile
 import time
 from enum import Enum
 from typing import Any
 
-from synthesizer.to_cvc5 import get_cvc5_query
-from synthesizer.to_rosette import convert_rosette_to_jsonpath, get_rosette_query
+from synthesizer.to_cvc5 import get_cvc5_query, run_cvc5_command
+from synthesizer.to_rosette import get_rosette_query, run_racket_command
 from synthesizer.to_synthesis import get_synthesis_indices, get_synthesis_keys, get_synthesis_values
 from synthesizer.util import human_time
 
@@ -115,54 +114,6 @@ def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dic
     return synt_decl, comment
 
 
-def run_racket_command(racket_filename: str, timeout: int) -> str:
-    """
-    Runs a pre-written Racket file and returns the solution, in our jsonpath format.
-    :param racket_filename: The name of the file with the racket problem
-    :param timeout: Synthesis timeout in seconds
-    :return: solution in jsonpath format
-    """
-    racket_command = ['timeout', '-k', str(timeout + 10), str(timeout + 1), 'racket', racket_filename]
-    try:
-        result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
-
-        if 'unsat' in result.stdout:
-            racket_out = '(unsat)'
-        else:
-            racket_out = "\n".join(result.stdout.split('\n')[1:])
-            try:
-                racket_out = convert_rosette_to_jsonpath(racket_out)
-            except Exception as e:
-                raise RuntimeError(
-                    f'Something wrong with racket output to {" ".join(racket_command)}:\n{result.stdout}\n{e}')
-        if len(result.stderr) > 0:
-            print('racket call stderr:', result.stderr)
-        return racket_out
-
-    except subprocess.TimeoutExpired:
-        return f'(timeout {human_time(timeout)})'
-
-
-def run_cvc5_command(cvc5_filename: str, timeout: int) -> str:
-    """
-    Runs a pre-written CVC5 Sygus file and returns the solution, in our jsonpath format.
-    :param cvc5_filename: The name of the file with the sygus problem
-    :param timeout: Synthesis timeout in seconds
-    :return: solution in jsonpath format
-    """
-    cvc5_command = ['timeout', '-k', str(timeout + 10), str(timeout + 1), 'cvc5', cvc5_filename]
-    try:
-        result = subprocess.run(cvc5_command, capture_output=True, text=True, timeout=timeout)
-
-        cvc5_out = ""
-        raise NotImplementedError("TODO: parse cvc5 output to jsonpath format")
-
-        return cvc5_out
-
-    except subprocess.TimeoutExpired:
-        return f'(timeout {human_time(timeout)})'
-
-
 def synthesize_data_transforms(
         instance_name: str, synt_decls: list[dict[str:Any]],
         synthesis_timeout: int, use_metadata: bool = True) \
@@ -180,6 +131,7 @@ def synthesize_data_transforms(
     global timeout_or_unsat_complete_problem_solution
     solutions_dir = "data_synthesis_solutions/"
     all_solutions = []
+    solver = SynthesisSolver.CVC5
 
     # The synthesis of each data transform is solved sequencially
     for synt_decl in sorted(synt_decls, key=lambda decl: decl['name']):
@@ -208,18 +160,18 @@ def synthesize_data_transforms(
                           [([], v) for v in values_sublists]
         else:
             keys_values = []  # no subproblems otherwise
-
         # Define all subproblems
         subproblems_args = [
-            (synt_decl, indices, keys, values, depth, instance_name, synthesis_timeout, use_metadata, True)
+            (synt_decl, indices, keys, values, depth, instance_name,
+             solver, synthesis_timeout, use_metadata, True)
             for depth in range(2, 6)
             for keys, values in keys_values]
 
         # Define the complete problem
         complete_problem_args = [
-            (synt_decl, indices, keys, values, depth, instance_name, SynthesisSolver.Rosette, synthesis_timeout,
-             use_metadata, False) for
-            depth in range(2, 6)]
+            (synt_decl, indices, keys, values, depth, instance_name,
+             solver, synthesis_timeout, use_metadata, False)
+            for depth in range(2, 6)]
 
         valid_sat_subproblem_solutions = []  # clear list from previous runs
         timeout_or_unsat_complete_problem_solution = None  # clear list from previous runs
@@ -299,7 +251,7 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
         extension = 'rkt'
     elif synthesis_solver == SynthesisSolver.CVC5:
         synthesis_text = get_cvc5_query(depth, indices, keys, synt_decl, values)
-        extension = 'smt2'
+        extension = 'sl'
     else:
         raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
     func_name = synt_decl['name']
@@ -307,7 +259,11 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
     with tempfile.NamedTemporaryFile('w', suffix=suffix, delete=False) as f:
         f.write(synthesis_text)
         synthesis_filename = f.name
-        print(f'{synthesis_solver} file written to {synthesis_filename}')
+        print(f'{synthesis_solver.name} file written to {synthesis_filename}')
+    # Uncomment to DEBUG sl file
+    # with open(f'synth.{extension}', 'w') as f:
+    #     f.write(synthesis_text)
+    #     print(f'{synthesis_solver.name} file written to synth.{extension}')
     start_call_time = time.perf_counter()
     if synthesis_solver == SynthesisSolver.CVC5:
         synthesis_ans_out = run_cvc5_command(synthesis_filename, synthesis_timeout)
