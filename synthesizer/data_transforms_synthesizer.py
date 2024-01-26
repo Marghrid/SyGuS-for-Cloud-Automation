@@ -116,13 +116,15 @@ def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dic
 
 def synthesize_data_transforms(
         instance_name: str, synt_decls: list[dict[str:Any]],
-        synthesis_timeout: int, use_metadata: bool = True) \
+        solver: SynthesisSolver, synthesis_timeout: int,
+        use_metadata: bool = True) \
         -> list[dict[str:Any]]:
     """
     Given synthesis function declarations, with a name and a list of constraints,
     synthesize a JSONPath expression for each undefined function.
     :param instance_name: The instance name, which will be used to name auxiliary synthesis file and solution file.
     :param synt_decls: Input read from the json file.
+    :param solver: The synthesis solver to use.
     :param synthesis_timeout: Max synthesis time in seconds.
     :param use_metadata: Whether metadata should be used as input to the synthesis
     :return solution dictionary
@@ -131,7 +133,6 @@ def synthesize_data_transforms(
     global timeout_or_unsat_complete_problem_solution
     solutions_dir = "data_synthesis_solutions/"
     all_solutions = []
-    solver = SynthesisSolver.CVC5
 
     # The synthesis of each data transform is solved sequencially
     for synt_decl in sorted(synt_decls, key=lambda decl: decl['name']):
@@ -211,7 +212,7 @@ def synthesize_data_transforms(
                     all_solutions.append(timeout_or_unsat_complete_problem_solution)
 
                 # Write all solutions to solutions file, even before it has not computed solutions for all functions.
-                solution_filename = instance_name + '.json'
+                solution_filename = f'{instance_name}_{solver.name}.json'
                 if not os.path.isdir(solutions_dir):
                     os.makedirs(solutions_dir)
                 with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
@@ -259,11 +260,11 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
     with tempfile.NamedTemporaryFile('w', suffix=suffix, delete=False) as f:
         f.write(synthesis_text)
         synthesis_filename = f.name
-        print(f'{synthesis_solver.name} file written to {synthesis_filename}')
+        # print(f'{synthesis_solver.name} file written to {synthesis_filename}')
     # Uncomment to DEBUG sl file
-    # with open(f'synth.{extension}', 'w') as f:
-    #     f.write(synthesis_text)
-    #     print(f'{synthesis_solver.name} file written to synth.{extension}')
+    with open(f'synth.{extension}', 'w') as f:
+        f.write(synthesis_text)
+        # print(f'{synthesis_solver.name} file written to synth.{extension}')
     start_call_time = time.perf_counter()
     if synthesis_solver == SynthesisSolver.CVC5:
         synthesis_ans_out = run_cvc5_command(synthesis_filename, synthesis_timeout)
@@ -294,22 +295,26 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
 
 def main():
     instances_dir = 'resources/instances/'
-    synthesis_timeout = 5 * 60
+    synthesis_timeout = 2 * 60
 
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
-        # Edit below to solve a specific instance:
-        # if '0cd60c' not in filename:
-        #     continue
-        with open(filename, 'r') as f:
-            synt_decls = json.load(f)
-        instance_name = os.path.basename(filename).replace('.json', '')
-        args.append((instance_name,
-                     synt_decls,
-                     # SynthesisSolver.Rosette,
-                     synthesis_timeout,
-                     False  # use_metadata
-                     ))
+        for solver in (SynthesisSolver.CVC5, SynthesisSolver.Rosette):
+            # Edit below to solve a specific instance:
+            # if 'retry_until_example' not in filename:
+            #     continue
+            # if 'obj1f775d' not in filename:
+            #     continue
+
+            with open(filename, 'r') as f:
+                synt_decls = json.load(f)
+            instance_name = os.path.basename(filename).replace('.json', '')
+            args.append((instance_name,
+                         synt_decls,
+                         solver,
+                         synthesis_timeout,
+                         False  # use_metadata
+                         ))
 
     for arg in args:
         start_time = time.perf_counter()
@@ -318,7 +323,7 @@ def main():
             print(f'WARNING: Took {human_time(time.perf_counter() - start_time)},'
                   f'which is longer than the timeout of {human_time(synthesis_timeout)}.')
         for r in results:
-            print(f'Solution for {arg[0]}::{r["name"]}: '
+            print(f'{arg[2].name} solution for {arg[0]}::{r["name"]}: '
                   f'{r["solution"]}. '
                   f'Took {human_time((time.perf_counter() - start_time))}')
 
