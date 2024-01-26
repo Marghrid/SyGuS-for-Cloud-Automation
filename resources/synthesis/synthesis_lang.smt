@@ -1,5 +1,11 @@
+;(set-logic DTLIA)
 (set-logic ALL)
 (set-option :produce-models true)
+
+
+; (set-option :sygus-enum smart)
+(set-option :sygus-eval-unfold single)
+(set-option :sygus-grammar-cons simple)
 
 ; recursive datatypes declared together
 (declare-datatypes ((Json 0) (JsonDict 0) (JsonList 0)) ((
@@ -71,7 +77,7 @@
     ))
 )
 
-(define-fun empty ((jx Json)) Bool
+(define-fun is_empty ((jx Json)) Bool
   (match jx
     (
       ((jS x) true)

@@ -152,7 +152,7 @@
 ; (check-sat) ; interestingly prints unknown for satisfiability but finds a solution
 ; (get-model)
 
-(synth-fun json-selector ((x Json)) Json
+(synth-fun f?_0 ((x Json)) Json
   ;;Non terminals of the grammar
   ((SynthJ Json) (SySK String) (SySV String) (SynthInt Int) (SynthBool Bool))
   ;;Define the grammar
@@ -189,6 +189,6 @@
       )) j_nil_list))
 )
 
-(constraint (= (json-selector sample0) (jS "example2")))
+(constraint (= (f?_0 sample0) (jS "example2")))
 
 (check-synth)

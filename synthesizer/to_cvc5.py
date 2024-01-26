@@ -11,7 +11,7 @@ def get_cvc5_list(lst: list[Any]):
     if len(lst) == 0:
         return 'j_nil_list'
     else:
-        return f'(list_cons {to_cvc5(lst[0])} {get_cvc5_list(lst[1:])})'
+        return f'(list_cons {to_cvc5_json_type(lst[0])} {get_cvc5_list(lst[1:])})'
 
 
 def get_cvc5_dict(dct: dict[str, Any] or list[str, Any]):
@@ -23,15 +23,15 @@ def get_cvc5_dict(dct: dict[str, Any] or list[str, Any]):
         else:
             ldict = dct
         key_str = '"' + ldict[0][0].replace('"', '\\"') + '"'
-        return (f'(dict_cons {key_str} {to_cvc5(ldict[0][1])} '
+        return (f'(dict_cons {key_str} {to_cvc5_json_type(ldict[0][1])} '
                 f'{get_cvc5_dict(ldict[1:])})')
 
 
-def to_cvc5(i: Any):
+def to_cvc5_json_type(i: Any) -> str:
     if isinstance(i, bool):
         return f'(jB {str(i).lower()})'
     if isinstance(i, str):
-        return '(jS "' + i.replace('"', '\\"') + '")'
+        return '(jS "' + i.replace('"', '\"') + '")'
     if isinstance(i, int) or isinstance(i, float):
         return f'(jI {i})'
     if i is None:
@@ -44,14 +44,31 @@ def to_cvc5(i: Any):
     raise NotImplementedError(f'to_cvc5 not implemented for {i.__class__.__name__}')
 
 
+def to_cvc5(i: Any) -> str:
+    if isinstance(i, bool):
+        return f'{str(i).lower()}'
+    if isinstance(i, str):
+        return '"' + i.replace('"', '\\"') + '"'
+    if isinstance(i, int) or isinstance(i, float):
+        return f'{i}'
+    if i is None:
+        return "jNull"
+    if isinstance(i, list):
+        return f'{get_cvc5_list(i)}'
+    if isinstance(i, dict):
+        return f'{get_cvc5_dict(i)}'
+
+    raise NotImplementedError(f'to_cvc5 not implemented for {i.__class__.__name__}')
+
+
 def cvc5_file_preamble():
     with open(f'{os.getcwd()}/resources/synthesis/synthesis_lang.smt') as f:
         return f.read() + '\n\n'
 
 
-def build_sygus_grammar(keys, indices, values, start_symb: str):
+def build_sygus_grammar(keys, indices, values, start_symb: str, synt_f_name: str = 'f0'):
     keys_str = ' '.join(f'"{k}"' for k in keys)
-    values_str = ' '.join(to_cvc5(v) for v in values)
+    values_str = ' '.join(to_cvc5_json_type(v) for v in values)
     indices_str = ' '.join(map(str, indices))
 
     if start_symb == 'SyntJ':
@@ -64,7 +81,7 @@ def build_sygus_grammar(keys, indices, values, start_symb: str):
     non_terminals = {}
     synth_bool_definition = """
     (SyntBool Bool (
-      (empty SyntJ)
+      (is_empty SyntJ)
       (not SyntBool)"""
     if len(values) > 0:
         synth_bool_definition += '\n      (= SyntJ SySV)'
@@ -104,7 +121,7 @@ def build_sygus_grammar(keys, indices, values, start_symb: str):
     non_terminals_list.insert(0, start_symbol_pair)
 
     s = f"""
-(synth-fun json-selector ((x Json)) {start_type}
+(synth-fun {synt_f_name} ((x Json)) {start_type}
   ;;Non terminals of the grammar
   ( """
     s += ' '.join(map(lambda p: p[0], non_terminals_list))
@@ -119,20 +136,25 @@ def build_sygus_grammar(keys, indices, values, start_symb: str):
 def build_cvc5_samples(synt_decl):
     s = ''
     for io_idx, io in enumerate(synt_decl['constraints']):
-        s += f'(define-const sample{io_idx} Json {to_cvc5(io["inputs"])})\n'
+        s += f'(define-const sample{io_idx} Json {to_cvc5_json_type(io["inputs"])})\n'
     s += '\n'
     return s
 
 
-def build_cvc5_synthesis_query(synt_decl, depth):
+def build_cvc5_synthesis_query(synt_decl, depth, start_symbol):
     asserts = []
     f_name = synt_decl["name"]
     for ctr_idx, ctr in enumerate(synt_decl["constraints"]):
-        asserts.append(f'(constraint (= ({f_name} sample{ctr_idx}) {to_cvc5(ctr["output"])}))')
+        if start_symbol == 'SyntJ':
+            output_str = to_cvc5_json_type(ctr["output"])
+        else:
+            output_str = to_cvc5(ctr["output"])
+        asserts.append(f'(constraint (= ({f_name} sample{ctr_idx}) {output_str}))')
 
     asserts_str = '\n'.join(asserts)
 
-    s = '\n\n(check-synth)\n'
+    s = asserts_str
+    s += '\n\n(check-synth)\n'
     return s
 
 
@@ -147,8 +169,8 @@ def to_python(arg):
 
 
 def parse_cvc5_output_aux(tokens: deque):
-    two_arg_functions = ['get_idx_list', '=']
-    one_arg_functions = ['not', 'empty', 'jI']
+    two_arg_functions = ['get_idx_list', '=', 'get_descendants_named', 'get_val_dict']
+    one_arg_functions = ['not', 'empty', 'jI', 'jS', 'is_empty']
     token = tokens.popleft()
     if token[0] == '(':
         func_name = token[1:]
@@ -170,8 +192,8 @@ def parse_cvc5_output_aux(tokens: deque):
     raise NotImplementedError(f'Handle parsing {token}, {tokens}')
 
 
-def parse_cvc5_output(rosette: str):
-    tokens = deque(rosette.split())
+def parse_cvc5_output(solver_output: str):
+    tokens = deque(solver_output.split())
     try:
         token = tokens.popleft()
     except IndexError:
@@ -192,10 +214,10 @@ def cvc5_to_jsonpath(ast):
     if isinstance(ast, tuple):
         f_name, f_args = ast
 
-        if f_name == 'child':
+        if f_name == 'get_val_dict':
             a0, a1 = f_args
             return f'{cvc5_to_jsonpath(a0)}.{a1}'
-        elif f_name == 'descendant':
+        elif f_name == 'get_descendants_named':
             a0, a1 = f_args
             return f'{cvc5_to_jsonpath(a0)}..{a1}'
         elif f_name == 'get_idx_list':
@@ -207,10 +229,10 @@ def cvc5_to_jsonpath(ast):
         elif f_name == 'not':
             a0 = f_args
             return f'! ({cvc5_to_jsonpath(a0)})'
-        elif f_name == 'empty?':
+        elif f_name == 'is_empty':
             a0 = f_args
             return f'(len({cvc5_to_jsonpath(a0)}) == 0)'
-        elif f_name == 'jI':
+        elif f_name == 'jI' or f_name == 'jS':
             a0 = f_args
             return f'{cvc5_to_jsonpath(a0)}'
         else:
@@ -223,8 +245,8 @@ def cvc5_to_jsonpath(ast):
         return ast
 
 
-def convert_cvc5_to_jsonpath(rosette: str):
-    ast = parse_cvc5_output(rosette)
+def convert_cvc5_to_jsonpath(solver_output: str):
+    ast = parse_cvc5_output(solver_output)
     return cvc5_to_jsonpath(ast)
 
 
@@ -233,9 +255,10 @@ def get_cvc5_query(depth, indices, keys, synt_decl, values):
     cvc5_text += cvc5_file_preamble()
     start_symbol = get_start_symbol(synt_decl['constraints'])
     start_symbol = start_symbol[0].upper() + start_symbol[1:]
-    cvc5_text += build_sygus_grammar(keys, indices, values, start_symbol)
+    f_name = synt_decl["name"]
+    cvc5_text += build_sygus_grammar(keys, indices, values, start_symbol, f_name)
     cvc5_text += build_cvc5_samples(synt_decl)
-    cvc5_text += build_cvc5_synthesis_query(synt_decl, depth)
+    cvc5_text += build_cvc5_synthesis_query(synt_decl, depth, start_symbol)
     return cvc5_text
 
 
@@ -251,15 +274,22 @@ def run_cvc5_command(cvc5_filename: str, timeout: int) -> str:
     try:
         result = subprocess.run(cvc5_command, capture_output=True, text=True, timeout=timeout)
 
-        if 'unsat' in result.stdout:
+        if 'unsat' in result.stdout or 'infeasible' in result.stdout:
             cvc5_out = '(unsat)'
+        elif 'error' in result.stdout or 'error' in result.stderr:
+            raise RuntimeError(f'Error in CVC5 '
+                               f'{" ".join(cvc5_command)}:\n'
+                               f'stdout: {result.stdout}\n'
+                               f'stderr: {result.stderr}')
         else:
             cvc5_out = "\n".join(result.stdout.split('\n'))
-            # try:
-            cvc5_out = convert_cvc5_to_jsonpath(cvc5_out)
-            # except Exception as e:
-            #     raise RuntimeError(
-            #         f'Something wrong with racket output to {" ".join(cvc5_command)}:\n{result.stdout}\n{e}')
+            try:
+                cvc5_out = convert_cvc5_to_jsonpath(cvc5_out)
+            except RuntimeError as e:
+                raise RuntimeError(
+                    f'Something wrong with racket output to '
+                    f'{" ".join(cvc5_command)}:\n'
+                    f'stdout: {result.stdout}\n{e}')
         if len(result.stderr) > 0:
             print('CVC5 call stderr:', result.stderr)
         return cvc5_out
