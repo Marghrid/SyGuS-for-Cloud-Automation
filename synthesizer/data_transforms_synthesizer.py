@@ -1,3 +1,4 @@
+import csv
 import datetime
 import glob
 import hashlib
@@ -5,6 +6,7 @@ import json
 import multiprocessing
 import multiprocessing.dummy  # So it uses threads, not processes
 import os.path
+import sys
 import tempfile
 import time
 from enum import Enum
@@ -15,8 +17,10 @@ from synthesizer.to_rosette import get_rosette_query, run_racket_command
 from synthesizer.to_synthesis import get_synthesis_indices, get_synthesis_keys, get_synthesis_values
 from synthesizer.util import human_time
 
-valid_sat_subproblem_solutions = []  # Where each subproblem thread saves its positive solution
-timeout_or_unsat_complete_problem_solution = None  # Where the complete problem threads save the most recent timeout or unsat solution
+# Where each subproblem thread saves its positive solution
+valid_sat_subproblem_solutions: list[dict[str, Any], ...] = []
+# Where the complete problem threads save the most recent timeout or unsat solution
+timeout_or_unsat_complete_problem_solution: dict[str, Any] | None = None
 
 SynthesisSolver = Enum('SynthesisSolver', ['CVC5', 'Rosette'])
 
@@ -40,8 +44,9 @@ def get_synthesis_filename(depth: int, func_name: str, instance_name: str, keys:
     timestamp = get_timestamp()
 
     return (f'{instance_name}{"" if func_name[0] == "_" else "_"}'
-            f'{func_name}_{my_hash(str(keys) + str(values))}_'
-            f'{depth}_{timestamp}.{extenstion}')
+            f'{func_name}_{my_hash(str(keys) + str(values))}'
+            f'_{str(depth) + "_" if depth is not None else ""}'
+            f'{timestamp}.{extenstion}')
 
 
 def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dict[str:Any], str]:
@@ -122,7 +127,8 @@ def synthesize_data_transforms(
     """
     Given synthesis function declarations, with a name and a list of constraints,
     synthesize a JSONPath expression for each undefined function.
-    :param instance_name: The instance name, which will be used to name auxiliary synthesis file and solution file.
+    :param instance_name: The instance name, which will be used to name auxiliary
+       synthesis file and solution file.
     :param synt_decls: Input read from the json file.
     :param solver: The synthesis solver to use.
     :param synthesis_timeout: Max synthesis time in seconds.
@@ -162,17 +168,29 @@ def synthesize_data_transforms(
         else:
             keys_values = []  # no subproblems otherwise
         # Define all subproblems
+        if solver == SynthesisSolver.Rosette:
+            depths = range(2, 6)
+        elif solver == SynthesisSolver.CVC5:
+            depths = (None,)
+        else:
+            raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
         subproblems_args = [
             (synt_decl, indices, keys, values, depth, instance_name,
              solver, synthesis_timeout, use_metadata, True)
-            for depth in range(2, 6)
+            for depth in depths
             for keys, values in keys_values]
 
+        if solver == SynthesisSolver.Rosette:
+            depths = range(2, 6)
+        elif solver == SynthesisSolver.CVC5:
+            depths = (None,)
+        else:
+            raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
         # Define the complete problem
         complete_problem_args = [
             (synt_decl, indices, keys, values, depth, instance_name,
              solver, synthesis_timeout, use_metadata, False)
-            for depth in range(2, 6)]
+            for depth in depths]
 
         valid_sat_subproblem_solutions = []  # clear list from previous runs
         timeout_or_unsat_complete_problem_solution = None  # clear list from previous runs
@@ -191,17 +209,26 @@ def synthesize_data_transforms(
                 # cycle that watches all threads:
                 while time.perf_counter() - start_time < synthesis_timeout:
                     time.sleep(0.1)  # Check every 0.1 secs
+                    # valid_sat_subproblem_solutions is updated by the
+                    # subproblem threads to include only SAT solutions
                     if len(valid_sat_subproblem_solutions) > 0:
                         # One of the subproblems returned SAT
+                        # add instance name to solutions
+                        for sol in valid_sat_subproblem_solutions:
+                            sol['instance'] = instance_name
                         all_solutions.extend(valid_sat_subproblem_solutions)
-                        break
+                        break  # stop watching threads
 
                     elif async_result_complete_problem.ready():  # Even if it times out, it should be caught here.
                         # Complete problem finished (either successfully or not)
-                        # Kill every thread:
-                        all_solutions.extend(async_result_complete_problem.get())
-                        break
+                        # add instance name to solutions
+                        complete_problem_solutions = async_result_complete_problem.get()
+                        for sol in complete_problem_solutions:
+                            sol['instance'] = instance_name
+                        all_solutions.extend(complete_problem_solutions)
+                        break  # stop watching threads
 
+                # Stop all threads
                 subproblems_pool.close()
                 subproblems_pool.terminate()
                 main_problem_pool.close()
@@ -209,9 +236,12 @@ def synthesize_data_transforms(
 
                 if len(all_solutions) == 0:
                     assert time.perf_counter() - start_time > synthesis_timeout
+                    if timeout_or_unsat_complete_problem_solution is not None:
+                        timeout_or_unsat_complete_problem_solution['instance'] = instance_name
                     all_solutions.append(timeout_or_unsat_complete_problem_solution)
 
-                # Write all solutions to solutions file, even before it has not computed solutions for all functions.
+                # Write all solutions to solutions file, even before it has
+                # computed solutions for all functions.
                 solution_filename = f'{instance_name}_{solver.name}.json'
                 if not os.path.isdir(solutions_dir):
                     os.makedirs(solutions_dir)
@@ -227,7 +257,7 @@ def synthesize_data_transforms(
 
 
 def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[str], values: list[str],
-                                      depth: int, instance_name: str, synthesis_solver: SynthesisSolver,
+                                      depth: int | None, instance_name: str, synthesis_solver: SynthesisSolver,
                                       synthesis_timeout: int, use_metadata: bool, is_subproblem: bool):
     """
     Auxiliary function that, given information about a synthesis instance,
@@ -236,7 +266,7 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
     :param indices: The constant values that should be considered for SyntInt.
     :param keys: The strings that should be considered for SyntK.
     :param values: The strings that should be considered for SyntVal.
-    :param depth: The maximum depth of the synthesized program.
+    :param depth: The maximum depth of the synthesized program. Not used for CVC5.
     :param instance_name: The instance name.
     :param synthesis_solver: The synthesis solver to use.
     :param synthesis_timeout: Synthesis timeout in seconds
@@ -248,10 +278,12 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
     global timeout_or_unsat_complete_problem_solution
     synt_decl, comment = preprocess(synt_decl, use_metadata)
     if synthesis_solver == SynthesisSolver.Rosette:
+        assert depth is not None
         synthesis_text = get_rosette_query(depth, indices, keys, synt_decl, values)
         extension = 'rkt'
     elif synthesis_solver == SynthesisSolver.CVC5:
-        synthesis_text = get_cvc5_query(depth, indices, keys, synt_decl, values)
+        assert depth is None
+        synthesis_text = get_cvc5_query(indices, keys, synt_decl, values)
         extension = 'sl'
     else:
         raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
@@ -280,6 +312,7 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
                 'keys': keys,
                 'values': values,
                 'depth': depth,
+                'solver': synthesis_solver.name,
                 'is subproblem': is_subproblem,
                 'comment': comment}
 
@@ -295,11 +328,12 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
 
 def main():
     instances_dir = 'resources/instances/'
-    synthesis_timeout = 2 * 60
+    synthesis_timeout = 3 * 60
+    solvers = (SynthesisSolver.CVC5, SynthesisSolver.Rosette)
 
     args = []
     for filename in glob.glob(f"{instances_dir}*.json"):
-        for solver in (SynthesisSolver.CVC5, SynthesisSolver.Rosette):
+        for solver in solvers:
             # Edit below to solve a specific instance:
             # if 'retry_until_example' not in filename:
             #     continue
@@ -318,15 +352,37 @@ def main():
 
     for arg in args:
         start_time = time.perf_counter()
-        results = synthesize_data_transforms(*arg)
+        result = synthesize_data_transforms(*arg)
         if time.perf_counter() - start_time > synthesis_timeout + 5:
             print(f'WARNING: Took {human_time(time.perf_counter() - start_time)},'
                   f'which is longer than the timeout of {human_time(synthesis_timeout)}.')
-        for r in results:
+        for r in result:
             print(f'{arg[2].name} solution for {arg[0]}::{r["name"]}: '
                   f'{r["solution"]}. '
                   f'Took {human_time((time.perf_counter() - start_time))}')
 
 
+def make_table():
+    rows = []
+    for file in glob.glob('data_synthesis_solutions/*.json'):
+        with open(file, 'r') as f:
+            solutions = json.load(f)
+        for sol in solutions:
+            row = {'instance name': sol["instance"],
+                   'function name': sol["name"],
+                   'depth': sol["depth"],
+                   'solver': sol['solver'],
+                   'solution': sol["solution"],
+                   'solve time': sol["solve time"]
+                   }
+            rows.append(row)
+
+    rows = sorted(rows, key=lambda r: (r['instance name'], r['function name'], r['solver']))
+    writer = csv.DictWriter(sys.stdout, fieldnames=rows[0].keys())
+    writer.writeheader()
+    writer.writerows(rows)
+
+
 if __name__ == '__main__':
     main()
+    make_table()

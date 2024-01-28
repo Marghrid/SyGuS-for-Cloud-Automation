@@ -141,7 +141,7 @@ def build_cvc5_samples(synt_decl):
     return s
 
 
-def build_cvc5_synthesis_query(synt_decl, depth, start_symbol):
+def build_cvc5_synthesis_query(synt_decl, start_symbol):
     asserts = []
     f_name = synt_decl["name"]
     for ctr_idx, ctr in enumerate(synt_decl["constraints"]):
@@ -250,7 +250,7 @@ def convert_cvc5_to_jsonpath(solver_output: str):
     return cvc5_to_jsonpath(ast)
 
 
-def get_cvc5_query(depth, indices, keys, synt_decl, values):
+def get_cvc5_query(indices, keys, synt_decl, values):
     cvc5_text = ''
     cvc5_text += cvc5_file_preamble()
     start_symbol = get_start_symbol(synt_decl['constraints'])
@@ -258,7 +258,7 @@ def get_cvc5_query(depth, indices, keys, synt_decl, values):
     f_name = synt_decl["name"]
     cvc5_text += build_sygus_grammar(keys, indices, values, start_symbol, f_name)
     cvc5_text += build_cvc5_samples(synt_decl)
-    cvc5_text += build_cvc5_synthesis_query(synt_decl, depth, start_symbol)
+    cvc5_text += build_cvc5_synthesis_query(synt_decl, start_symbol)
     return cvc5_text
 
 
