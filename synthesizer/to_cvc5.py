@@ -31,6 +31,8 @@ def to_cvc5_json_type(i: Any) -> str:
     if isinstance(i, bool):
         return f'(jB {str(i).lower()})'
     if isinstance(i, str):
+        if len(i) > 1 and i[0] == '"' and i[-1] == '"':
+            return '(jS "' + i[1:-1].replace('"', '\"') + '")'
         return '(jS "' + i.replace('"', '\"') + '")'
     if isinstance(i, int) or isinstance(i, float):
         return f'(jI {i})'
@@ -48,7 +50,9 @@ def to_cvc5(i: Any) -> str:
     if isinstance(i, bool):
         return f'{str(i).lower()}'
     if isinstance(i, str):
-        return '"' + i.replace('"', '\\"') + '"'
+        if len(i) > 1 and i[0] == '"' and i[-1] == '"':
+            return '"' + i[1:-1].replace('"', '\"') + '"'
+        return '"' + i.replace('"', '\"') + '"'
     if isinstance(i, int) or isinstance(i, float):
         return f'{i}'
     if i is None:

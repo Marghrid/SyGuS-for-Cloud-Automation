@@ -30,7 +30,9 @@ def get_synthesis_values_aux(i: Any) -> set[Any]:
             dateutil.parser.parse(i)
             return set()
         except (dateutil.parser._parser.ParserError, OverflowError):
-            return {i.replace('"', '\\"')}
+            if len(i) > 1 and i[0] == '"' and i[-1] == '"':
+                return {i[1:-1].replace('"', '\"')}
+            return {i.replace('"', '\"')}
     if isinstance(i, int):
         return {i}
     if isinstance(i, list):
