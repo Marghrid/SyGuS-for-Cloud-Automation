@@ -6,6 +6,7 @@
 ; (set-option :sygus-enum smart)
 (set-option :sygus-eval-unfold single)
 (set-option :sygus-grammar-cons simple)
+(set-option :sygus-pbe true)
 
 ; recursive datatypes declared together
 (declare-datatypes ((Json 0) (JsonDict 0) (JsonList 0)) ((
