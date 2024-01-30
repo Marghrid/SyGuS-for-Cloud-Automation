@@ -46,3 +46,7 @@ def get_synthesis_filename(depth: int, func_name: str, instance_name: str, keys:
             f'{func_name}_{my_hash(str(keys) + str(values))}'
             f'_{str(depth) + "_" if depth is not None else ""}'
             f'{timestamp}.{extenstion}')
+
+
+def get_timeout_command_prefix(timeout: int) -> list[str]:
+    return ['timeout', '-k', str(timeout + 2), str(timeout + 1)]

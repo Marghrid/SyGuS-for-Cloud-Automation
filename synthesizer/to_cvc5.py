@@ -4,7 +4,7 @@ from collections import deque
 from typing import Any
 
 from synthesizer.to_synthesis import get_start_symbol
-from synthesizer.util import human_time
+from synthesizer.util import get_timeout_command_prefix, human_time
 
 
 def get_cvc5_list(lst: list[Any]):
@@ -273,8 +273,7 @@ def run_cvc5_command(cvc5_filename: str, timeout: int) -> str:
     :param timeout: Synthesis timeout in seconds
     :return: solution in jsonpath format
     """
-    cvc5_command = ['timeout', '-k', str(timeout + 10), str(timeout + 1),
-                    'cvc5', cvc5_filename]
+    cvc5_command = get_timeout_command_prefix(timeout) + ['cvc5', cvc5_filename]
     try:
         result = subprocess.run(cvc5_command, capture_output=True, text=True, timeout=timeout)
 
@@ -291,7 +290,7 @@ def run_cvc5_command(cvc5_filename: str, timeout: int) -> str:
                 cvc5_out = convert_cvc5_to_jsonpath(cvc5_out)
             except RuntimeError as e:
                 raise RuntimeError(
-                    f'Something wrong with racket output to '
+                    f'Something wrong with CVC5 output to '
                     f'{" ".join(cvc5_command)}:\n'
                     f'stdout: {result.stdout}\n{e}')
         if len(result.stderr) > 0:

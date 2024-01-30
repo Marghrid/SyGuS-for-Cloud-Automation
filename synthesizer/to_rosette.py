@@ -4,7 +4,7 @@ from collections import deque
 from typing import Any
 
 from synthesizer.to_synthesis import get_start_symbol
-from synthesizer.util import human_time
+from synthesizer.util import get_timeout_command_prefix, human_time
 
 
 def to_racket(i: Any):
@@ -220,7 +220,7 @@ def run_racket_command(racket_filename: str, timeout: int) -> str:
     :param timeout: Synthesis timeout in seconds
     :return: solution in jsonpath format
     """
-    racket_command = ['timeout', '-k', str(timeout + 10), str(timeout + 1), 'racket', racket_filename]
+    racket_command = get_timeout_command_prefix(timeout) + ['racket', racket_filename]
     try:
         result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
 
