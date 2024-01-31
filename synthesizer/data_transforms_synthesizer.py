@@ -154,6 +154,7 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
         timeout_or_unsat_complete_problem_solution = solution
     # if not is_subproblem:
     #     print(solution)
+    assert solution is not None
     return solution
 
 
@@ -254,6 +255,7 @@ def synthesize_data_transforms(
                         # add instance name to solutions
                         for sol in valid_sat_subproblem_solutions:
                             sol['instance'] = instance_name
+                            assert sol is not None
                         all_solutions.extend(valid_sat_subproblem_solutions)
                         break  # stop watching threads
 
@@ -262,6 +264,7 @@ def synthesize_data_transforms(
                         # add instance name to solutions
                         complete_problem_solutions = async_result_complete_problem.get()
                         for sol in complete_problem_solutions:
+                            assert sol is not None
                             sol['instance'] = instance_name
                         all_solutions.extend(complete_problem_solutions)
                         break  # stop watching threads
