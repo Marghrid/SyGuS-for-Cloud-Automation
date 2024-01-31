@@ -79,6 +79,8 @@ def make_tables(results_table_filename: str, comparison_table_filename: str):
     solver_comparison_rows = []
     for instance in instances:
         solver_comparison_row = {'instance name': instance[0], 'function name': instance[1]}
+        is_sat = False
+        is_unsat = False
         for solver in map(lambda s: s.name, SynthesisSolver):
             instance_solver_solutions = tuple(
                 filter(lambda r: r['instance name'] == instance[0] and
@@ -92,6 +94,13 @@ def make_tables(results_table_filename: str, comparison_table_filename: str):
                           key=lambda s: float(s['solve time']))
             else:
                 sol = {'solution': '-', 'solve time': '-'}
+
+            if 'unsat' in sol['solution']:
+                is_unsat = True
+            elif sol['solution'] != '-' and 'timeout' not in sol['solution']:
+                is_sat = True
+            if is_sat and is_unsat:
+                print(f'Warning: {instance[0]}::{instance[1]} is both sat and unsat.')
             solver_comparison_row[f'{solver} solution'] = sol["solution"]
             solver_comparison_row[f'{solver} solve time'] = sol["solve time"]
         solver_comparison_rows.append(solver_comparison_row)
