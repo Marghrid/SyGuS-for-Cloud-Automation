@@ -246,7 +246,7 @@ def synthesize_data_transforms(
                 start_time = time.perf_counter()
 
                 # cycle that watches all threads:
-                while time.perf_counter() - start_time < synthesis_timeout:
+                while time.perf_counter() - start_time < synthesis_timeout + 3:
                     time.sleep(0.1)  # Check every 0.1 secs
                     # valid_sat_subproblem_solutions is updated by the
                     # subproblem threads to include only SAT solutions
@@ -279,7 +279,9 @@ def synthesize_data_transforms(
                     assert time.perf_counter() - start_time > synthesis_timeout
                     if timeout_or_unsat_complete_problem_solution is not None:
                         timeout_or_unsat_complete_problem_solution['instance'] = instance_name
-                    all_solutions.append(timeout_or_unsat_complete_problem_solution)
+                        all_solutions.append(timeout_or_unsat_complete_problem_solution)
+                    elif len(all_solutions) == 0:
+                        print(f'[WARNING] No solutions for {instance_name}.')
 
                 # Write all solutions to solutions file, even before it has
                 # computed solutions for all functions.

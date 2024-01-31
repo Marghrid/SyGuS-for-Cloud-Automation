@@ -35,12 +35,15 @@ def main():
 
     for arg in args:
         start_time = time.perf_counter()
-        result = synthesize_data_transforms(*arg)
-        assert len(result) > 0
+        results = synthesize_data_transforms(*arg)
+        if len(results) == 0:
+            print(f'[WARNING] No {arg[2].name} solutions for {arg[0]}.')
         if time.perf_counter() - start_time > synthesis_timeout + 5:
-            print(f'WARNING: Took {human_time(time.perf_counter() - start_time)},'
+            print(f'[WARNING] Took {human_time(time.perf_counter() - start_time)},'
                   f'which is longer than the timeout of {human_time(synthesis_timeout)}.')
-        for r in result:
+        for r in results:
+            if r is None:
+                print(f'{arg[2].name} output None solution for {arg[0]}.')
             print(f'{arg[2].name} solution for {arg[0]}::{r["name"]}: '
                   f'{r["solution"]}. '
                   f'Took {human_time((time.perf_counter() - start_time))}')
