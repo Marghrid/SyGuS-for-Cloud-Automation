@@ -49,43 +49,58 @@ def main():
         subprocess.run(['pkill', 'racket'])
 
 
-def make_table(table_filename: str):
-    rows = []
+def make_tables(results_table_filename: str, comparison_table_filename: str):
+    results_rows = []
     for file in glob.glob('data_synthesis_solutions/*.json'):
         with open(file, 'r') as f:
             solutions = json.load(f)
         for sol in solutions:
             assert sol is not None, file
-            row = {'instance name': sol["instance"],
-                   'function name': sol["name"],
-                   'depth': sol["depth"],
-                   'solver': sol['solver'],
-                   'solution': sol["solution"],
-                   'solve time': sol["solve time"]
-                   }
-            rows.append(row)
+            row = {
+                'instance name': sol["instance"],
+                'function name': sol["name"],
+                'depth': sol["depth"],
+                'solver': sol['solver'],
+                'solution': sol["solution"],
+                'solve time': sol["solve time"]
+            }
+            results_rows.append(row)
 
-    for row in rows:
-        if row['solver'] == SynthesisSolver.Rosette.name:
-            if len(tuple(filter(lambda r: r['instance name'] == row['instance name'] and
-                                          r['function name'] == row['function name'] and
-                                          r['solver'] == SynthesisSolver.CVC5.name,
-                                rows))) == 0:
-                print(f'Instance {row["instance name"]}::{row["function name"]} not solved with CVC5.')
-        elif row['solver'] == SynthesisSolver.CVC5.name:
-            if len(tuple(filter(lambda r: r['instance name'] == row['instance name'] and
-                                          r['function name'] == row['function name'] and
-                                          r['solver'] == SynthesisSolver.Rosette.name,
-                                rows))) == 0:
-                print(f'Instance {row["instance name"]}::{row["function name"]} not solved with Rosette.')
-
-    rows = sorted(rows, key=lambda r: (r['instance name'], r['function name'], r['solver']))
-    with open(table_filename, 'w') as f:
-        writer = csv.DictWriter(f, fieldnames=rows[0].keys())
+    results_rows = sorted(results_rows, key=lambda r: (r['instance name'], r['function name'], r['solver']))
+    with open(results_table_filename, 'w') as f:
+        writer = csv.DictWriter(f, fieldnames=results_rows[0].keys())
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows(results_rows)
+
+    instances = set((row['instance name'], row['function name']) for row in results_rows)
+    solver_comparison_rows = []
+    for instance in instances:
+        solver_comparison_row = {'instance name': instance[0], 'function name': instance[1]}
+        for solver in map(lambda s: s.name, SynthesisSolver):
+            instance_solver_solutions = tuple(
+                filter(lambda r: r['instance name'] == instance[0] and
+                                 r['function name'] == instance[1] and
+                                 r['solver'] == solver,
+                       results_rows))
+            if len(instance_solver_solutions) == 1:
+                sol = instance_solver_solutions[0]
+            elif len(instance_solver_solutions) > 1:
+                sol = min(instance_solver_solutions,
+                          key=lambda s: float(s['solve time']))
+            else:
+                sol = {'solution': '-', 'solve time': '-'}
+            solver_comparison_row[f'{solver} solution'] = sol["solution"]
+            solver_comparison_row[f'{solver} solve time'] = sol["solve time"]
+        solver_comparison_rows.append(solver_comparison_row)
+
+    solver_comparison_rows = sorted(solver_comparison_rows,
+                                    key=lambda r: (r['instance name'], r['function name']))
+    with open(comparison_table_filename, 'w') as f:
+        writer = csv.DictWriter(f, fieldnames=solver_comparison_rows[0].keys())
+        writer.writeheader()
+        writer.writerows(solver_comparison_rows)
 
 
 if __name__ == '__main__':
     main()
-    make_table('results.csv')
+    make_tables('results.csv', 'solver_comparison.csv')
