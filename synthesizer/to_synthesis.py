@@ -3,6 +3,24 @@ from typing import Any
 import dateutil.parser
 
 
+def get_synthesis_strings_aux(i: Any) -> set[str]:
+    if i is None:
+        return set()
+    if isinstance(i, str):
+        if len(i) > 1 and i[0] == '"' and i[-1] == '"':
+            return {i[1:-1]}
+        return {i}
+    if isinstance(i, int):
+        return set()
+    if isinstance(i, list):
+        return set().union(*(get_synthesis_strings_aux(e) for e in i))
+    if isinstance(i, dict):
+        return set().union(*(get_synthesis_strings_aux(k) for k in i.keys())).union(
+            *(get_synthesis_strings_aux(v) for v in i.values()))
+
+    raise NotImplementedError(f'get_racket_keys_aux not implemented for {i.__class__.__name__}')
+
+
 def get_synthesis_keys_aux(i: Any, depth: int = 0, max_depth: int = 100000) -> set[str]:
     if depth >= max_depth:
         return set()
@@ -81,6 +99,17 @@ def get_synthesis_values(synt_decl) -> set[str]:
         values.update(get_synthesis_values_aux(ctr['inputs']))
 
     return values
+
+
+def get_synthesis_strings(synt_decl) -> set[str]:
+    """ Given the contraints (i.e., the I/O examples) of a synthesis problem,
+        return the set of keys that are used in them """
+    strings = set()
+    for ctr in synt_decl['constraints']:
+        strings.update(get_synthesis_strings_aux(ctr['inputs']))
+        strings.update(get_synthesis_strings_aux(ctr['output']))
+
+    return strings
 
 
 def get_synthesis_indices(synt_decl: dict[str:Any]) -> list[int]:

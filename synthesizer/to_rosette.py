@@ -39,7 +39,10 @@ def rosette_file_preamble():
 (require (file "{os.getcwd()}/resources/synthesis/synthesis_lang.rkt"))\n\n"""
 
 
-def build_general_rosette_grammar(keys, indices, values):
+def build_general_rosette_grammar(keys: list[str], indices: list[int], values: list[str]):
+    if len(keys) == 1:
+        # Rosette does not deal well with single element lists
+        keys.append('fillerstr')
     keys_str = ' '.join(f'"{k}"' for k in keys)
     values_str = ' '.join(f'"{v}"' if isinstance(v, str) else f'{v}' for v in values)
     indices_str = ' '.join(map(str, indices))
@@ -123,10 +126,10 @@ def build_rosette_synthesis_query(synt_decl, depth: int, start_symb: str):
 def to_python(arg):
     try:
         return eval(arg)
-    except (NameError, SyntaxError) as e:
+    except (NameError, SyntaxError):
         try:
             return eval(arg.replace('true', 'True').replace('false', 'False'))
-        except (NameError, SyntaxError) as e:
+        except (NameError, SyntaxError):
             return arg
 
 
@@ -138,11 +141,11 @@ def parse_rosette_output_aux(tokens: deque):
         func_name = token[1:]
         if func_name in one_arg_functions:
             arg0 = parse_rosette_output_aux(tokens)
-            return (func_name, (arg0))
+            return func_name, arg0
         elif func_name in two_arg_functions:
             arg0 = parse_rosette_output_aux(tokens)
             arg1 = parse_rosette_output_aux(tokens)
-            return (func_name, (arg0, arg1))
+            return func_name, (arg0, arg1)
         if func_name == 'choose':
             # ignore
             return parse_rosette_output_aux(tokens)
@@ -159,8 +162,8 @@ def parse_rosette_output(rosette: str):
     # token = tokens.popleft()
     token = tokens.popleft()
     assert token == '(define', f'removed {token} from {tokens}.'
-    token = tokens.popleft()  # func name
-    token = tokens.popleft()  # x
+    _ = tokens.popleft()  # func name
+    _ = tokens.popleft()  # x
 
     return parse_rosette_output_aux(tokens)
 
@@ -203,7 +206,7 @@ def convert_rosette_to_jsonpath(rosette: str):
     return rosette_to_jsonpath(ast)
 
 
-def get_rosette_query(depth, indices, keys, synt_decl, values):
+def get_rosette_query(depth, indices: list[int], keys: list[str], synt_decl, values: list[str]):
     rosette_text = ''
     rosette_text += rosette_file_preamble()
     rosette_text += build_general_rosette_grammar(keys, indices, values)

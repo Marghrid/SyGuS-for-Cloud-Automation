@@ -1,20 +1,20 @@
-import os
 import subprocess
 from collections import deque
 from typing import Any
 
-from synthesizer.to_synthesis import get_start_symbol
+from synthesizer.to_synthesis import get_start_symbol, get_synthesis_strings
 from synthesizer.util import get_timeout_command_prefix, human_time
 
 
-def get_cvc5_list(lst: list[Any]):
+def get_cvc5_list(lst: list[Any], str_to_cvc5_mapping: dict[str, str]) -> str:
     if len(lst) == 0:
         return 'j_nil_list'
     else:
-        return f'(list_cons {to_cvc5_json_type(lst[0])} {get_cvc5_list(lst[1:])})'
+        return (f'(list_cons {to_cvc5_json_type(lst[0], str_to_cvc5_mapping)} '
+                f'{get_cvc5_list(lst[1:], str_to_cvc5_mapping)})')
 
 
-def get_cvc5_dict(dct: dict[str, Any] or list[str, Any]):
+def get_cvc5_dict(dct: dict[str, Any] or list[str, Any], str_to_cvc5_mapping: dict[str, str]) -> str:
     if len(dct) == 0:
         return 'j_nil_dict'
     else:
@@ -22,31 +22,34 @@ def get_cvc5_dict(dct: dict[str, Any] or list[str, Any]):
             ldict = list(sorted(dct.items(), key=lambda x: x[0]))
         else:
             ldict = dct
-        key_str = '"' + ldict[0][0].replace('"', '\\"') + '"'
-        return (f'(dict_cons {key_str} {to_cvc5_json_type(ldict[0][1])} '
-                f'{get_cvc5_dict(ldict[1:])})')
+
+        if ldict[0][0][0] == ldict[0][0][-1] == '"':
+            ldict[0][0] = (ldict[0][0][1:-1], ldict[0][1])
+
+        return (f'(dict_cons {ldict[0][0]} {to_cvc5_json_type(ldict[0][1], str_to_cvc5_mapping)} '
+                f'{get_cvc5_dict(ldict[1:], str_to_cvc5_mapping)})')
 
 
-def to_cvc5_json_type(i: Any) -> str:
+def to_cvc5_json_type(i: Any, str_to_cvc5_mapping: dict[str, str]) -> str:
     if isinstance(i, bool):
         return f'(jB {str(i).lower()})'
     if isinstance(i, str):
         if len(i) > 1 and i[0] == '"' and i[-1] == '"':
-            return '(jS "' + i[1:-1].replace('"', '\"') + '")'
-        return '(jS "' + i.replace('"', '\"') + '")'
+            return '(jS ' + str_to_cvc5_mapping[i[1:-1]] + ')'
+        return '(jS ' + str_to_cvc5_mapping[i] + ')'
     if isinstance(i, int) or isinstance(i, float):
         return f'(jI {i})'
     if i is None:
         return "jNull"
     if isinstance(i, list):
-        return f'(jL {get_cvc5_list(i)})'
+        return f'(jL {get_cvc5_list(i, str_to_cvc5_mapping)})'
     if isinstance(i, dict):
-        return f'(jD {get_cvc5_dict(i)})'
+        return f'(jD {get_cvc5_dict(i, str_to_cvc5_mapping)})'
 
     raise NotImplementedError(f'to_cvc5 not implemented for {i.__class__.__name__}')
 
 
-def to_cvc5(i: Any) -> str:
+def to_cvc5(i: Any, str_to_cvc5_mapping: dict[str, str]) -> str:
     if isinstance(i, bool):
         return f'{str(i).lower()}'
     if isinstance(i, str):
@@ -58,21 +61,187 @@ def to_cvc5(i: Any) -> str:
     if i is None:
         return "jNull"
     if isinstance(i, list):
-        return f'{get_cvc5_list(i)}'
+        return f'{get_cvc5_list(i, str_to_cvc5_mapping)}'
     if isinstance(i, dict):
-        return f'{get_cvc5_dict(i)}'
+        return f'{get_cvc5_dict(i, str_to_cvc5_mapping)}'
 
     raise NotImplementedError(f'to_cvc5 not implemented for {i.__class__.__name__}')
 
 
-def cvc5_file_preamble():
-    with open(f'{os.getcwd()}/resources/synthesis/synthesis_lang.smt') as f:
-        return f.read() + '\n\n'
+def cvc5_file_preamble(cvc5_strs: list[str]) -> str:
+    logic_and_options = """
+(set-logic UFDTLIA)
+(set-option :produce-models true)
 
 
-def build_sygus_grammar(keys, indices, values, start_symb: str, synt_f_name: str = 'f0'):
-    keys_str = ' '.join(f'"{k}"' for k in keys)
-    values_str = ' '.join(to_cvc5_json_type(v) for v in values)
+; (set-option :sygus-enum smart)
+; (set-option :sygus-eval-unfold single)
+; (set-option :sygus-grammar-cons simple)
+; (set-option :sygus-pbe true)
+    """
+
+    rest = """
+; recursive datatypes declared together
+(declare-datatypes ((Json 0) (JsonDict 0) (JsonList 0)) ((
+    (jS (sval EnumString))
+    (jI (ival Int))
+    (jB (bval Bool))
+    (jL (lval JsonList))
+    (jD (dval JsonDict))
+    (jNull)
+  )(
+    (j_nil_dict)
+    (dict_cons (key EnumString) (val Json) (jdtail JsonDict))
+  )(
+    (j_nil_list)
+    (list_cons   (j_head Json) (j_tail JsonList))
+  )
+  ))
+
+
+(define-fun-rec find_key ((keyV EnumString) (dict JsonDict)) Json
+  (match dict
+  (
+    (j_nil_dict jNull)
+    ((dict_cons _key _val rest) (ite (= _key keyV) _val (find_key keyV rest)))
+  ))
+)
+
+(define-fun get_val_dict ((x Json) (keyV EnumString)) Json
+  (match x
+    (
+      ((jS x) jNull)
+      ((jI x) jNull)
+      ((jB x) jNull)
+      ((jL x) jNull)
+      ((jD dict) (find_key keyV dict))
+      (jNull jNull)
+    ))
+)
+
+(define-fun-rec nth_list ((li JsonList) (n Int)) Json
+  (ite (< n 0)
+    jNull
+      (match li ((j_nil_list jNull) ((list_cons h r) (ite (= n 0) h (nth_list r (- n 1))))))
+  )
+)
+
+(define-fun-rec list_length ((li JsonList)) Int
+  (match li (
+        (j_nil_list 0)
+        ((list_cons h t) (+ 1 (list_length t)))
+  ))
+)
+
+(define-fun-rec dict_length ((dict JsonDict)) Int
+  (match dict (
+        (j_nil_dict 0)
+        ((dict_cons k v t) (+ 1 (dict_length t)))
+  ))
+)
+
+(define-fun length ((jx Json)) Int
+  (match jx (
+      ((jS x) 1)
+      ((jI x) 1)
+      ((jB x) 1)
+      ((jL li) (list_length li))
+      ((jD dict) (dict_length dict))
+      (jNull 0)
+    ))
+)
+
+(define-fun is_empty ((jx Json)) Bool
+  (match jx
+    (
+      ((jS x) true)
+      ((jI x) true)
+      ((jB x) true)
+      ((jL li) (= li j_nil_list))
+      ((jD dict) (= dict j_nil_dict))
+      (jNull false)
+    ))
+)
+
+(define-fun-rec concat_list ((l JsonList) (r JsonList)) JsonList
+  (match l
+  (
+    (j_nil_list r)
+    ((list_cons h t) (list_cons h (concat_list t r)))
+  ))
+)
+
+(define-fun get_idx_list ((x Json) (idx Int)) Json
+  (match x
+    (
+      ((jS x) jNull)
+      ((jI x) jNull)
+      ((jB x) jNull)
+      ((jL li) (nth_list li idx))
+      ((jD dict) jNull)
+      (jNull jNull)
+    ))
+)
+
+(define-funs-rec (
+  (get_descendants_named ((x Json) (keyV EnumString)) Json)
+  (collect_descendants_dict ((xd JsonDict) (keyV EnumString) (accum JsonList)) JsonList)
+  )
+  ((match x
+    (
+      (jNull jNull)
+      ((jS x) jNull)
+      ((jI x) jNull)
+      ((jB x) jNull)
+      ((jL li) jNull)
+      ((jD dict) (let
+        ((res (find_key keyV dict)))
+        (ite (= res jNull)
+          (jL (collect_descendants_dict dict keyV j_nil_list))
+          res
+        )
+      ))))
+    (match xd
+      ((j_nil_dict accum)
+      ((dict_cons _key _val rest)
+        (let ((res (get_descendants_named _val keyV)))
+          (match res
+            (
+              (jNull (collect_descendants_dict rest keyV accum))
+              ((jS s) (collect_descendants_dict rest keyV (list_cons (jS s) accum)))
+              ((jI e) (collect_descendants_dict rest keyV (list_cons (jI e) accum)))
+              ((jB e) (collect_descendants_dict rest keyV (list_cons (jB e) accum)))
+              ((jD e) (collect_descendants_dict rest keyV (list_cons (jD e) accum)))
+              ((jL l) (collect_descendants_dict rest keyV (concat_list l accum)))
+            )
+          )
+        )
+      ))
+    )
+  )
+)
+"""
+    if len(cvc5_strs) == 0:
+        string_datatype = """
+(declare-datatype EnumString
+    ( nilstr )
+)
+"""
+    else:
+        string_datatype = f"""
+(declare-datatype EnumString
+    ( {' '.join('(' + s + ')' for s in cvc5_strs)} )
+)
+"""
+
+    return logic_and_options + string_datatype + rest
+
+
+def build_sygus_grammar(keys: list[str], indices: list[int], values: list[int | str],
+                        start_symb: str, synt_f_name: str,
+                        str_to_cvc5_mapping: dict[str, str]) -> str:
+    keys_str = ' '.join(f'{str_to_cvc5_mapping[k]}' for k in keys)
+    values_str = ' '.join(to_cvc5_json_type(v, str_to_cvc5_mapping) for v in values)
     indices_str = ' '.join(map(str, indices))
 
     if start_symb == 'SyntJ':
@@ -106,7 +275,7 @@ def build_sygus_grammar(keys, indices, values, start_symb: str, synt_f_name: str
     non_terminals['(SyntJ Json)'] = synth_json_defintion
 
     if len(keys) > 0:
-        non_terminals['(SySK String)'] = f'\n    (SySK String ({keys_str}))'
+        non_terminals['(SySK EnumString)'] = f'\n    (SySK EnumString ({keys_str}))'
 
     if len(values) > 0:
         non_terminals['(SySV Json)'] = f'\n    (SySV Json ({values_str}))'
@@ -137,22 +306,22 @@ def build_sygus_grammar(keys, indices, values, start_symb: str, synt_f_name: str
     return s
 
 
-def build_cvc5_samples(synt_decl):
+def build_cvc5_samples(synt_decl, str_to_cvc5_mapping: dict[str, str]):
     s = ''
     for io_idx, io in enumerate(synt_decl['constraints']):
-        s += f'(define-const sample{io_idx} Json {to_cvc5_json_type(io["inputs"])})\n'
+        s += f'(define-const sample{io_idx} Json {to_cvc5_json_type(io["inputs"], str_to_cvc5_mapping)})\n'
     s += '\n'
     return s
 
 
-def build_cvc5_synthesis_query(synt_decl, start_symbol):
+def build_cvc5_synthesis_query(synt_decl, start_symbol, str_to_cvc5_mapping: dict[str, str]):
     asserts = []
     f_name = synt_decl["name"]
     for ctr_idx, ctr in enumerate(synt_decl["constraints"]):
         if start_symbol == 'SyntJ':
-            output_str = to_cvc5_json_type(ctr["output"])
+            output_str = to_cvc5_json_type(ctr["output"], str_to_cvc5_mapping)
         else:
-            output_str = to_cvc5(ctr["output"])
+            output_str = to_cvc5(ctr["output"], str_to_cvc5_mapping)
         asserts.append(f'(constraint (= ({f_name} sample{ctr_idx}) {output_str}))')
 
     asserts_str = '\n'.join(asserts)
@@ -165,10 +334,10 @@ def build_cvc5_synthesis_query(synt_decl, start_symbol):
 def to_python(arg):
     try:
         return eval(arg)
-    except (NameError, SyntaxError) as e:
+    except (NameError, SyntaxError):
         try:
             return eval(arg.replace('true', 'True').replace('false', 'False'))
-        except (NameError, SyntaxError) as e:
+        except (NameError, SyntaxError):
             return arg
 
 
@@ -180,18 +349,22 @@ def parse_cvc5_output_aux(tokens: deque):
         func_name = token[1:]
         if func_name in one_arg_functions:
             arg0 = parse_cvc5_output_aux(tokens)
-            return (func_name, (arg0))
+            return func_name, arg0
         elif func_name in two_arg_functions:
             arg0 = parse_cvc5_output_aux(tokens)
             arg1 = parse_cvc5_output_aux(tokens)
-            return (func_name, (arg0, arg1))
+            return func_name, (arg0, arg1)
         if func_name == 'choose':
             # ignore
             return parse_cvc5_output_aux(tokens)
     if 'x' in token:
         return 'x'
     if token[-1] == ')':
-        return eval(token.replace(')', ''))
+        token = token.replace(')', '')
+        try:
+            return eval(token)
+        except NameError:
+            return token  # Assume it is a string
 
     raise NotImplementedError(f'Handle parsing {token}, {tokens}')
 
@@ -205,10 +378,10 @@ def parse_cvc5_output(solver_output: str):
     assert token == '(', f'removed {token} from {tokens}.'
     token = tokens.popleft()
     assert token == '(define-fun', f'removed {token} from {tokens}.'
-    token = tokens.popleft()  # func name
-    token = tokens.popleft()  # x
-    token = tokens.popleft()  # x type, Json
-    token = tokens.popleft()  # return type, start symb
+    _ = tokens.popleft()  # func name
+    _ = tokens.popleft()  # x
+    _ = tokens.popleft()  # x type, Json
+    _ = tokens.popleft()  # return type, start symb
 
     return parse_cvc5_output_aux(tokens)
 
@@ -254,15 +427,50 @@ def convert_cvc5_to_jsonpath(solver_output: str):
     return cvc5_to_jsonpath(ast)
 
 
+def get_cvc5_enum_type_str(s: str) -> str:
+    if len(s) == 0:
+        return 'emptystr'
+    if s[0].isdigit():
+        s = '_' + s
+
+    # Replace invalid characted in CVC5 identifiers with valid characters.
+    replacements = {' ': '-', ':': '_', '(': '<', ')': '>'}
+    for k, v in replacements.items():
+        s = s.replace(k, v)
+    return s
+
+
+def get_cvc5_enum_type_strs(strs: list[str]) -> dict[str, str]:
+    str_to_cvc5_mappting = {}
+    cvc5_to_str_mapping = {}
+    for s in strs:
+        cvc5_str = get_cvc5_enum_type_str(s)
+        while cvc5_str in cvc5_to_str_mapping and cvc5_to_str_mapping[cvc5_str] != s:
+            cvc5_str = f'_{cvc5_str}'
+        assert (s not in str_to_cvc5_mappting or
+                str_to_cvc5_mappting[s] == cvc5_str), \
+            (f'Tried to map {s} to {cvc5_str} but it was '
+             f'already mapped to {str_to_cvc5_mappting[s]}')
+        str_to_cvc5_mappting[s] = cvc5_str
+        cvc5_to_str_mapping[cvc5_str] = s
+
+    return str_to_cvc5_mappting
+
+
+# FIXME on main: Weird arg order
 def get_cvc5_query(indices, keys, synt_decl, values):
     cvc5_text = ''
-    cvc5_text += cvc5_file_preamble()
+    str_to_cvc5_mapping = get_cvc5_enum_type_strs(sorted(get_synthesis_strings(synt_decl)))
+    assert all(k in str_to_cvc5_mapping for k in keys), tuple(filter(lambda k: k not in str_to_cvc5_mapping, keys))
+    assert all(not isinstance(v, str) or v in str_to_cvc5_mapping for v in values), (
+        tuple(filter(lambda v: isinstance(v, str) and v not in str_to_cvc5_mapping, values)))
+    cvc5_text += cvc5_file_preamble(sorted(str_to_cvc5_mapping.values()))
     start_symbol = get_start_symbol(synt_decl['constraints'])
     start_symbol = start_symbol[0].upper() + start_symbol[1:]
     f_name = synt_decl["name"]
-    cvc5_text += build_sygus_grammar(keys, indices, values, start_symbol, f_name)
-    cvc5_text += build_cvc5_samples(synt_decl)
-    cvc5_text += build_cvc5_synthesis_query(synt_decl, start_symbol)
+    cvc5_text += build_sygus_grammar(keys, indices, values, start_symbol, f_name, str_to_cvc5_mapping)
+    cvc5_text += build_cvc5_samples(synt_decl, str_to_cvc5_mapping)
+    cvc5_text += build_cvc5_synthesis_query(synt_decl, start_symbol, str_to_cvc5_mapping)
     return cvc5_text
 
 

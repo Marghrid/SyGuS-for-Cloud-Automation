@@ -89,7 +89,7 @@ def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dic
 
 def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[str], values: list[str],
                                       depth: int | None, instance_name: str, synthesis_solver: SynthesisSolver,
-                                      synthesis_timeout: int, use_metadata: bool, is_subproblem: bool):
+                                      synthesis_timeout: int, use_metadata: bool, is_subproblem: bool, comment: str):
     """
     Auxiliary function that, given information about a synthesis instance,
     writes a synthesis query in synthesis_solver language to a file and solves it.
@@ -107,7 +107,6 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
     """
     global valid_sat_subproblem_solutions
     global timeout_or_unsat_complete_problem_solution
-    synt_decl, comment = preprocess(synt_decl, use_metadata)
     if synthesis_solver == SynthesisSolver.Rosette:
         assert depth is not None
         synthesis_text = get_rosette_query(depth, indices, keys, synt_decl, values)
@@ -181,7 +180,7 @@ def synthesize_data_transforms(
 
     # The synthesis of each data transform is solved sequencially
     for synt_decl in sorted(synt_decls, key=lambda decl: decl['name']):
-
+        synt_decl, comment = preprocess(synt_decl, use_metadata)
         # String values collected from the instances, because Rosette's strings are not solvable types.
         keys = sorted(get_synthesis_keys(synt_decl))
         indices = get_synthesis_indices(synt_decl)
@@ -215,7 +214,7 @@ def synthesize_data_transforms(
             raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
         subproblems_args = [
             (synt_decl, indices, keys, values, depth, instance_name,
-             solver, synthesis_timeout, use_metadata, True)
+             solver, synthesis_timeout, use_metadata, True, comment)
             for depth in depths
             for keys, values in keys_values]
 
@@ -228,7 +227,7 @@ def synthesize_data_transforms(
         # Define the complete problem
         complete_problem_args = [
             (synt_decl, indices, keys, values, depth, instance_name,
-             solver, synthesis_timeout, use_metadata, False)
+             solver, synthesis_timeout, use_metadata, False, comment)
             for depth in depths]
 
         valid_sat_subproblem_solutions = []  # clear list from previous runs

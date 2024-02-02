@@ -20,9 +20,11 @@ def main():
             # Edit below to solve a specific instance:
             # if 'retry_until_example' not in filename:
             #     continue
-            # if 'synth_obj_12_35bb32' not in filename:
+            # if 'synth_obj84b5b3' not in filename:
             #     continue
-
+            # if solver.name == 'Rosette':
+            #     continue
+            print(f'Solving {filename} with {solver.name}')
             with open(filename, 'r') as f:
                 synt_decls = json.load(f)
             instance_name = os.path.basename(filename).replace('.json', '')
