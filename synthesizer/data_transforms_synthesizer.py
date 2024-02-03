@@ -6,7 +6,7 @@ import tempfile
 import time
 from typing import Any
 
-from synthesizer.to_cvc5 import get_cvc5_query, run_cvc5_command
+from synthesizer.to_cvc5_string_encoding import get_cvc5_query, run_cvc5_command
 from synthesizer.to_rosette import get_rosette_query, run_racket_command
 from synthesizer.to_synthesis import get_synthesis_indices, get_synthesis_keys, get_synthesis_values
 from synthesizer.util import get_synthesis_filename, human_time, SynthesisSolver
