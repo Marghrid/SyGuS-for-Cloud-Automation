@@ -6,7 +6,7 @@ import tempfile
 import time
 from typing import Any
 
-from synthesizer.to_cvc5_string_encoding import get_cvc5_query, run_cvc5_command
+from synthesizer.to_cvc5 import get_cvc5_query, run_cvc5_command
 from synthesizer.to_rosette import get_rosette_query, run_racket_command
 from synthesizer.to_synthesis import get_synthesis_indices, get_synthesis_keys, get_synthesis_values
 from synthesizer.util import get_synthesis_filename, human_time, SynthesisSolver
@@ -87,7 +87,7 @@ def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dic
     return synt_decl, comment
 
 
-def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[str], values: list[str],
+def write_and_solve_synthesis_problem(synt_decl: dict[str, Any], indices: list[int], keys: list[str], values: list[str],
                                       depth: int | None, instance_name: str, synthesis_solver: SynthesisSolver,
                                       synthesis_timeout: int, use_metadata: bool, is_subproblem: bool, comment: str):
     """
@@ -109,11 +109,11 @@ def write_and_solve_synthesis_problem(synt_decl, indices: list[int], keys: list[
     global timeout_or_unsat_complete_problem_solution
     if synthesis_solver == SynthesisSolver.Rosette:
         assert depth is not None
-        synthesis_text = get_rosette_query(depth, indices, keys, synt_decl, values)
+        synthesis_text = get_rosette_query(synt_decl, depth, indices, keys, values)
         extension = 'rkt'
     elif synthesis_solver == SynthesisSolver.CVC5:
         assert depth is None
-        synthesis_text = get_cvc5_query(indices, keys, synt_decl, values)
+        synthesis_text = get_cvc5_query(synt_decl, indices, keys, values)
         extension = 'sl'
     else:
         raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')

@@ -14,7 +14,8 @@ def get_cvc5_list(lst: list[Any], str_to_cvc5_mapping: dict[str, str]) -> str:
                 f'{get_cvc5_list(lst[1:], str_to_cvc5_mapping)})')
 
 
-def get_cvc5_dict(dct: dict[str, Any] or list[str, Any], str_to_cvc5_mapping: dict[str, str]) -> str:
+def get_cvc5_dict(dct: dict[str, Any] | list[str, Any],
+                  str_to_cvc5_mapping: dict[str, str]) -> str:
     if len(dct) == 0:
         return 'j_nil_dict'
     else:
@@ -237,7 +238,8 @@ def cvc5_file_preamble(cvc5_strs: list[str]) -> str:
     return logic_and_options + string_datatype + rest
 
 
-def build_sygus_grammar(keys: list[str], indices: list[int], values: list[int | str],
+def build_sygus_grammar(keys: list[str], indices: list[int],
+                        values: list[int | str],
                         start_symb: str, synt_f_name: str,
                         str_to_cvc5_mapping: dict[str, str]) -> str:
     keys_str = ' '.join(f'{str_to_cvc5_mapping[k]}' for k in keys)
@@ -457,8 +459,7 @@ def get_cvc5_enum_type_strs(strs: list[str]) -> dict[str, str]:
     return str_to_cvc5_mappting
 
 
-# FIXME on main: Weird arg order
-def get_cvc5_query(indices, keys, synt_decl, values):
+def get_cvc5_query(synt_decl, indices, keys, values):
     cvc5_text = ''
     str_to_cvc5_mapping = get_cvc5_enum_type_strs(sorted(get_synthesis_strings(synt_decl)))
     assert all(k in str_to_cvc5_mapping for k in keys), tuple(filter(lambda k: k not in str_to_cvc5_mapping, keys))

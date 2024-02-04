@@ -3,7 +3,7 @@ import enum
 import hashlib
 
 
-def human_time(total_seconds):
+def human_time(total_seconds: int | float) -> str:
     """ Prints a time in a nice, legible format. """
     if total_seconds < 60:
         return f'{total_seconds:.1f}s'

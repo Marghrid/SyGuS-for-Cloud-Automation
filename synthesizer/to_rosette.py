@@ -206,7 +206,7 @@ def convert_rosette_to_jsonpath(rosette: str):
     return rosette_to_jsonpath(ast)
 
 
-def get_rosette_query(depth, indices: list[int], keys: list[str], synt_decl, values: list[str]):
+def get_rosette_query(synt_decl: dict[str, Any], depth: int, indices: list[int], keys: list[str], values: list[str]):
     rosette_text = ''
     rosette_text += rosette_file_preamble()
     rosette_text += build_general_rosette_grammar(keys, indices, values)
