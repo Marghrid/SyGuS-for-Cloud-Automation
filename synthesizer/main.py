@@ -9,9 +9,7 @@ from synthesizer.data_transforms_synthesizer import synthesize_data_transforms
 from synthesizer.util import human_time, SynthesisSolver
 
 
-def main():
-    instances_dir = 'resources/instances/'
-    synthesis_timeout = 5 * 60
+def main(instances_dir: str, synthesis_timeout: int):
     solvers = (SynthesisSolver.CVC5, SynthesisSolver.Rosette)
 
     args = []
@@ -116,5 +114,9 @@ def make_tables(results_table_filename: str, comparison_table_filename: str):
 
 
 if __name__ == '__main__':
-    main()
-    make_tables('results.csv', 'solver_comparison.csv')
+    instances_dir = 'resources/json_solver_benchmarks/'
+    # instances_dir = 'resources/benchmarks_pt1/'
+    synthesis_timeout = 5 * 60
+    main(instances_dir, synthesis_timeout)
+    instances_dir_name = instances_dir.replace('resources', '').replace('/', '')
+    make_tables(f'results_{instances_dir_name}.csv', f'solver_comparison_{instances_dir_name}.csv')
