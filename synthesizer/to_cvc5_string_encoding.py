@@ -3,7 +3,7 @@ from collections import deque
 from typing import Any
 
 from synthesizer.to_synthesis import get_start_symbol, get_synthesis_strings
-from synthesizer.util import get_timeout_command_prefix, human_time
+from synthesizer.util import get_timeout_command_prefix, human_time, SyntDecl
 
 
 def get_cvc5_list(lst: list[Any], str_to_cvc5_mapping: dict[str, str]) -> str:
@@ -316,7 +316,7 @@ def build_cvc5_samples(synt_decl, str_to_cvc5_mapping: dict[str, str]):
     return s
 
 
-def build_cvc5_synthesis_query(synt_decl, start_symbol, str_to_cvc5_mapping: dict[str, str]):
+def build_cvc5_synthesis_query(synt_decl: SyntDecl, start_symbol, str_to_cvc5_mapping: dict[str, str]):
     asserts = []
     f_name = synt_decl["name"]
     for ctr_idx, ctr in enumerate(synt_decl["constraints"]):

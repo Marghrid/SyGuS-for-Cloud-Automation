@@ -4,20 +4,19 @@ import multiprocessing.dummy  # So it uses threads, not processes
 import os.path
 import tempfile
 import time
-from typing import Any
 
 from synthesizer.to_cvc5 import get_cvc5_query, run_cvc5_command
 from synthesizer.to_rosette import get_rosette_query, run_racket_command
 from synthesizer.to_synthesis import get_synthesis_indices, get_synthesis_keys, get_synthesis_values
-from synthesizer.util import get_synthesis_filename, human_time, SynthesisSolver
+from synthesizer.util import get_synthesis_filename, human_time, Solution, SyntDecl, SynthesisSolver
 
 # Where each subproblem thread saves its positive solution
-valid_sat_subproblem_solutions: list[dict[str, Any], ...] = []
+valid_sat_subproblem_solutions: list[Solution, ...] = []
 # Where the complete problem threads save the most recent timeout or unsat solution
-timeout_or_unsat_complete_problem_solution: dict[str, Any] | None = None
+timeout_or_unsat_complete_problem_solution: Solution | None = None
 
 
-def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dict[str:Any], str]:
+def preprocess(synt_decl: SyntDecl, use_metadata: bool = True) -> tuple[SyntDecl, str]:
     """
     Remove whole constraints (i.e., I/O pairs), or remove one or more inputs if they should not be used for synthesis.
     Removes constraints if
@@ -87,9 +86,10 @@ def preprocess(synt_decl: dict[str:Any], use_metadata: bool = True) -> tuple[dic
     return synt_decl, comment
 
 
-def write_and_solve_synthesis_problem(synt_decl: dict[str, Any], indices: list[int], keys: list[str], values: list[str],
+def write_and_solve_synthesis_problem(synt_decl: SyntDecl, indices: list[int], keys: list[str], values: list[str],
                                       depth: int | None, instance_name: str, synthesis_solver: SynthesisSolver,
-                                      synthesis_timeout: int, use_metadata: bool, is_subproblem: bool, comment: str):
+                                      synthesis_timeout: int, use_metadata: bool, is_subproblem: bool,
+                                      comment: str) -> Solution:
     """
     Auxiliary function that, given information about a synthesis instance,
     writes a synthesis query in synthesis_solver language to a file and solves it.
@@ -122,7 +122,7 @@ def write_and_solve_synthesis_problem(synt_decl: dict[str, Any], indices: list[i
     with tempfile.NamedTemporaryFile('w', suffix=suffix, delete=False) as f:
         f.write(synthesis_text)
         synthesis_filename = f.name
-        # print(f'{synthesis_solver.name} file written to {synthesis_filename}')
+        print(f'{synthesis_solver.name} file written to {synthesis_filename}')
     # Uncomment to DEBUG sl file
     with open(f'synth.{extension}', 'w') as f:
         f.write(synthesis_text)
@@ -131,7 +131,7 @@ def write_and_solve_synthesis_problem(synt_decl: dict[str, Any], indices: list[i
     if synthesis_solver == SynthesisSolver.CVC5:
         synthesis_ans_out = run_cvc5_command(synthesis_filename, synthesis_timeout)
     elif synthesis_solver == SynthesisSolver.Rosette:
-        synthesis_ans_out = run_racket_command(synthesis_filename, synthesis_timeout)
+        synthesis_ans_out = run_racket_command(synthesis_filename, synthesis_timeout, depth)
     else:
         raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
     elapsed = time.perf_counter() - start_call_time
@@ -158,10 +158,10 @@ def write_and_solve_synthesis_problem(synt_decl: dict[str, Any], indices: list[i
 
 
 def synthesize_data_transforms(
-        instance_name: str, synt_decls: list[dict[str:Any]],
+        instance_name: str, synt_decls: list[SyntDecl],
         solver: SynthesisSolver, synthesis_timeout: int,
         use_metadata: bool = True) \
-        -> list[dict[str:Any]]:
+        -> list[Solution]:
     """
     Given synthesis function declarations, with a name and a list of constraints,
     synthesize a JSONPath expression for each undefined function.
@@ -176,7 +176,12 @@ def synthesize_data_transforms(
     global valid_sat_subproblem_solutions
     global timeout_or_unsat_complete_problem_solution
     solutions_dir = "data_synthesis_solutions/"
-    all_solutions = []
+    if not os.path.isdir(solutions_dir):
+        os.makedirs(solutions_dir)
+
+    # List all_solutions saves all solutions to this synthesis problem.
+    # These can be SAT solutions to subproblems, or unsat solutions to the complete problem.
+    all_solutions: list[Solution] = []
 
     # The synthesis of each data transform is solved sequencially
     for synt_decl in sorted(synt_decls, key=lambda decl: decl['name']):
@@ -207,7 +212,7 @@ def synthesize_data_transforms(
             keys_values = []  # no subproblems otherwise
         # Define all subproblems
         if solver == SynthesisSolver.Rosette:
-            depths = range(2, 6)
+            depths = range(2, 10)
         elif solver == SynthesisSolver.CVC5:
             depths = (None,)
         else:
@@ -219,7 +224,7 @@ def synthesize_data_transforms(
             for keys, values in keys_values]
 
         if solver == SynthesisSolver.Rosette:
-            depths = range(2, 6)
+            depths = range(2, 10)
         elif solver == SynthesisSolver.CVC5:
             depths = (None,)
         else:
@@ -258,7 +263,8 @@ def synthesize_data_transforms(
                         all_solutions.extend(valid_sat_subproblem_solutions)
                         break  # stop watching threads
 
-                    elif async_result_complete_problem.ready():  # Even if it times out, it should be caught here.
+                    elif async_result_complete_problem.ready():
+                        # Even if it times out, it should be caught here.
                         # Complete problem finished (either successfully or not)
                         # add instance name to solutions
                         complete_problem_solutions = async_result_complete_problem.get()
@@ -276,6 +282,7 @@ def synthesize_data_transforms(
 
                 if len(all_solutions) == 0:
                     assert time.perf_counter() - start_time > synthesis_timeout
+                    # FIXME: Should this happen?
                     if timeout_or_unsat_complete_problem_solution is not None:
                         timeout_or_unsat_complete_problem_solution['instance'] = instance_name
                         all_solutions.append(timeout_or_unsat_complete_problem_solution)
@@ -285,8 +292,6 @@ def synthesize_data_transforms(
                 # Write all solutions to solutions file, even before it has
                 # computed solutions for all functions.
                 solution_filename = f'{instance_name}_{solver.name}.json'
-                if not os.path.isdir(solutions_dir):
-                    os.makedirs(solutions_dir)
                 with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
                     json.dump(all_solutions, sol_file, indent=2)
 

@@ -2,6 +2,7 @@ import csv
 import glob
 import json
 import os
+import re
 import subprocess
 import time
 
@@ -18,7 +19,7 @@ def main(instances_dir: str, synthesis_timeout: int):
             # Edit below to solve a specific instance:
             # if 'retry_until_example' not in filename:
             #     continue
-            # if 'synth_obj84b5b3' not in filename:
+            # if 'StopInstancesCond_synth_obj585a2b' not in filename:
             #     continue
             # if solver.name == 'Rosette':
             #     continue
@@ -52,7 +53,7 @@ def main(instances_dir: str, synthesis_timeout: int):
         subprocess.run(['pkill', 'racket'])
 
 
-def make_tables(results_table_filename: str, comparison_table_filename: str):
+def make_csv_tables(results_table_filename: str, comparison_table_filename: str):
     results_rows = []
     for file in glob.glob('data_synthesis_solutions/*.json'):
         with open(file, 'r') as f:
@@ -113,10 +114,82 @@ def make_tables(results_table_filename: str, comparison_table_filename: str):
         writer.writerows(solver_comparison_rows)
 
 
+def to_latex(s: str) -> str:
+    r = s.replace('_', '\\_').replace('$', '\\$').replace('#', '\\#').replace('%', '\\%')
+    return r
+
+
+def make_latex_tables():
+    results_rows = []
+    for file in glob.glob('data_synthesis_solutions/*.json'):
+        with open(file, 'r') as f:
+            solutions = json.load(f)
+        for sol in solutions:
+            assert sol is not None, file
+            row = {
+                'instance name': sol["instance"],
+                'function name': sol["name"],
+                'depth': sol["depth"],
+                'solver': sol['solver'],
+                'solution': sol["solution"],
+                'solve time': sol["solve time"]
+            }
+            results_rows.append(row)
+
+    results_rows = sorted(results_rows, key=lambda r: (r['instance name'], r['function name'], r['solver']))
+
+    instances_dict = {}
+    for result in results_rows:
+        instance_name = f'{result["instance name"]}::{result["function name"]}'
+
+        if instance_name not in instances_dict:
+            instances_dict[instance_name] = result['solution']
+        else:
+            if 'timeout' in instances_dict[instance_name]:
+                # One of the unsats does not have a depth, keep that one
+                instances_dict[instance_name] = result['solution']
+            elif ('unsat' in instances_dict[instance_name] and
+                  'unsat' in result['solution']):
+                # Both are UNSAT, keep the most general UNSAT
+                if instances_dict[instance_name] == '(unsat)' or result['solution'] == '(unsat)':
+                    instances_dict[instance_name] = '(unsat)'
+                else:
+                    depth_old = int(re.fullmatch(r'\(unsat d=(\d+)\)', instances_dict[instance_name]).groups()[0])
+                    depth_new = int(re.fullmatch(r'\(unsat d=(\d+)\)', result['solution']).groups()[0])
+                    if depth_new > depth_old:
+                        instances_dict[instance_name] = result['solution']
+
+            elif ('unsat' not in result['solution'] and
+                  'timeout' not in result['solution']
+                  and instances_dict[instance_name] != result['solution']):
+                print(f'Warning: {instance_name} has different solutions: '
+                      f'{instances_dict[instance_name]} and {result["solution"]}')
+                if len(result["solution"]) < len(instances_dict[instance_name]) or \
+                        (len(result["solution"]) == len(instances_dict[instance_name]) and
+                         result["solution"] < instances_dict[instance_name]):
+                    instances_dict[instance_name] = result['solution']
+
+    print(r'''\begin{table*}[]
+\centering
+\begin{tabular}{@{}llrr@{}}''')
+    print(r'Instance & synthesized function \\\hline')
+    for instance in sorted(instances_dict, key=instances_dict.get):
+        # if instances_dict[instance] == '--':
+        #     continue
+        l = fr'\texttt{{{to_latex(instance)}}} & \texttt{{{to_latex(instances_dict[instance])}}} \\'
+        print(l)
+
+    print(r'''\end{tabular}
+\caption{Synthesis instances. In grey shading the ones that CVC5 did not solve.}
+\label{tab:my-table}
+\end{table*}''')
+
+
 if __name__ == '__main__':
-    instances_dir = 'resources/json_solver_benchmarks/'
-    # instances_dir = 'resources/benchmarks_pt1/'
+    # instances_dir = 'resources/json_solver_benchmarks/'
+    instances_dir = 'resources/benchmarks_pt1/'
     synthesis_timeout = 5 * 60
-    main(instances_dir, synthesis_timeout)
-    instances_dir_name = instances_dir.replace('resources', '').replace('/', '')
-    make_tables(f'results_{instances_dir_name}.csv', f'solver_comparison_{instances_dir_name}.csv')
+    # main(instances_dir, synthesis_timeout)
+    # instances_dir_name = instances_dir.replace('resources', '').replace('/', '')
+    # make_csv_tables(f'results_{instances_dir_name}.csv', f'solver_comparison_{instances_dir_name}.csv')
+    make_latex_tables()

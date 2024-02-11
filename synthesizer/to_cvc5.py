@@ -1,4 +1,3 @@
-import os
 import subprocess
 from collections import deque
 from typing import Any
@@ -293,12 +292,12 @@ def build_cvc5_samples(synt_decl):
 
 def build_cvc5_synthesis_query(synt_decl, start_symbol):
     asserts = []
-    f_name = synt_decl["name"]
-    for ctr_idx, ctr in enumerate(synt_decl["constraints"]):
+    f_name = synt_decl['name']
+    for ctr_idx, ctr in enumerate(synt_decl['constraints']):
         if start_symbol == 'SyntJ':
-            output_str = to_cvc5_json_type(ctr["output"])
+            output_str = to_cvc5_json_type(ctr['output'])
         else:
-            output_str = to_cvc5(ctr["output"])
+            output_str = to_cvc5(ctr['output'])
         asserts.append(f'(constraint (= ({f_name} sample{ctr_idx}) {output_str}))')
 
     asserts_str = '\n'.join(asserts)

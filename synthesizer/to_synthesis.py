@@ -2,6 +2,8 @@ from typing import Any
 
 import dateutil.parser
 
+from synthesizer.util import SyntDecl
+
 
 def get_synthesis_strings_aux(i: Any) -> set[str]:
     if i is None:
@@ -82,7 +84,7 @@ def get_synthesis_max_list_index(i: Any) -> int:
                               f'for {i.__class__.__name__}')
 
 
-def get_synthesis_keys(synt_decl: dict[str:Any],
+def get_synthesis_keys(synt_decl: SyntDecl,
                        max_depth: int = 100000) -> set[str]:
     """ Given the contraints (i.e., the I/O examples) of a synthesis problem,
     return the set of keys that are used in them """
@@ -112,7 +114,7 @@ def get_synthesis_strings(synt_decl) -> set[str]:
     return strings
 
 
-def get_synthesis_indices(synt_decl: dict[str:Any]) -> list[int]:
+def get_synthesis_indices(synt_decl: SyntDecl) -> list[int]:
     current_max = 2  # Ensures there are at least 2 values for indices
     for ctr in synt_decl['constraints']:
         n = get_synthesis_max_list_index(ctr['inputs'])

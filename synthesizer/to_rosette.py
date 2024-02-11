@@ -4,7 +4,7 @@ from collections import deque
 from typing import Any
 
 from synthesizer.to_synthesis import get_start_symbol
-from synthesizer.util import get_timeout_command_prefix, human_time
+from synthesizer.util import get_timeout_command_prefix, human_time, SyntDecl
 
 
 def to_racket(i: Any):
@@ -206,7 +206,7 @@ def convert_rosette_to_jsonpath(rosette: str):
     return rosette_to_jsonpath(ast)
 
 
-def get_rosette_query(synt_decl: dict[str, Any], depth: int, indices: list[int], keys: list[str], values: list[str]):
+def get_rosette_query(synt_decl: SyntDecl, depth: int, indices: list[int], keys: list[str], values: list[str]):
     rosette_text = ''
     rosette_text += rosette_file_preamble()
     rosette_text += build_general_rosette_grammar(keys, indices, values)
@@ -216,7 +216,7 @@ def get_rosette_query(synt_decl: dict[str, Any], depth: int, indices: list[int],
     return rosette_text
 
 
-def run_racket_command(racket_filename: str, timeout: int) -> str:
+def run_racket_command(racket_filename: str, timeout: int, depth: int) -> str:
     """
     Runs a pre-written Racket file and returns the solution, in our jsonpath format.
     :param racket_filename: The name of the file with the racket problem
@@ -228,7 +228,7 @@ def run_racket_command(racket_filename: str, timeout: int) -> str:
         result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
 
         if 'unsat' in result.stdout:
-            racket_out = '(unsat)'
+            racket_out = f'(unsat d={depth})'
         else:
             racket_out = "\n".join(result.stdout.split('\n')[1:])
             try:
