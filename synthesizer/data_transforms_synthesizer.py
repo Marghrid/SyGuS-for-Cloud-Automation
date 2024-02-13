@@ -108,7 +108,7 @@ def write_and_solve_synthesis_problem(synt_decl: SyntDecl, indices: list[int], k
     global valid_sat_subproblem_solutions
     global timeout_or_unsat_complete_problem_solution
     if synthesis_solver == SynthesisSolver.Rosette:
-        assert depth is not None
+        # assert depth is not None
         synthesis_text = get_rosette_query(synt_decl, depth, indices, keys, values)
         extension = 'rkt'
     elif synthesis_solver == SynthesisSolver.CVC5:
@@ -212,7 +212,8 @@ def synthesize_data_transforms(
             keys_values = []  # no subproblems otherwise
         # Define all subproblems
         if solver == SynthesisSolver.Rosette:
-            depths = range(2, 10)
+            # depths = range(2, 10)
+            depths = (None, )
         elif solver == SynthesisSolver.CVC5:
             depths = (None,)
         else:
@@ -224,7 +225,8 @@ def synthesize_data_transforms(
             for keys, values in keys_values]
 
         if solver == SynthesisSolver.Rosette:
-            depths = range(2, 10)
+            #  depths = range(2, 10)
+            depths = (None, )
         elif solver == SynthesisSolver.CVC5:
             depths = (None,)
         else:
