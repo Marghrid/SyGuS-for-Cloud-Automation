@@ -101,9 +101,10 @@ def build_rosette_synthesis_query(synt_decl, depth: int, start_symb: str):
 
     s = f"""
 (define ({f_name} x)
-  (json-selector x #:depth {depth} #:start {start_symb})
+  (json-selector x {'#:depth ' + str(depth) if depth is not None else ''} #:start {start_symb})
 )
-
+"""
+    s += f"""
 (define sol
   (synthesize
    #:forall (list)
@@ -228,7 +229,10 @@ def run_racket_command(racket_filename: str, timeout: int, depth: int) -> str:
         result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
 
         if 'unsat' in result.stdout:
-            racket_out = f'(unsat d={depth})'
+            if depth is None:
+                racket_out = '(unsat)'
+            else:
+                racket_out = f'(unsat d={depth})'
         else:
             racket_out = "\n".join(result.stdout.split('\n')[1:])
             try:

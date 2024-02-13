@@ -9,7 +9,9 @@ type SyntDecl = dict[str:Any]
 
 def human_time(total_seconds: int | float) -> str:
     """ Prints a time in a nice, legible format. """
-    if total_seconds < 60:
+    if total_seconds < .1:
+        return f'< 0.1s'
+    elif total_seconds < 60:
         return f'{total_seconds:.1f}s'
     mins, secs = divmod(total_seconds, 60)
     hours, mins = divmod(mins, 60)
