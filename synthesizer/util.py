@@ -3,8 +3,8 @@ import enum
 import hashlib
 from typing import Any
 
-type Solution = dict[str, int | str]
-type SyntDecl = dict[str:Any]
+Solution = dict[str, int | str]
+SyntDecl = dict[str:Any]
 
 
 def human_time(total_seconds: int | float) -> str:

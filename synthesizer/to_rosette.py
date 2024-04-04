@@ -92,6 +92,7 @@ def build_rosette_samples(synt_decl):
 
 
 def build_rosette_synthesis_query(synt_decl, depth: int, start_symb: str):
+    assert depth is not None
     asserts = []
     f_name = synt_decl["name"]
     for ctr_idx, ctr in enumerate(synt_decl["constraints"]):

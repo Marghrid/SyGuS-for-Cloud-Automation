@@ -116,7 +116,7 @@ def write_and_solve_synthesis_problem(synt_decl: SyntDecl, indices: list[int], k
         synthesis_text = get_cvc5_query(synt_decl, indices, keys, values)
         extension = 'sl'
     else:
-        raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
+        raise NotImplementedError(f'Synthesis solver {synthesis_solver} not implemented.')
     func_name = synt_decl['name']
     suffix = get_synthesis_filename(depth, func_name, instance_name, keys, values, extension)
     with tempfile.NamedTemporaryFile('w', suffix=suffix, delete=False) as f:
@@ -124,16 +124,16 @@ def write_and_solve_synthesis_problem(synt_decl: SyntDecl, indices: list[int], k
         synthesis_filename = f.name
         print(f'{synthesis_solver.name} file written to {synthesis_filename}')
     # Uncomment to DEBUG sl file
-    with open(f'synth.{extension}', 'w') as f:
-        f.write(synthesis_text)
-        # print(f'{synthesis_solver.name} file written to synth.{extension}')
+    # with open(f'synth.{extension}', 'w') as f:
+    #     f.write(synthesis_text)
+    #     print(f'{synthesis_solver.name} file written to synth.{extension}')
     start_call_time = time.perf_counter()
     if synthesis_solver == SynthesisSolver.CVC5:
         synthesis_ans_out = run_cvc5_command(synthesis_filename, synthesis_timeout)
     elif synthesis_solver == SynthesisSolver.Rosette:
         synthesis_ans_out = run_racket_command(synthesis_filename, synthesis_timeout, depth)
     else:
-        raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
+        raise NotImplementedError(f'Synthesis solver {synthesis_solver} not implemented.')
     elapsed = time.perf_counter() - start_call_time
     solution = {'name': func_name,
                 'solution': synthesis_ans_out,
@@ -158,8 +158,10 @@ def write_and_solve_synthesis_problem(synt_decl: SyntDecl, indices: list[int], k
 
 
 def synthesize_data_transforms(
-        instance_name: str, synt_decls: list[SyntDecl],
-        solver: SynthesisSolver, synthesis_timeout: int,
+        instance_name: str,
+        synt_decls: list[SyntDecl],
+        solver: SynthesisSolver,
+        synthesis_timeout: int,
         use_metadata: bool = True) \
         -> list[Solution]:
     """
@@ -212,12 +214,11 @@ def synthesize_data_transforms(
             keys_values = []  # no subproblems otherwise
         # Define all subproblems
         if solver == SynthesisSolver.Rosette:
-            # depths = range(2, 10)
-            depths = (None, )
+            depths = range(2, 10)
         elif solver == SynthesisSolver.CVC5:
             depths = (None,)
         else:
-            raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
+            raise NotImplementedError(f'Synthesis solver {solver} not implemented.')
         subproblems_args = [
             (synt_decl, indices, keys, values, depth, instance_name,
              solver, synthesis_timeout, use_metadata, True, comment)
@@ -225,12 +226,11 @@ def synthesize_data_transforms(
             for keys, values in keys_values]
 
         if solver == SynthesisSolver.Rosette:
-            #  depths = range(2, 10)
-            depths = (None, )
+             depths = range(2, 10)
         elif solver == SynthesisSolver.CVC5:
             depths = (None,)
         else:
-            raise NotImplementedError(f'Synthesis solver {SynthesisSolver} not implemented.')
+            raise NotImplementedError(f'Synthesis solver {solver} not implemented.')
         # Define the complete problem
         complete_problem_args = [
             (synt_decl, indices, keys, values, depth, instance_name,
