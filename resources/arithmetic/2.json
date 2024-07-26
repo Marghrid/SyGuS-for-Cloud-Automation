@@ -1,0 +1,11 @@
+[
+  {
+    "name": "f?",
+    "constraints": [
+      { "inputs": [ -2 ], "output": -4 },
+      { "inputs": [ -1 ], "output": -1 },
+      { "inputs": [ 2 ], "output": -4 },
+      { "inputs": [ 1 ], "output": -1 }
+    ]
+  }
+]
