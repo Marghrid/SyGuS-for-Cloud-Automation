@@ -125,12 +125,11 @@ def get_synthesis_indices(synt_decl: SyntDecl) -> list[int]:
 
 def get_start_symbol(ctrs: list[dict[str, Any]]) -> str:
     if all(isinstance(ctr["output"], bool) for ctr in ctrs):
-        start_symb = 'syntBool'
-    elif all(isinstance(ctr["output"], list) for ctr in ctrs) or \
-            all(isinstance(ctr["output"], dict) for ctr in ctrs) or \
-            all(isinstance(ctr["output"], int) for ctr in ctrs) or \
-            all(isinstance(ctr["output"], str) for ctr in ctrs):
-        start_symb = 'syntJ'
+        start_symb = 'SyntBool'
+    elif all(isinstance(ctr["output"], int) for ctr in ctrs):
+        start_symb = 'SyntInt'
+    elif all(isinstance(ctr["output"], float) for ctr in ctrs):
+        start_symb = 'SyntReal'
     else:
         raise NotImplementedError(f'Which start symbol for '
                                   f'{[ctr["output"].__class__.__name__ for ctr in ctrs]}')

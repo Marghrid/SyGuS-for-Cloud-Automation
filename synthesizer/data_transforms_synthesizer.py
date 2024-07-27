@@ -88,7 +88,7 @@ def preprocess(synt_decl: SyntDecl, use_metadata: bool = True) -> tuple[SyntDecl
 
 
 def write_and_solve_arithmetic_synthesis_problem(
-        synt_decl: SyntDecl,
+        synt_decl: SyntDecl, indices: list[int],
         depth: int | None, instance_name: str, synthesis_solver: SynthesisSolver,
         synthesis_timeout: int,
         comment: str) -> Solution:
@@ -111,12 +111,11 @@ def write_and_solve_arithmetic_synthesis_problem(
     global timeout_or_unsat_complete_problem_solution
     if synthesis_solver == SynthesisSolver.Rosette:
         # assert depth is not None
-        synthesis_text = get_rosette_query(synt_decl, depth, [], [], [])
-        extension = 'rkt'
+        raise NotImplementedError('Arithmetic synthesis not implemented for Rosette.')
     elif synthesis_solver == SynthesisSolver.CVC5:
         assert depth is None
         encoder = Arithmetic2CVC5Encoder()
-        synthesis_text = encoder.get_query(synt_decl, [], [], [])
+        synthesis_text = encoder.get_query(synt_decl, indices)
         extension = 'sl'
     else:
         raise NotImplementedError(f'Synthesis solver {synthesis_solver} not implemented.')
@@ -288,14 +287,24 @@ def synthesize_arithmetic_function(all_solutions, instance_name, solutions_dir, 
     else:
         raise NotImplementedError(f'Synthesis solver {solver} not implemented.')
 
+    indices = get_synthesis_indices(synt_decl)
+
     complete_problem_args = [
-        (synt_decl, depth, instance_name,
+        (synt_decl, indices, depth, instance_name,
          solver, synthesis_timeout, comment)
         for depth in depths]
 
     for a in complete_problem_args:
         write_and_solve_arithmetic_synthesis_problem(*a)
     print(valid_sat_subproblem_solutions, timeout_or_unsat_complete_problem_solution)
+    all_solutions.extend(valid_sat_subproblem_solutions)
+    if timeout_or_unsat_complete_problem_solution is not None:
+        all_solutions.append(timeout_or_unsat_complete_problem_solution)
+    # Write all solutions to solutions file, even before it has
+    # computed solutions for all functions.
+    solution_filename = f'{instance_name}_{solver.name}.json'
+    with open(os.path.join(solutions_dir, solution_filename), 'w') as sol_file:
+        json.dump(all_solutions, sol_file, indent=2)
 
 
 def synthesize_json_function(all_solutions, instance_name, solutions_dir, solver, synt_decl, synthesis_timeout,
