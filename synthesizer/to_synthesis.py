@@ -121,16 +121,3 @@ def get_synthesis_indices(synt_decl: SyntDecl) -> list[int]:
         if n > current_max:
             current_max = n
     return list(range(current_max))
-
-
-def get_start_symbol(ctrs: list[dict[str, Any]]) -> str:
-    if all(isinstance(ctr["output"], bool) for ctr in ctrs):
-        start_symb = 'SyntBool'
-    elif all(isinstance(ctr["output"], int) for ctr in ctrs):
-        start_symb = 'SyntInt'
-    elif all(isinstance(ctr["output"], float) for ctr in ctrs):
-        start_symb = 'SyntReal'
-    else:
-        raise NotImplementedError(f'Which start symbol for '
-                                  f'{[ctr["output"].__class__.__name__ for ctr in ctrs]}')
-    return start_symb

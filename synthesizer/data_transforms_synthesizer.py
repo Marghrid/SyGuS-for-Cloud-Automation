@@ -5,9 +5,9 @@ import os.path
 import tempfile
 import time
 
-from synthesizer.arithmetic_to_cvc5 import Arithmetic2CVC5Encoder
-from synthesizer.json_to_cvc5 import Json2CVC5Encoder
-from synthesizer.to_rosette import get_rosette_query, run_racket_command
+from synthesizer.encoder.arithmetic_to_cvc5 import Arithmetic2CVC5Encoder
+from synthesizer.encoder.json_to_cvc5 import Json2CVC5Encoder
+from synthesizer.encoder.json_to_rosette import Json2RosetteEncoder
 from synthesizer.to_synthesis import get_synthesis_indices, get_synthesis_keys, get_synthesis_values
 from synthesizer.util import get_synthesis_filename, human_time, Solution, SyntDecl, SynthesisSolver
 
@@ -110,8 +110,9 @@ def write_and_solve_arithmetic_synthesis_problem(
     global valid_sat_subproblem_solutions
     global timeout_or_unsat_complete_problem_solution
     if synthesis_solver == SynthesisSolver.Rosette:
-        # assert depth is not None
-        raise NotImplementedError('Arithmetic synthesis not implemented for Rosette.')
+        assert depth is not None
+        encoder = Json2RosetteEncoder()
+        synthesis_text = encoder.get_query(synt_decl, depth, indices)
     elif synthesis_solver == SynthesisSolver.CVC5:
         assert depth is None
         encoder = Arithmetic2CVC5Encoder()
@@ -133,7 +134,7 @@ def write_and_solve_arithmetic_synthesis_problem(
     if synthesis_solver == SynthesisSolver.CVC5:
         synthesis_ans_out = encoder.run_command(synthesis_filename, synthesis_timeout)
     elif synthesis_solver == SynthesisSolver.Rosette:
-        synthesis_ans_out = run_racket_command(synthesis_filename, synthesis_timeout, depth)
+        synthesis_ans_out = encoder.run_command(synthesis_filename, synthesis_timeout, depth)
     else:
         raise NotImplementedError(f'Synthesis solver {synthesis_solver} not implemented.')
     elapsed = time.perf_counter() - start_call_time
@@ -179,8 +180,9 @@ def write_and_solve_json_synthesis_problem(
     global valid_sat_subproblem_solutions
     global timeout_or_unsat_complete_problem_solution
     if synthesis_solver == SynthesisSolver.Rosette:
-        # assert depth is not None
-        synthesis_text = get_rosette_query(synt_decl, depth, indices, keys, values)
+        assert depth is not None
+        encoder = Json2RosetteEncoder()
+        synthesis_text = encoder.get_query(synt_decl, depth, indices, keys, values)
         extension = 'rkt'
     elif synthesis_solver == SynthesisSolver.CVC5:
         assert depth is None
@@ -203,7 +205,7 @@ def write_and_solve_json_synthesis_problem(
     if synthesis_solver == SynthesisSolver.CVC5:
         synthesis_ans_out = encoder.run_command(synthesis_filename, synthesis_timeout)
     elif synthesis_solver == SynthesisSolver.Rosette:
-        synthesis_ans_out = run_racket_command(synthesis_filename, synthesis_timeout, depth)
+        synthesis_ans_out = encoder.run_command(synthesis_filename, synthesis_timeout, depth)
     else:
         raise NotImplementedError(f'Synthesis solver {synthesis_solver} not implemented.')
     elapsed = time.perf_counter() - start_call_time
