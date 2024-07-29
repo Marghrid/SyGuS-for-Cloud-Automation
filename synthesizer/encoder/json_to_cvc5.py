@@ -304,15 +304,6 @@ class Json2CVC5Encoder:
         s += '\n\n(check-synth)\n'
         return s
 
-    def to_python(self, arg):
-        try:
-            return eval(arg)
-        except (NameError, SyntaxError) as e:
-            try:
-                return eval(arg.replace('true', 'True').replace('false', 'False'))
-            except (NameError, SyntaxError) as e:
-                return arg
-
     def parse_cvc5_output_aux(self, tokens: deque):
         two_arg_functions = ['get_idx_list', '=', 'get_descendants_named', 'get_val_dict']
         one_arg_functions = ['not', 'empty', 'jI', 'jS', 'is_empty']

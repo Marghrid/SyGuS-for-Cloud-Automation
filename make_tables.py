@@ -226,19 +226,19 @@ def make_latex_solver_comparison_tables(all_solutions):
         if 'timeout' in solver_comparison_dict['CVC5'][instance][0]:
             continue
         elif ('unsat' in solver_comparison_dict['Rosette'][instance][0] and
-                'unsat' not in solver_comparison_dict['CVC5'][instance][0]):
+              'unsat' not in solver_comparison_dict['CVC5'][instance][0]):
             cell_color = r'\cellcolor{purple}\color{white}'
             unsat_sat_points.append((solver_comparison_dict['Rosette'][instance][1],
-                                      solver_comparison_dict['CVC5'][instance][1]))
+                                     solver_comparison_dict['CVC5'][instance][1]))
         elif 'unsat' in solver_comparison_dict['Rosette'][instance][0] and 'unsat' in \
                 solver_comparison_dict['CVC5'][instance][0]:
             cell_color = r'\cellcolor{Apricot}'
             unsat_unsat_points.append((solver_comparison_dict['Rosette'][instance][1],
-                                        solver_comparison_dict['CVC5'][instance][1]))
+                                       solver_comparison_dict['CVC5'][instance][1]))
         else:
             cell_color = ''
             sat_sat_points.append((solver_comparison_dict['Rosette'][instance][1],
-                                  solver_comparison_dict['CVC5'][instance][1]))
+                                   solver_comparison_dict['CVC5'][instance][1]))
         text = (cell_color + fr'{idx} & ' +
                 # cell_color + fr'\texttt{{{to_latex(instance)}}} & ' +
                 cell_color + fr'{to_latex(human_time(solver_comparison_dict['Rosette'][instance][1]))} & ' +
@@ -330,7 +330,6 @@ Darker shades indicate that Rosette was able to show unsatisfiability for a high
     plt.legend()
     plt.savefig('solve_times_comparison_scatter.pdf', bbox_inches='tight')
     plt.show()
-
 
 
 def get_all_solutions():

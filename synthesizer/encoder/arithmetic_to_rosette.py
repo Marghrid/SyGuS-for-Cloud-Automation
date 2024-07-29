@@ -3,24 +3,11 @@ import subprocess
 from collections import deque
 from typing import Any
 
+from synthesizer.encoder.arithmetic_to_cvc5 import get_arithmetic_start_symbol
 from synthesizer.util import get_timeout_command_prefix, human_time, SyntDecl
 
 
-def get_json_start_symbol(ctrs: list[dict[str, Any]]) -> str:
-    if all(isinstance(ctr["output"], bool) for ctr in ctrs):
-        start_symb = 'syntBool'
-    elif all(isinstance(ctr["output"], list) for ctr in ctrs) or \
-            all(isinstance(ctr["output"], dict) for ctr in ctrs) or \
-            all(isinstance(ctr["output"], int) for ctr in ctrs) or \
-            all(isinstance(ctr["output"], str) for ctr in ctrs):
-        start_symb = 'syntJ'
-    else:
-        raise NotImplementedError(f'Which start symbol for '
-                                  f'{[ctr["output"].__class__.__name__ for ctr in ctrs]}')
-    return start_symb
-
-
-class Json2RosetteEncoder():
+class Arithmetic2RosetteEncoder:
     def to_racket(self, i: Any):
         if isinstance(i, bool):
             return '#t' if i else '#f'
@@ -46,51 +33,30 @@ class Json2RosetteEncoder():
     def rosette_file_preamble(self):
         return f"""#lang rosette
     
-    (require racket/include)
-    (require racket/dict)
-    (require rosette/lib/synthax)
-    (require (file "{os.getcwd()}/resources/synthesis/synthesis_json_lang.rkt"))\n\n"""
+(require racket/include)
+(require racket/dict)
+(require rosette/lib/synthax)
+(require (file "{os.getcwd()}/resources/synthesis/synthesis_arith_lang.rkt"))\n\n"""
 
-    def build_general_rosette_grammar(self, keys: list[str], indices: list[int], values: list[str]):
-        if len(keys) == 1:
-            # Rosette does not deal well with single element lists
-            keys.append('fillerstr')
-        keys_str = ' '.join(f'"{k}"' for k in keys)
-        values_str = ' '.join(f'"{v}"' if isinstance(v, str) else f'{v}' for v in values)
-        indices_str = ' '.join(map(str, indices))
+    def build_general_rosette_grammar(self):
         s = f"""
-    (define-grammar (json-selector x)
-      [syntBool
-        (choose
-         (empty? (syntJ))
-         (not (syntBool))"""
-
-        if len(values) > 0:
-            s += '\n     (syntEq (syntJ) (syntVal))'
-
+(define-grammar (json-selector x)
+  [SyntBool
+    (choose
+     (empty? x)
+     (not (SyntBool))"""
         s += '\n    )'
         s += """
-      ]
-      [syntJ
-       (choose
-        (index x (syntInt))
-        (length (syntJ))"""
-        if len(keys) > 0:
-            s += f"""
-        (child (syntJ) (syntK))
-        (descendant (syntJ) (syntK))"""
-
-        s += "\n    (index (syntJ) (syntInt))"
-        if len(values) > 0:
-            s += '\n(syntAdd (syntVal) (syntJ))'
-        s += "\n   )]"
-
-        if len(keys) > 0:
-            s += f'\n  [syntK (choose {keys_str})]'
-
-        s += f"\n  [syntInt (choose {indices_str})]"
-        if len(values) > 0:
-            s += f'\n  [syntVal (choose {values_str})]'
+  ]
+"""
+        s += f"""
+  [SyntInt (choose 
+    (index x (SyntInt))
+    (+ (SyntInt) (SyntInt))
+    (* (SyntInt) (SyntInt))
+    (abs (SyntInt))
+    (?? integer?)
+  )]"""
         s += '\n  )\n\n'
         return s
 
@@ -111,32 +77,27 @@ class Json2RosetteEncoder():
         asserts_str = ('\n' + ' ' * 10).join(asserts)
 
         s = f"""
-    (define ({f_name} x)
-      (json-selector x {'#:depth ' + str(depth) if depth is not None else ''} #:start {start_symb})
-    )
-    """
+(define ({f_name} x)
+  (json-selector x {'#:depth ' + str(depth) if depth is not None else ''} #:start {start_symb})
+)
+"""
         s += f"""
-    (define sol
-      (synthesize
-       #:forall (list)
-       #:guarantee
-       (begin {asserts_str}
-              )))
-    
-    (if (sat? sol)
-        (print-forms sol) ; prints solution
-        (println "unsat"))\n"""
+(define sol
+  (synthesize
+   #:forall (list)
+   #:guarantee
+   (begin {asserts_str}
+          )))
 
-        #     s += f"""
-        # (define ({f_name} x)
-        #        (syntEq (child (child (index x 1) "InstanceState") "Name") "stopped")
-        # )
-        # """
+(if (sat? sol)
+    (print-forms sol) ; prints solution
+    (println "unsat"))\n"""
+
         return s
 
     def parse_rosette_output_aux(self, tokens: deque):
-        two_arg_functions = ['child', 'index', 'descendant', 'syntEq']
-        one_arg_functions = ['not', 'empty?']
+        two_arg_functions = ['child', 'index', 'descendant', 'syntEq', '*', '+']
+        one_arg_functions = ['not', 'empty?', 'abs']
         token = tokens.popleft()
         if token[0] == '(':
             func_name = token[1:]
@@ -154,6 +115,11 @@ class Json2RosetteEncoder():
             return 'x'
         if token[-1] == ')':
             return eval(token.replace(')', ''))
+
+        try:
+            return int(token)
+        except ValueError:
+            pass
 
         raise NotImplementedError(f'Handle parsing {token}')
 
@@ -190,6 +156,12 @@ class Json2RosetteEncoder():
             elif f_name == 'empty?':
                 a0 = f_args
                 return f'(len({self.rosette_to_jsonpath(a0)}) == 0)'
+            elif f_name == 'abs':
+                a0 = f_args
+                return f'|{self.rosette_to_jsonpath(a0)}|'
+            elif f_name in ('+', '*', '==', '>=', '<=', '>', '<'):
+                a0, a1 = f_args
+                return f'({self.rosette_to_jsonpath(a0)} {f_name} {self.rosette_to_jsonpath(a1)})'
             else:
                 raise NotImplementedError(f'to_jsonpath not implemented for operation {f_name}.')
         elif ast == input_name:
@@ -203,13 +175,12 @@ class Json2RosetteEncoder():
         ast = self.parse_rosette_output(rosette)
         return self.rosette_to_jsonpath(ast)
 
-    def get_query(self, synt_decl: SyntDecl, depth: int, indices: list[int], keys: list[str],
-                  values: list[str]):
+    def get_query(self, synt_decl: SyntDecl, depth: int):
         rosette_text = ''
         rosette_text += self.rosette_file_preamble()
-        rosette_text += self.build_general_rosette_grammar(keys, indices, values)
+        rosette_text += self.build_general_rosette_grammar()
         rosette_text += self.build_rosette_samples(synt_decl)
-        start_symbol = get_json_start_symbol(synt_decl['constraints'])
+        start_symbol = get_arithmetic_start_symbol(synt_decl['constraints'])
         rosette_text += self.build_rosette_synthesis_query(synt_decl, depth, start_symbol)
         return rosette_text
 
@@ -234,6 +205,7 @@ class Json2RosetteEncoder():
                 try:
                     racket_out = self.convert_rosette_to_jsonpath(racket_out)
                 except Exception as e:
+                    subprocess.run(['subl', racket_filename])
                     raise RuntimeError(
                         f'Something wrong with racket output to {" ".join(racket_command)}: {e}\n'
                         f'stdout: {result.stdout}\n'

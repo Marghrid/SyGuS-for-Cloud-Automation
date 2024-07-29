@@ -65,11 +65,7 @@ def get_synthesis_values_aux(i: Any) -> set[Any]:
 
 
 def get_synthesis_max_list_index(i: Any) -> int:
-    if isinstance(i, str):
-        return 0
-    if isinstance(i, int):
-        return 0
-    if i is None:
+    if isinstance(i, str) or isinstance(i, int) or isinstance(i, float) or i is None:
         return 0
     if isinstance(i, list):
         if len(i) == 0:
