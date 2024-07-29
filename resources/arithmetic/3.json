@@ -3,9 +3,9 @@
     "name": "f?",
     "constraints": [
       { "inputs": [ -2 ], "output": -4 },
-      { "inputs": [ -1 ], "output": -1 },
+      { "inputs": [ -1 ], "output": -2 },
       { "inputs": [ 2 ], "output": -4 },
-      { "inputs": [ 1 ], "output": -1 },
+      { "inputs": [ 1 ], "output": -2 },
       { "inputs": [ 5 ], "output": -10 },
       { "inputs": [ -4 ], "output": -8 }
     ]
