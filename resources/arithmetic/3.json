@@ -1,11 +1,13 @@
 [
   {
-    "name": "f?_0",
+    "name": "f?",
     "constraints": [
-      { "inputs": [ 0, 0.0 ], "output": true },
-      { "inputs": [ 1, 0.0 ], "output": true },
-      { "inputs": [ 1, -12.5 ], "output": false },
-      { "inputs": [ 1, -12.5 ], "output": true }
+      { "inputs": [ -2 ], "output": -4 },
+      { "inputs": [ -1 ], "output": -1 },
+      { "inputs": [ 2 ], "output": -4 },
+      { "inputs": [ 1 ], "output": -1 },
+      { "inputs": [ 5 ], "output": -10 },
+      { "inputs": [ -4 ], "output": -8 }
     ]
   }
 ]
