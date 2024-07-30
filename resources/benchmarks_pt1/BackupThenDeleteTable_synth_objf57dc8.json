@@ -1,0 +1,193 @@
+[
+  {
+    "name": "f?_7",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "BackupDetails": {
+              "BackupArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-2/backup/01695997987993-592512f7",
+              "BackupCreationDateTime": "2023-09-29 10:33:07.993000-04:00",
+              "BackupName": "BackupThenDeleteTable-2",
+              "BackupSizeBytes": 0,
+              "BackupStatus": "CREATING",
+              "BackupType": "USER"
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "285",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:33:07 GMT",
+                "server": "Server",
+                "x-amz-crc32": "427026424",
+                "x-amzn-requestid": "TC0GE16S4K4L1KCEO69KD7BVSBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "TC0GE16S4K4L1KCEO69KD7BVSBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          "BackupThenDeleteTable-2",
+          "CreateTableThenInsertItem-2"
+        ],
+        "output": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-2/backup/01695997987993-592512f7"
+      },
+      {
+        "inputs": [
+          {
+            "BackupDetails": {
+              "BackupArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1/backup/01695997936718-c1078168",
+              "BackupCreationDateTime": "2023-09-29 10:32:16.718000-04:00",
+              "BackupName": "BackupThenDeleteTable-1",
+              "BackupSizeBytes": 0,
+              "BackupStatus": "CREATING",
+              "BackupType": "USER"
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "285",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:32:16 GMT",
+                "server": "Server",
+                "x-amz-crc32": "203639287",
+                "x-amzn-requestid": "J8J0NJAM944PUM65PEMU9NKCA7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "J8J0NJAM944PUM65PEMU9NKCA7VV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          "BackupThenDeleteTable-1",
+          "CreateTableThenInsertItem-1"
+        ],
+        "output": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1/backup/01695997936718-c1078168"
+      },
+      {
+        "inputs": [
+          {
+            "BackupDetails": {
+              "BackupArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4/backup/01695998009601-eaf4868f",
+              "BackupCreationDateTime": "2023-09-29 10:33:29.601000-04:00",
+              "BackupName": "BackupThenDeleteTable-4",
+              "BackupSizeBytes": 0,
+              "BackupStatus": "CREATING",
+              "BackupType": "USER"
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "285",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:33:29 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3617304759",
+                "x-amzn-requestid": "UMCD7F4F051I8S5VLFP93RBGNVVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "UMCD7F4F051I8S5VLFP93RBGNVVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          "BackupThenDeleteTable-4",
+          "CreateTableThenInsertItem-4"
+        ],
+        "output": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4/backup/01695998009601-eaf4868f"
+      },
+      {
+        "inputs": [
+          {
+            "BackupDetails": {
+              "BackupArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-6/backup/01695998028539-a7468ca9",
+              "BackupCreationDateTime": "2023-09-29 10:33:48.539000-04:00",
+              "BackupName": "BackupThenDeleteTable-6",
+              "BackupSizeBytes": 0,
+              "BackupStatus": "CREATING",
+              "BackupType": "USER"
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "285",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:33:48 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2515313756",
+                "x-amzn-requestid": "K0JEI9CP31D2RA9V16APA53PJVVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "K0JEI9CP31D2RA9V16APA53PJVVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          "BackupThenDeleteTable-6",
+          "CreateTableThenInsertItem-6"
+        ],
+        "output": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-6/backup/01695998028539-a7468ca9"
+      },
+      {
+        "inputs": [
+          {
+            "BackupDetails": {
+              "BackupArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-5/backup/01695998019056-13fa8633",
+              "BackupCreationDateTime": "2023-09-29 10:33:39.056000-04:00",
+              "BackupName": "BackupThenDeleteTable-5",
+              "BackupSizeBytes": 0,
+              "BackupStatus": "CREATING",
+              "BackupType": "USER"
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "285",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:33:39 GMT",
+                "server": "Server",
+                "x-amz-crc32": "1798041450",
+                "x-amzn-requestid": "A04ID9U1PO10GSE7ISPNBOER3JVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "A04ID9U1PO10GSE7ISPNBOER3JVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          "BackupThenDeleteTable-5",
+          "CreateTableThenInsertItem-5"
+        ],
+        "output": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-5/backup/01695998019056-13fa8633"
+      },
+      {
+        "inputs": [
+          {
+            "BackupDetails": {
+              "BackupArn": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-3/backup/01695997996718-dc811913",
+              "BackupCreationDateTime": "2023-09-29 10:33:16.718000-04:00",
+              "BackupName": "BackupThenDeleteTable-3",
+              "BackupSizeBytes": 0,
+              "BackupStatus": "CREATING",
+              "BackupType": "USER"
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "285",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Fri, 29 Sep 2023 14:33:16 GMT",
+                "server": "Server",
+                "x-amz-crc32": "2126554957",
+                "x-amzn-requestid": "6NURUMKCERP3QLL960TBJ1ILEFVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "6NURUMKCERP3QLL960TBJ1ILEFVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          "BackupThenDeleteTable-3",
+          "CreateTableThenInsertItem-3"
+        ],
+        "output": "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-3/backup/01695997996718-dc811913"
+      }
+    ]
+  }
+]

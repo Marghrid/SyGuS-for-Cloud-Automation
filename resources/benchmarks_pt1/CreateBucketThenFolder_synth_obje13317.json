@@ -1,0 +1,25 @@
+[
+  {
+    "name": "f?_8",
+    "constraints": [
+      {
+        "inputs": [
+          "custom-logs/"
+        ],
+        "output": "ex-synth-bucket-01"
+      },
+      {
+        "inputs": [
+          "custom-logs/"
+        ],
+        "output": "synth-bucket-00"
+      },
+      {
+        "inputs": [
+          "custom-logs/"
+        ],
+        "output": "synth-bucket-01"
+      }
+    ]
+  }
+]

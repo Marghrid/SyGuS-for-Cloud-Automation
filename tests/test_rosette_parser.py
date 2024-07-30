@@ -1,6 +1,6 @@
 import unittest
 
-from synthesizer.to_rosette import convert_rosette_to_jsonpath, parse_rosette_output
+from synthesizer.encoder.json_to_rosette import convert_rosette_to_jsonpath, parse_rosette_output
 
 
 class RosetteParserTests(unittest.TestCase):

@@ -1,0 +1,95 @@
+[
+  {
+    "name": "f?_24",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "asdf"
+            }
+          },
+          null
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x4"
+            }
+          },
+          null
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x5"
+            }
+          },
+          null
+        ],
+        "output": "synthesis-table"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x3"
+            }
+          },
+          "synthesis-table"
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x5"
+            }
+          },
+          null
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x3"
+            }
+          },
+          "synthesis-table-3"
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x5"
+            }
+          },
+          null
+        ],
+        "output": "synthesis-table"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x1"
+            }
+          },
+          "synthesis-table-2"
+        ],
+        "output": "synthesis-table"
+      }
+    ]
+  }
+]

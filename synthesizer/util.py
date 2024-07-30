@@ -49,7 +49,8 @@ def get_synthesis_filename(depth: int, func_name: str, instance_name: str, keys:
     timestamp = get_timestamp()
 
     return (f'{instance_name}{"" if func_name[0] == "_" else "_"}'
-            f'{func_name}_{my_hash(str(keys) + str(values))}'
+            f'{func_name}'
+            # f'_{my_hash(str(keys) + str(values))}'
             f'_{str(depth) + "_" if depth is not None else ""}'
             f'{timestamp}.{extenstion}')
 

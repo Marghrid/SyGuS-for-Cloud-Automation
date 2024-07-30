@@ -1,0 +1,348 @@
+[
+  {
+    "name": "f?_15",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "Item": {
+              "count": {
+                "N": "1"
+              },
+              "itemId": {
+                "S": "x1"
+              }
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "48",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Thu, 28 Sep 2023 16:02:27 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3265228340",
+                "x-amzn-requestid": "ET2TTNP1GGP9FNDDR2SG8F39IRVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "ET2TTNP1GGP9FNDDR2SG8F39IRVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "count": {
+              "N": "1"
+            },
+            "itemId": {
+              "S": "x1"
+            }
+          },
+          {
+            "itemId": {
+              "S": "x1"
+            }
+          },
+          "synthesis-table-2"
+        ],
+        "output": "synthesis-table-3"
+      },
+      {
+        "inputs": [
+          {
+            "Item": {
+              "checkpoints": {
+                "L": [
+                  {
+                    "S": "exampleField1"
+                  },
+                  {
+                    "S": "exampleField2"
+                  }
+                ]
+              },
+              "itemId": {
+                "S": "x3"
+              }
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "96",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Thu, 28 Sep 2023 16:10:51 GMT",
+                "server": "Server",
+                "x-amz-crc32": "414209125",
+                "x-amzn-requestid": "2BM2BFMSCFBHJTMRDBRSF0B60BVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "2BM2BFMSCFBHJTMRDBRSF0B60BVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "checkpoints": {
+              "L": [
+                {
+                  "S": "exampleField1"
+                },
+                {
+                  "S": "exampleField2"
+                }
+              ]
+            },
+            "itemId": {
+              "S": "x3"
+            }
+          },
+          {
+            "itemId": {
+              "S": "x3"
+            }
+          },
+          "synthesis-table"
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "Item": {
+              "checkpoints": {
+                "L": [
+                  {
+                    "S": "exampleField1"
+                  },
+                  {
+                    "S": "exampleField2"
+                  }
+                ]
+              },
+              "itemId": {
+                "S": "x3"
+              }
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "96",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Thu, 28 Sep 2023 16:10:10 GMT",
+                "server": "Server",
+                "x-amz-crc32": "414209125",
+                "x-amzn-requestid": "MLHQ4GQNJE2LJGSNIPUDPFQI9NVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "MLHQ4GQNJE2LJGSNIPUDPFQI9NVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "checkpoints": {
+              "L": [
+                {
+                  "S": "exampleField1"
+                },
+                {
+                  "S": "exampleField2"
+                }
+              ]
+            },
+            "itemId": {
+              "S": "x3"
+            }
+          },
+          {
+            "itemId": {
+              "S": "x3"
+            }
+          },
+          "synthesis-table-3"
+        ],
+        "output": "synthesis-table"
+      },
+      {
+        "inputs": [
+          {
+            "Item": {
+              "itemId": {
+                "S": "x2"
+              },
+              "members": {
+                "SS": [
+                  "apple",
+                  "orange"
+                ]
+              }
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "66",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Thu, 28 Sep 2023 16:06:49 GMT",
+                "server": "Server",
+                "x-amz-crc32": "294527851",
+                "x-amzn-requestid": "D4REH4CGTQ3LKRR78E41A5MUJBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "D4REH4CGTQ3LKRR78E41A5MUJBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "itemId": {
+              "S": "x2"
+            },
+            "members": {
+              "SS": [
+                "apple",
+                "orange"
+              ]
+            }
+          },
+          {
+            "itemId": {
+              "S": "x2"
+            }
+          },
+          "synthesis-table"
+        ],
+        "output": "synthesis-table-3"
+      },
+      {
+        "inputs": [
+          {
+            "Item": {
+              "itemId": {
+                "S": "x2"
+              },
+              "members": {
+                "SS": [
+                  "apple",
+                  "orange"
+                ]
+              }
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "66",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Thu, 28 Sep 2023 16:05:52 GMT",
+                "server": "Server",
+                "x-amz-crc32": "294527851",
+                "x-amzn-requestid": "FANS8HDKAO0AOP3D8CVTAV445JVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "FANS8HDKAO0AOP3D8CVTAV445JVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "itemId": {
+              "S": "x2"
+            },
+            "members": {
+              "SS": [
+                "apple",
+                "orange"
+              ]
+            }
+          },
+          {
+            "itemId": {
+              "S": "x2"
+            }
+          },
+          "synthesis-table-2"
+        ],
+        "output": "synthesis-table"
+      },
+      {
+        "inputs": [
+          {
+            "Item": {
+              "count": {
+                "N": "1"
+              },
+              "itemId": {
+                "S": "x1"
+              }
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "48",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Thu, 28 Sep 2023 16:01:06 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3265228340",
+                "x-amzn-requestid": "S6P01B1N5RRL2A4QKB6S96HKCBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "S6P01B1N5RRL2A4QKB6S96HKCBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "count": {
+              "N": "1"
+            },
+            "itemId": {
+              "S": "x1"
+            }
+          },
+          {
+            "itemId": {
+              "S": "x1"
+            }
+          },
+          "synthesis-table-2"
+        ],
+        "output": "synthesis-table-3"
+      },
+      {
+        "inputs": [
+          {
+            "Item": {
+              "count": {
+                "N": "1"
+              },
+              "itemId": {
+                "S": "x1"
+              }
+            },
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "connection": "keep-alive",
+                "content-length": "48",
+                "content-type": "application/x-amz-json-1.0",
+                "date": "Thu, 28 Sep 2023 16:00:43 GMT",
+                "server": "Server",
+                "x-amz-crc32": "3419449865",
+                "x-amzn-requestid": "RHL496TED3RGRU9IQANG7HKQ7VVV4KQNSO5AEMVJF66Q9ASUAAJG"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "RHL496TED3RGRU9IQANG7HKQ7VVV4KQNSO5AEMVJF66Q9ASUAAJG",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "count": {
+              "N": "1"
+            },
+            "itemId": {
+              "S": "x1"
+            }
+          },
+          {
+            "itemId": {
+              "S": "x1"
+            }
+          },
+          "synthesis-table"
+        ],
+        "output": "synthesis-table-2"
+      }
+    ]
+  }
+]

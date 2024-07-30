@@ -1,0 +1,16 @@
+[
+  {
+    "name": "_fbvalue?",
+    "constraints": [
+      {
+        "inputs": [ { "values": [ "A", "B", "C" ] } ],
+        "output": [ "A", "B", "C" ]
+      },
+      { "inputs": [ { "values": [ "A", "B" ] } ], "output": [ "A", "B" ] },
+      {
+        "inputs": [ { "values": [ "R", "T", "G", "O" ] } ],
+        "output": [ "R", "T", "G", "O" ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,138 @@
+[
+  {
+    "name": "f?_18",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "asdf"
+            }
+          },
+          null,
+          null
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x4"
+            }
+          },
+          null,
+          null
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x5"
+            }
+          },
+          null,
+          null
+        ],
+        "output": "synthesis-table"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x3"
+            }
+          },
+          {
+            "checkpoints": {
+              "L": [
+                {
+                  "S": "exampleField1"
+                },
+                {
+                  "S": "exampleField2"
+                }
+              ]
+            },
+            "itemId": {
+              "S": "x3"
+            }
+          },
+          "synthesis-table"
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x5"
+            }
+          },
+          null,
+          null
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x3"
+            }
+          },
+          {
+            "checkpoints": {
+              "L": [
+                {
+                  "S": "exampleField1"
+                },
+                {
+                  "S": "exampleField2"
+                }
+              ]
+            },
+            "itemId": {
+              "S": "x3"
+            }
+          },
+          "synthesis-table-3"
+        ],
+        "output": "synthesis-table-2"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x5"
+            }
+          },
+          null,
+          null
+        ],
+        "output": "synthesis-table"
+      },
+      {
+        "inputs": [
+          {
+            "itemId": {
+              "S": "x1"
+            }
+          },
+          {
+            "count": {
+              "N": "1"
+            },
+            "itemId": {
+              "S": "x1"
+            }
+          },
+          "synthesis-table-2"
+        ],
+        "output": "synthesis-table"
+      }
+    ]
+  }
+]

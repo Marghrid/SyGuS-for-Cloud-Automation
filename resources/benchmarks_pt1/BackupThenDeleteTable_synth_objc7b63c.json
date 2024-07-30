@@ -1,0 +1,49 @@
+[
+  {
+    "name": "f?_5",
+    "constraints": [
+      {
+        "inputs": [
+          "BackupThenDeleteTable-2",
+          "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-2/backup/01695997987993-592512f7"
+        ],
+        "output": "CreateTableThenInsertItem-2"
+      },
+      {
+        "inputs": [
+          "BackupThenDeleteTable-1",
+          "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-1/backup/01695997936718-c1078168"
+        ],
+        "output": "CreateTableThenInsertItem-1"
+      },
+      {
+        "inputs": [
+          "BackupThenDeleteTable-4",
+          "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-4/backup/01695998009601-eaf4868f"
+        ],
+        "output": "CreateTableThenInsertItem-4"
+      },
+      {
+        "inputs": [
+          "BackupThenDeleteTable-6",
+          "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-6/backup/01695998028539-a7468ca9"
+        ],
+        "output": "CreateTableThenInsertItem-6"
+      },
+      {
+        "inputs": [
+          "BackupThenDeleteTable-5",
+          "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-5/backup/01695998019056-13fa8633"
+        ],
+        "output": "CreateTableThenInsertItem-5"
+      },
+      {
+        "inputs": [
+          "BackupThenDeleteTable-3",
+          "arn:aws:dynamodb:us-east-1:038885041153:table/CreateTableThenInsertItem-3/backup/01695997996718-dc811913"
+        ],
+        "output": "CreateTableThenInsertItem-3"
+      }
+    ]
+  }
+]

@@ -1,0 +1,96 @@
+[
+  {
+    "name": "f?_20",
+    "constraints": [
+      {
+        "inputs": [
+          "ok",
+          true,
+          [
+            "i-07f34efc8e7ba7b28"
+          ],
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup3"
+            }
+          ],
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup3"
+            }
+          ]
+        ],
+        "output": [
+          "i-07f34efc8e7ba7b28"
+        ]
+      },
+      {
+        "inputs": [
+          "ok",
+          true,
+          [
+            "i-0595852c75cdc967d"
+          ],
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup1"
+            }
+          ],
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup1"
+            }
+          ]
+        ],
+        "output": [
+          "i-0595852c75cdc967d"
+        ]
+      },
+      {
+        "inputs": [
+          "fail",
+          false,
+          [
+            "i-0566639f8d04bf17e"
+          ],
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup4"
+            }
+          ],
+          null
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          "ok",
+          true,
+          [
+            "i-09dc83b13d328a589"
+          ],
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup2"
+            }
+          ],
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup2"
+            }
+          ]
+        ],
+        "output": [
+          "i-09dc83b13d328a589"
+        ]
+      }
+    ]
+  }
+]

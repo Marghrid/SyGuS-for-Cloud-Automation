@@ -1,0 +1,538 @@
+[
+  {
+    "name": "f?_22",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "578",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 17:50:33 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "8680fd33-d95d-407e-be03-5e3b365f81b6"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "8680fd33-d95d-407e-be03-5e3b365f81b6",
+              "RetryAttempts": 0
+            },
+            "StoppingInstances": [
+              {
+                "CurrentState": {
+                  "Code": 80,
+                  "Name": "stopped"
+                },
+                "InstanceId": "i-0df9bb0cf8e176ee9",
+                "PreviousState": {
+                  "Code": 80,
+                  "Name": "stopped"
+                }
+              }
+            ]
+          },
+          {
+            "InstanceStatuses": [
+              {
+                "AvailabilityZone": "us-east-1c",
+                "InstanceId": "i-0df9bb0cf8e176ee9",
+                "InstanceState": {
+                  "Code": 80,
+                  "Name": "stopped"
+                },
+                "InstanceStatus": {
+                  "Status": "not-applicable"
+                },
+                "SystemStatus": {
+                  "Status": "not-applicable"
+                }
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "751",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 17:50:36 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "669bb4c7-0aef-4bed-a687-a45d614318c9"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "669bb4c7-0aef-4bed-a687-a45d614318c9",
+              "RetryAttempts": 0
+            }
+          },
+          [
+            "i-0df9bb0cf8e176ee9"
+          ],
+          true,
+          [
+            "i-0df9bb0cf8e176ee9"
+          ],
+          null,
+          null
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "579",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 17:34:57 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "d6fb62ac-e4f3-4cf7-8bd7-ebee6bccaa11"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "d6fb62ac-e4f3-4cf7-8bd7-ebee6bccaa11",
+              "RetryAttempts": 0
+            },
+            "StoppingInstances": [
+              {
+                "CurrentState": {
+                  "Code": 64,
+                  "Name": "stopping"
+                },
+                "InstanceId": "i-0595852c75cdc967d",
+                "PreviousState": {
+                  "Code": 16,
+                  "Name": "running"
+                }
+              }
+            ]
+          },
+          {
+            "InstanceStatuses": [
+              {
+                "AvailabilityZone": "us-east-1d",
+                "InstanceId": "i-0595852c75cdc967d",
+                "InstanceState": {
+                  "Code": 64,
+                  "Name": "stopping"
+                },
+                "InstanceStatus": {
+                  "Status": "not-applicable"
+                },
+                "SystemStatus": {
+                  "Status": "not-applicable"
+                }
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "752",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 17:34:58 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "f32709e6-3efb-4a13-805a-7254439ab0e0"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "f32709e6-3efb-4a13-805a-7254439ab0e0",
+              "RetryAttempts": 0
+            }
+          },
+          [
+            "i-0595852c75cdc967d"
+          ],
+          true,
+          [
+            "i-0595852c75cdc967d"
+          ],
+          true,
+          [
+            "i-0595852c75cdc967d"
+          ]
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "579",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 19:13:31 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "41173dfc-4847-4cb5-bd9e-f117621b3a70"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "41173dfc-4847-4cb5-bd9e-f117621b3a70",
+              "RetryAttempts": 0
+            },
+            "StoppingInstances": [
+              {
+                "CurrentState": {
+                  "Code": 64,
+                  "Name": "stopping"
+                },
+                "InstanceId": "i-09dc83b13d328a589",
+                "PreviousState": {
+                  "Code": 16,
+                  "Name": "running"
+                }
+              }
+            ]
+          },
+          {
+            "InstanceStatuses": [
+              {
+                "AvailabilityZone": "us-east-1c",
+                "InstanceId": "i-09dc83b13d328a589",
+                "InstanceState": {
+                  "Code": 80,
+                  "Name": "stopped"
+                },
+                "InstanceStatus": {
+                  "Status": "not-applicable"
+                },
+                "SystemStatus": {
+                  "Status": "not-applicable"
+                }
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "752",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 19:13:52 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "fe5a8a62-9b12-41be-bf0e-6ea7b7fb2e3a"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "fe5a8a62-9b12-41be-bf0e-6ea7b7fb2e3a",
+              "RetryAttempts": 0
+            }
+          },
+          [
+            "i-09dc83b13d328a589"
+          ],
+          true,
+          [
+            "i-09dc83b13d328a589"
+          ],
+          null,
+          null
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "579",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 19:10:15 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "80ede525-276b-4206-bfc3-41ca46946a84"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "80ede525-276b-4206-bfc3-41ca46946a84",
+              "RetryAttempts": 0
+            },
+            "StoppingInstances": [
+              {
+                "CurrentState": {
+                  "Code": 64,
+                  "Name": "stopping"
+                },
+                "InstanceId": "i-07f34efc8e7ba7b28",
+                "PreviousState": {
+                  "Code": 16,
+                  "Name": "running"
+                }
+              }
+            ]
+          },
+          {
+            "InstanceStatuses": [
+              {
+                "AvailabilityZone": "us-east-1c",
+                "InstanceId": "i-07f34efc8e7ba7b28",
+                "InstanceState": {
+                  "Code": 80,
+                  "Name": "stopped"
+                },
+                "InstanceStatus": {
+                  "Status": "not-applicable"
+                },
+                "SystemStatus": {
+                  "Status": "not-applicable"
+                }
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "751",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 19:10:35 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "4411ede1-0911-4f94-befe-4b25f662da13"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "4411ede1-0911-4f94-befe-4b25f662da13",
+              "RetryAttempts": 0
+            }
+          },
+          [
+            "i-07f34efc8e7ba7b28"
+          ],
+          true,
+          [
+            "i-07f34efc8e7ba7b28"
+          ],
+          null,
+          null
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "579",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 17:36:27 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "2b06ba99-c440-4d5f-885b-76ba271f7d40"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "2b06ba99-c440-4d5f-885b-76ba271f7d40",
+              "RetryAttempts": 0
+            },
+            "StoppingInstances": [
+              {
+                "CurrentState": {
+                  "Code": 64,
+                  "Name": "stopping"
+                },
+                "InstanceId": "i-09dc83b13d328a589",
+                "PreviousState": {
+                  "Code": 16,
+                  "Name": "running"
+                }
+              }
+            ]
+          },
+          {
+            "InstanceStatuses": [
+              {
+                "AvailabilityZone": "us-east-1c",
+                "InstanceId": "i-09dc83b13d328a589",
+                "InstanceState": {
+                  "Code": 64,
+                  "Name": "stopping"
+                },
+                "InstanceStatus": {
+                  "Status": "not-applicable"
+                },
+                "SystemStatus": {
+                  "Status": "not-applicable"
+                }
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "752",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 17:36:28 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "b7187a60-75a2-4471-8b39-ec74bee8d0ef"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "b7187a60-75a2-4471-8b39-ec74bee8d0ef",
+              "RetryAttempts": 0
+            }
+          },
+          [
+            "i-09dc83b13d328a589"
+          ],
+          true,
+          [
+            "i-09dc83b13d328a589"
+          ],
+          true,
+          [
+            "i-09dc83b13d328a589"
+          ]
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "579",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 18:40:41 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "6ead762f-a5ba-4679-b075-2e95413b0a8d"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "6ead762f-a5ba-4679-b075-2e95413b0a8d",
+              "RetryAttempts": 0
+            },
+            "StoppingInstances": [
+              {
+                "CurrentState": {
+                  "Code": 64,
+                  "Name": "stopping"
+                },
+                "InstanceId": "i-07f34efc8e7ba7b28",
+                "PreviousState": {
+                  "Code": 16,
+                  "Name": "running"
+                }
+              }
+            ]
+          },
+          {
+            "InstanceStatuses": [
+              {
+                "AvailabilityZone": "us-east-1c",
+                "InstanceId": "i-07f34efc8e7ba7b28",
+                "InstanceState": {
+                  "Code": 64,
+                  "Name": "stopping"
+                },
+                "InstanceStatus": {
+                  "Status": "not-applicable"
+                },
+                "SystemStatus": {
+                  "Status": "not-applicable"
+                }
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "751",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 18:41:01 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "ef730a28-829d-4217-871f-a92f8071c940"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "ef730a28-829d-4217-871f-a92f8071c940",
+              "RetryAttempts": 0
+            }
+          },
+          [
+            "i-07f34efc8e7ba7b28"
+          ],
+          true,
+          [
+            "i-07f34efc8e7ba7b28"
+          ],
+          true,
+          [
+            "i-07f34efc8e7ba7b28"
+          ]
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "579",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 17:45:30 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "d2f01634-7938-4937-9523-b519d616744d"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "d2f01634-7938-4937-9523-b519d616744d",
+              "RetryAttempts": 0
+            },
+            "StoppingInstances": [
+              {
+                "CurrentState": {
+                  "Code": 64,
+                  "Name": "stopping"
+                },
+                "InstanceId": "i-0df9bb0cf8e176ee9",
+                "PreviousState": {
+                  "Code": 16,
+                  "Name": "running"
+                }
+              }
+            ]
+          },
+          {
+            "InstanceStatuses": [
+              {
+                "AvailabilityZone": "us-east-1c",
+                "InstanceId": "i-0df9bb0cf8e176ee9",
+                "InstanceState": {
+                  "Code": 80,
+                  "Name": "stopped"
+                },
+                "InstanceStatus": {
+                  "Status": "not-applicable"
+                },
+                "SystemStatus": {
+                  "Status": "not-applicable"
+                }
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "752",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Thu, 05 Oct 2023 17:45:33 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "4af0f43c-9fa9-45bc-86f3-0f682f948a38"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "4af0f43c-9fa9-45bc-86f3-0f682f948a38",
+              "RetryAttempts": 0
+            }
+          },
+          [
+            "i-0df9bb0cf8e176ee9"
+          ],
+          true,
+          [
+            "i-0df9bb0cf8e176ee9"
+          ],
+          null,
+          null
+        ],
+        "output": false
+      }
+    ]
+  }
+]

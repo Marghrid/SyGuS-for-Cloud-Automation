@@ -1,0 +1,210 @@
+[
+  {
+    "name": "f?_4",
+    "constraints": [
+      {
+        "inputs": [
+          [
+            {
+              "AttributeName": "PartitionKey",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "SK",
+              "KeyType": "RANGE"
+            }
+          ],
+          {
+            "ReadCapacityUnits": 15,
+            "WriteCapacityUnits": 18
+          },
+          "CreateTable-6"
+        ],
+        "output": [
+          {
+            "AttributeName": "PartitionKey",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "SK",
+            "AttributeType": "S"
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            {
+              "AttributeName": "PartitionKey",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "SK",
+              "KeyType": "RANGE"
+            }
+          ],
+          {
+            "ReadCapacityUnits": 15,
+            "WriteCapacityUnits": 18
+          },
+          "CreateTable-7"
+        ],
+        "output": [
+          {
+            "AttributeName": "PartitionKey",
+            "AttributeType": "B"
+          },
+          {
+            "AttributeName": "SK",
+            "AttributeType": "S"
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            {
+              "AttributeName": "PartitionKey",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "SortKey",
+              "KeyType": "RANGE"
+            }
+          ],
+          {
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 18
+          },
+          "CreateTable-5"
+        ],
+        "output": [
+          {
+            "AttributeName": "PartitionKey",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "SortKey",
+            "AttributeType": "S"
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            {
+              "AttributeName": "PK",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "SK",
+              "KeyType": "RANGE"
+            }
+          ],
+          {
+            "ReadCapacityUnits": 3,
+            "WriteCapacityUnits": 3
+          },
+          "CreateTable-2"
+        ],
+        "output": [
+          {
+            "AttributeName": "PK",
+            "AttributeType": "N"
+          },
+          {
+            "AttributeName": "SK",
+            "AttributeType": "S"
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            {
+              "AttributeName": "PK",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "SK",
+              "KeyType": "RANGE"
+            }
+          ],
+          {
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+          },
+          "CreateTable-1"
+        ],
+        "output": [
+          {
+            "AttributeName": "PK",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "SK",
+            "AttributeType": "S"
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            {
+              "AttributeName": "PartKey",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "SortKey",
+              "KeyType": "RANGE"
+            }
+          ],
+          {
+            "ReadCapacityUnits": 10,
+            "WriteCapacityUnits": 8
+          },
+          "CreateTable-4"
+        ],
+        "output": [
+          {
+            "AttributeName": "PartKey",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "SortKey",
+            "AttributeType": "S"
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            {
+              "AttributeName": "PK",
+              "KeyType": "HASH"
+            },
+            {
+              "AttributeName": "SortKey",
+              "KeyType": "RANGE"
+            }
+          ],
+          {
+            "ReadCapacityUnits": 3,
+            "WriteCapacityUnits": 3
+          },
+          "CreateTable-3"
+        ],
+        "output": [
+          {
+            "AttributeName": "PK",
+            "AttributeType": "N"
+          },
+          {
+            "AttributeName": "SortKey",
+            "AttributeType": "N"
+          }
+        ]
+      }
+    ]
+  }
+]

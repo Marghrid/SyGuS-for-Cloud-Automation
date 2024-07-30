@@ -1,0 +1,55 @@
+[
+  {
+    "name": "f?_18",
+    "constraints": [
+      {
+        "inputs": [
+          "synth-bucket-00",
+          "synth-bucket-00",
+          "standard-logs"
+        ],
+        "output": "standard-logs"
+      },
+      {
+        "inputs": [
+          "synth-bucket-01",
+          "synth-bucket-01",
+          "standard-logs/"
+        ],
+        "output": "standard-logs/"
+      },
+      {
+        "inputs": [
+          "synth-bucket-01",
+          null,
+          null
+        ],
+        "output": "standard-logs/"
+      },
+      {
+        "inputs": [
+          "synth-bucket-00",
+          null,
+          null
+        ],
+        "output": "custom-logs/"
+      },
+      {
+        "inputs": [
+          "synth-bucket-00",
+          "synth-bucket-00",
+          "custom-logs"
+        ],
+        "output": "custom-logs"
+      },
+      {
+        "inputs": [
+          "synth-bucket-01",
+          "synth-bucket-00",
+          "standard-logs"
+        ],
+        "output": "custom-logs/"
+      }
+    ]
+  }
+]

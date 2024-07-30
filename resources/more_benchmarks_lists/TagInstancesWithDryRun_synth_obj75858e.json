@@ -1,0 +1,78 @@
+[
+  {
+    "name": "f?_23",
+    "constraints": [
+      {
+        "inputs": [
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup3"
+            }
+          ],
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup3"
+            }
+          ]
+        ],
+        "output": [
+          "i-07f34efc8e7ba7b28"
+        ]
+      },
+      {
+        "inputs": [
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup1"
+            }
+          ],
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup1"
+            }
+          ]
+        ],
+        "output": [
+          "i-0595852c75cdc967d"
+        ]
+      },
+      {
+        "inputs": [
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup4"
+            }
+          ],
+          null
+        ],
+        "output": [
+          "i-0566639f8d04bf17e"
+        ]
+      },
+      {
+        "inputs": [
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup2"
+            }
+          ],
+          [
+            {
+              "Key": "Type",
+              "Value": "TestInstanceGroup2"
+            }
+          ]
+        ],
+        "output": [
+          "i-09dc83b13d328a589"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,114 @@
+[
+  {
+    "name": "f?_0",
+    "constraints": [
+      {
+        "inputs": [
+          [
+            "i-0595852c75cdc967d"
+          ]
+        ],
+        "output": [
+          {
+            "Name": "tag:Type",
+            "Values": [
+              "TestInstanceGroup1"
+            ]
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            "i-09dc83b13d328a589"
+          ]
+        ],
+        "output": [
+          {
+            "Name": "tag:Type",
+            "Values": [
+              "TestInstanceGroup2"
+            ]
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            "i-0595852c75cdc967d"
+          ]
+        ],
+        "output": [
+          {
+            "Name": "tag:Type",
+            "Values": [
+              "TestInstanceGroup1"
+            ]
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            "i-07f34efc8e7ba7b28"
+          ]
+        ],
+        "output": [
+          {
+            "Name": "tag:Type",
+            "Values": [
+              "TestInstanceGroup3"
+            ]
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            "i-0566639f8d04bf17e",
+            "i-0df9bb0cf8e176ee9"
+          ]
+        ],
+        "output": [
+          {
+            "Name": "tag:Type",
+            "Values": [
+              "TestInstanceGroup4"
+            ]
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            "i-0595852c75cdc967d"
+          ]
+        ],
+        "output": [
+          {
+            "Name": "tag:Type",
+            "Values": [
+              "TestInstanceGroup1"
+            ]
+          }
+        ]
+      },
+      {
+        "inputs": [
+          [
+            "i-0566639f8d04bf17e",
+            "i-0df9bb0cf8e176ee9"
+          ]
+        ],
+        "output": [
+          {
+            "Name": "tag:Type",
+            "Values": [
+              "TestInstanceGroup4"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

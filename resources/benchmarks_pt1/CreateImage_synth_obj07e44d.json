@@ -1,0 +1,47 @@
+[
+  {
+    "name": "f?_8",
+    "constraints": [
+      {
+        "inputs": [
+          "i-07f34efc8e7ba7b28",
+          "RunInstancesi-07f34efc8e7ba7b28",
+          true
+        ],
+        "output": [
+          "i-07f34efc8e7ba7b28"
+        ]
+      },
+      {
+        "inputs": [
+          "i-0595852c75cdc967d",
+          "RunInstancesi-0595852c75cdc967d",
+          false
+        ],
+        "output": [
+          "i-0595852c75cdc967d"
+        ]
+      },
+      {
+        "inputs": [
+          "i-0595852c75cdc967d",
+          "RunInstancesi-0595852c75cdc967d",
+          true
+        ],
+        "output": [
+          "i-0595852c75cdc967d"
+        ]
+      },
+      {
+        "inputs": [
+          "i-07f34efc8e7ba7b28",
+          "RunInstancesi-07f34efc8e7ba7b28",
+          false
+        ],
+        "output": [
+          "i-07f34efc8e7ba7b28"
+        ]
+      }
+    ]
+  }
+]

@@ -2,15 +2,6 @@
 
 (require rosette/lib/synthax)
 
-
-; select the object at index in obj
-(define (index obj idx)
-  (cond
-    [(list? obj) (if (> (length obj) idx) (list-ref obj idx) (list))]
-    [else null]
-    )
-  )
-
 ; syntEq compares two objects for equality
 (define (syntEq arg1 arg2)
   (cond
@@ -32,7 +23,14 @@
     )
   )
 
+(define (power x n)
+  (cond
+  [(< n 0) 0]
+  [(zero? n) 1]
+  [else (* x (power x (- n 1)))]
+    )
+  )
 
-(provide index)
 (provide syntEq)
 (provide syntAdd)
+(provide power)

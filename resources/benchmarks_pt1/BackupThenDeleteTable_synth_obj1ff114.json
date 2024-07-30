@@ -1,0 +1,43 @@
+[
+  {
+    "name": "f?_9",
+    "constraints": [
+      {
+        "inputs": [
+          "BackupThenDeleteTable-2"
+        ],
+        "output": "CreateTableThenInsertItem-2"
+      },
+      {
+        "inputs": [
+          "BackupThenDeleteTable-1"
+        ],
+        "output": "CreateTableThenInsertItem-1"
+      },
+      {
+        "inputs": [
+          "BackupThenDeleteTable-4"
+        ],
+        "output": "CreateTableThenInsertItem-4"
+      },
+      {
+        "inputs": [
+          "BackupThenDeleteTable-6"
+        ],
+        "output": "CreateTableThenInsertItem-6"
+      },
+      {
+        "inputs": [
+          "BackupThenDeleteTable-5"
+        ],
+        "output": "CreateTableThenInsertItem-5"
+      },
+      {
+        "inputs": [
+          "BackupThenDeleteTable-3"
+        ],
+        "output": "CreateTableThenInsertItem-3"
+      }
+    ]
+  }
+]

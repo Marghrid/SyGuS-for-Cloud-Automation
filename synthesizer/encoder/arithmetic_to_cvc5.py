@@ -3,13 +3,16 @@ import subprocess
 from collections import deque
 from typing import Any
 
-from synthesizer.util import get_timeout_command_prefix, human_time
+from synthesizer.util import get_timeout_command_prefix, human_time, SyntDecl
 
 
-def get_arithmetic_start_symbol(ctrs: list[dict[str, Any]]) -> str:
+def get_arithmetic_start_symbol(ctrs: list[dict[str, Any]], in_type: str) -> str:
     """ Returns the start symbol for the arithmetic grammar, depending on the type of the outputs. """
     if all(isinstance(ctr["output"], bool) for ctr in ctrs):
         start_symb = 'SyntBool'
+    elif all(isinstance(ctr["output"], int) for ctr in ctrs) and in_type == 'Real':
+        # If the output is an int, but the input is real, we need to use the real start symbol
+        start_symb = 'SyntReal'
     elif all(isinstance(ctr["output"], int) for ctr in ctrs):
         start_symb = 'SyntInt'
     elif all(isinstance(ctr["output"], float) for ctr in ctrs):
@@ -23,13 +26,13 @@ def get_arithmetic_start_symbol(ctrs: list[dict[str, Any]]) -> str:
 def get_arithmetic_input_type(ctrs: list[dict[str, Any]]) -> str:
     """ Returns the input type for the arithmetic grammar, depending on the type of the inputs. """
     if all(any(isinstance(i, float) for i in ctr["inputs"]) for ctr in ctrs):
-        start_symb = 'Real'
+        in_type = 'Real'
     elif all(all(isinstance(i, int) for i in ctr["inputs"]) for ctr in ctrs):
-        start_symb = 'Int'
+        in_type = 'Int'
     else:
         raise NotImplementedError(f'Which start symbol for '
                                   f'{[ctr["output"].__class__.__name__ for ctr in ctrs]}')
-    return start_symb
+    return in_type
 
 
 class Arithmetic2CVC5Encoder:
@@ -154,12 +157,12 @@ class Arithmetic2CVC5Encoder:
         if in_type == 'Int':
             synth_int_definition = f"""
     (SyntInt Int (
+      (nth_list SyntList SyntInt)
       (+ SyntInt SyntInt)
       (- SyntInt SyntInt)
       (* SyntInt SyntInt)
       (powi SyntInt SyntInt)
       (abs SyntInt)
-      (nth_list SyntList SyntInt)
       (Constant Int) """
             synth_int_definition += '\n    ))'
             non_terminals['(SyntInt Int)'] = synth_int_definition
@@ -170,6 +173,11 @@ class Arithmetic2CVC5Encoder:
       (+ SyntReal SyntReal)
       (- SyntReal SyntReal)
       (* SyntReal SyntReal)
+      (* SyntInt SyntReal)
+      (/ SyntReal SyntReal)
+      (/ SyntInt SyntReal)
+      (/ SyntReal SyntInt)
+      (/ SyntInt SyntInt)
       (powr SyntReal SyntInt)
       (abs SyntReal)
       (nth_list SyntList SyntInt)"""
@@ -196,11 +204,11 @@ class Arithmetic2CVC5Encoder:
         non_terminals['(SyntList NumList)'] = synth_numlist_definition
 
         non_terminals_list = list(sorted(non_terminals.items()))
-        start_symbol_pair = tuple(filter(lambda p: start_symb in p[0], non_terminals_list))
-        assert len(start_symbol_pair) == 1, (
-            f'Expected to find exactly one start symbol, but found {start_symbol_pair}.\n '
+        start_symbol_pair_t = tuple(filter(lambda p: start_symb in p[0], non_terminals_list))
+        assert len(start_symbol_pair_t) == 1, (
+            f'Expected to find exactly one start symbol, but found {start_symbol_pair_t}.\n '
             f'Looking for {start_symb} in {non_terminals.keys()}')
-        start_symbol_pair = start_symbol_pair[0]
+        start_symbol_pair = start_symbol_pair_t[0]
         non_terminals_list.remove(start_symbol_pair)
         non_terminals_list.insert(0, start_symbol_pair)
         s = f"""
@@ -215,7 +223,7 @@ class Arithmetic2CVC5Encoder:
         s += '\n  )\n)\n'
         return s
 
-    def build_cvc5_samples(self, synt_decl, in_type: str):
+    def build_cvc5_samples(self, synt_decl: SyntDecl, in_type: str):
         """ Returns the samples for the CVC5 synthesis problem. """
         s = ''
         for io_idx, io in enumerate(synt_decl['constraints']):
@@ -229,11 +237,15 @@ class Arithmetic2CVC5Encoder:
         s += '\n'
         return s
 
-    def build_cvc5_synthesis_query(self, synt_decl):
+    def build_cvc5_synthesis_query(self, synt_decl: SyntDecl, in_type: str):
         """ Returns the synthesis query for the CVC5 synthesis problem. """
         asserts = []
         f_name = synt_decl['name']
         for ctr_idx, ctr in enumerate(synt_decl['constraints']):
+            if (in_type == 'Real' and not isinstance(ctr['output'], bool) and
+                    isinstance(ctr['output'], int)):
+                # If the output is int (not Bool) but inputs were floats, convert output to float
+                ctr['output'] = float(ctr['output'])
             output_str = self.to_cvc5(ctr['output'])
             asserts.append(f'(constraint (= ({f_name} sample{ctr_idx}) {output_str}))')
 
@@ -244,7 +256,7 @@ class Arithmetic2CVC5Encoder:
         return s
 
     def parse_cvc5_output_aux(self, tokens: deque):
-        two_arg_functions = ['get_idx_list', '=', 'nth_list', '+', '*', '-', 'powi', 'powr']
+        two_arg_functions = ['get_idx_list', '=', 'nth_list', '+', '*', '-', '/', 'powi', 'powr']
         one_arg_functions = ['not', 'empty', 'is_empty', 'abs']
         token = tokens.popleft()
         if token == '(-' and re.fullmatch(r'\d+\)', tokens[0]):
@@ -317,7 +329,7 @@ class Arithmetic2CVC5Encoder:
             elif f_name == 'powi' or f_name == 'powr':
                 a0, a1 = f_args
                 return f'({self.cvc5_to_jsonpath(a0)} ** {self.cvc5_to_jsonpath(a1)})'
-            elif f_name in ('+', '-', '*', '==', '>=', '<=', '>', '<'):
+            elif f_name in ('+', '-', '*', '/', '==', '>=', '<=', '>', '<'):
                 a0, a1 = f_args
                 return f'({self.cvc5_to_jsonpath(a0)} {f_name} {self.cvc5_to_jsonpath(a1)})'
             else:
@@ -335,15 +347,16 @@ class Arithmetic2CVC5Encoder:
 
     def get_query(self, synt_decl):
         """ Returns the CVC5 query for a given arithmetic synthesis problem. """
-        cvc5_text = ''
         in_type = get_arithmetic_input_type(synt_decl['constraints'])
-        cvc5_text += self._cvc5_file_preamble(in_type)
-        start_symbol = get_arithmetic_start_symbol(synt_decl['constraints'])
+        start_symbol = get_arithmetic_start_symbol(synt_decl['constraints'], in_type)
         start_symbol = start_symbol[0].upper() + start_symbol[1:]
         f_name = synt_decl["name"]
+
+        cvc5_text = ''
+        cvc5_text += self._cvc5_file_preamble(in_type)
         cvc5_text += self.build_sygus_grammar(start_symbol, in_type, f_name)
         cvc5_text += self.build_cvc5_samples(synt_decl, in_type)
-        cvc5_text += self.build_cvc5_synthesis_query(synt_decl)
+        cvc5_text += self.build_cvc5_synthesis_query(synt_decl, in_type)
         return cvc5_text
 
     def run_command(self, cvc5_filename: str, timeout: int) -> str:
@@ -360,7 +373,7 @@ class Arithmetic2CVC5Encoder:
             if 'unsat' in result.stdout or 'infeasible' in result.stdout:
                 cvc5_out = '(unsat)'
             elif 'error' in result.stdout or 'error' in result.stderr:
-                subprocess.run(['subl', cvc5_filename])
+                # subprocess.run(['subl', cvc5_filename])
                 raise RuntimeError(f'Error in CVC5 '
                                    f'{" ".join(cvc5_command)}:\n'
                                    f'stdout: {result.stdout}\n'

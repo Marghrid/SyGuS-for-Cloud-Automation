@@ -1,0 +1,73 @@
+[
+  {
+    "name": "f?_11",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "Location": "/ex-synth-bucket-01",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "content-length": "0",
+                "date": "Mon, 23 Oct 2023 17:33:21 GMT",
+                "location": "/ex-synth-bucket-01",
+                "server": "AmazonS3",
+                "x-amz-id-2": "n5xWEWt/J5Zm7ITmPREfOoRvFxiODgMxWEVJfiSZu0TpaDgmB7q+n9CMn88p+w1sUAdnwNRGN0HGDkuwJGmO+comQDcKb4ipA11JNdmrQsI=",
+                "x-amz-request-id": "TPTTXVS3Y6RCPNW4"
+              },
+              "HTTPStatusCode": 200,
+              "HostId": "n5xWEWt/J5Zm7ITmPREfOoRvFxiODgMxWEVJfiSZu0TpaDgmB7q+n9CMn88p+w1sUAdnwNRGN0HGDkuwJGmO+comQDcKb4ipA11JNdmrQsI=",
+              "RequestId": "TPTTXVS3Y6RCPNW4",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": "ex-synth-bucket-01"
+      },
+      {
+        "inputs": [
+          {
+            "Location": "/synth-bucket-00",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "content-length": "0",
+                "date": "Mon, 23 Oct 2023 17:32:38 GMT",
+                "location": "/synth-bucket-00",
+                "server": "AmazonS3",
+                "x-amz-id-2": "GTU0Fk2/KOU/QZPi/9C93MbpbMQ/rLoz/8XkwmY/WPrqA4hfD8ze9Xm7YbIeOKv7o7tZj2/dasQ=",
+                "x-amz-request-id": "0W3GYXRJP2MHTW1A"
+              },
+              "HTTPStatusCode": 200,
+              "HostId": "GTU0Fk2/KOU/QZPi/9C93MbpbMQ/rLoz/8XkwmY/WPrqA4hfD8ze9Xm7YbIeOKv7o7tZj2/dasQ=",
+              "RequestId": "0W3GYXRJP2MHTW1A",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": "synth-bucket-00"
+      },
+      {
+        "inputs": [
+          {
+            "Location": "/synth-bucket-01",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "content-length": "0",
+                "date": "Mon, 23 Oct 2023 17:33:08 GMT",
+                "location": "/synth-bucket-01",
+                "server": "AmazonS3",
+                "x-amz-id-2": "z10ipM9Ju5s/1NOwIMxbSrPNIrY3zF7aafUeXzBqycRx+gmitK+Q1kIwMF6re1yRWpF7WL82eYI=",
+                "x-amz-request-id": "68JNFZ7DS3MB1EVF"
+              },
+              "HTTPStatusCode": 200,
+              "HostId": "z10ipM9Ju5s/1NOwIMxbSrPNIrY3zF7aafUeXzBqycRx+gmitK+Q1kIwMF6re1yRWpF7WL82eYI=",
+              "RequestId": "68JNFZ7DS3MB1EVF",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": "synth-bucket-01"
+      }
+    ]
+  }
+]

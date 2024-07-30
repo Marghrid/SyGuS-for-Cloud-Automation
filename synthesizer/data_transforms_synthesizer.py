@@ -13,7 +13,7 @@ from synthesizer.to_synthesis import get_synthesis_indices, get_synthesis_keys, 
 from synthesizer.util import get_synthesis_filename, human_time, Solution, SyntDecl, SynthesisSolver
 
 # Where each subproblem thread saves its positive solution
-valid_sat_subproblem_solutions: list[Solution, ...] = []
+valid_sat_subproblem_solutions: list[Solution] = []
 # Where the complete problem threads save the most recent timeout or unsat solution
 timeout_or_unsat_complete_problem_solution: Solution | None = None
 
@@ -116,7 +116,7 @@ def write_and_solve_arithmetic_synthesis_problem(
     else:
         raise NotImplementedError(f'Synthesis solver {synthesis_solver} not implemented.')
     func_name = synt_decl['name']
-    suffix = get_synthesis_filename(depth, func_name, instance_name, [], [], extension)
+    suffix = '_' + get_synthesis_filename(depth, func_name, instance_name, [], [], extension)
     with tempfile.NamedTemporaryFile('w', suffix=suffix, delete=False) as f:
         f.write(synthesis_text)
         synthesis_filename = f.name
@@ -186,7 +186,7 @@ def write_and_solve_json_synthesis_problem(
     else:
         raise NotImplementedError(f'Synthesis solver {synthesis_solver} not implemented.')
     func_name = synt_decl['name']
-    suffix = get_synthesis_filename(depth, func_name, instance_name, keys, values, extension)
+    suffix = '_' + get_synthesis_filename(depth, func_name, instance_name, keys, values, extension)
     with tempfile.NamedTemporaryFile('w', suffix=suffix, delete=False) as f:
         f.write(synthesis_text)
         synthesis_filename = f.name
@@ -291,18 +291,14 @@ def synthesize_arithmetic_function(
     :return:
     """
     if solver == SynthesisSolver.Rosette:
-        depths = range(2, 10)
+        depths = range(2, 6)
     elif solver == SynthesisSolver.CVC5:
         depths = (None,)
     else:
         raise NotImplementedError(f'Synthesis solver {solver} not implemented.')
 
-    indices = get_synthesis_indices(synt_decl)
-    synthesis_problems = [
-        (synt_decl, depth, instance_name,
-         solver, synthesis_timeout, comment)
-        for depth in depths]
-
+    synthesis_problems = [(synt_decl, depth, instance_name, solver, synthesis_timeout, comment)
+                          for depth in depths]
     while len(synthesis_problems) > 0:
         task = synthesis_problems.pop(0)
         try:
@@ -318,12 +314,12 @@ def synthesize_arithmetic_function(
         if 'unsat' in solution['solution']:
             # if solution is UNSAT, remove all other tasks for the same problem with lower depth.
             for t in synthesis_problems:
-                if t[:3] == task[:3] and t[3] < task[3] and t[4:7] == task[4:7]:
+                if t[0] == task[0] and t[1] < task[1] and t[2:5] == task[2:5]:
                     to_remove.append(t)
         elif 'timeout' not in solution['solution']:
             # if solution is SAT, remove all other tasks for the same problem with higher depth
             for t in synthesis_problems:
-                if t[:3] == task[:3] and t[3] > task[3] and t[4:7] == task[4:7]:
+                if t[0] == task[0] and t[1] > task[1] and t[2:5] == task[2:5]:
                     to_remove.append(t)
         for t in to_remove:
             synthesis_problems.remove(t)

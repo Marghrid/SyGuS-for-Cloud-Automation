@@ -1,0 +1,1862 @@
+[
+  {
+    "name": "_fb?",
+    "constraints": [
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "Throughput": 125,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-dab1frt483ds3d420",
+                "ImageLocation": "038885041153/testImage",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "testImage",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-fgdr83b13e46has8o",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1840",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "812ecee8-2784-47ae-a330-cdb194a6084d"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "812ecee8-2784-47ae-a330-cdb194a6084d",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-dab1frt483ds3d420",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "Throughput": 125,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-0241f79681ba9c51a",
+                "ImageLocation": "038885041153/temp-test-image",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-0df9bb0cf8e176ee9",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1840",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "812ecee8-2784-47ae-a330-cdb194a6084d"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "812ecee8-2784-47ae-a330-cdb194a6084d",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-0241f79681ba9c51a",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "Throughput": 125,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-3241f79483ds3d32b",
+                "ImageLocation": "038885041153/testImage",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "testImage",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-09dc83b13d328a589",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1840",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "812ecee8-2784-47ae-a330-cdb194a6084d"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "812ecee8-2784-47ae-a330-cdb194a6084d",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-3241f79483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "Throughput": 125,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-e241frt483ds3d32b",
+                "ImageLocation": "038885041153/testImage",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "testImage",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-56dr83b13e46ha58o",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1840",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "812ecee8-2784-47ae-a330-cdb194a6084d"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "812ecee8-2784-47ae-a330-cdb194a6084d",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-e241frt483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-dab1frt483ds3d420",
+                "ImageLocation": "038885041153/testImage",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "testImageName",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-fgdr83b13e46has8o",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:56 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "6ba490bc-3b41-4558-aa74-41dcaa7a0d7b"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "6ba490bc-3b41-4558-aa74-41dcaa7a0d7b",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-dab1frt483ds3d420",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-0241f79681ba9c51a",
+                "ImageLocation": "038885041153/temp-test-image",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-0df9bb0cf8e176ee9",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:56 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "6ba490bc-3b41-4558-aa74-41dcaa7a0d7b"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "6ba490bc-3b41-4558-aa74-41dcaa7a0d7b",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-0241f79681ba9c51a",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-3241f79483ds3d32b",
+                "ImageLocation": "038885041153/testImage",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "imageTest",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-09dc83b13d328a589",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:56 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "6ba490bc-3b41-4558-aa74-41dcaa7a0d7b"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "6ba490bc-3b41-4558-aa74-41dcaa7a0d7b",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-3241f79483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-e241frt483ds3d32b",
+                "ImageLocation": "038885041153/testImage",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-56dr83b13e46ha58o",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:56 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "6ba490bc-3b41-4558-aa74-41dcaa7a0d7b"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "6ba490bc-3b41-4558-aa74-41dcaa7a0d7b",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-e241frt483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-dab1frt483ds3d420",
+                "ImageLocation": "038885041153/testImageName",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "testImageName",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-fgdr83b13e46has8o",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:00 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "ec093dd0-1629-41a7-8ce9-e0a52a06d4a0"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "ec093dd0-1629-41a7-8ce9-e0a52a06d4a0",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-dab1frt483ds3d420",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-0241f79681ba9c51a",
+                "ImageLocation": "038885041153/temp-test-image",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-0df9bb0cf8e176ee9",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:00 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "ec093dd0-1629-41a7-8ce9-e0a52a06d4a0"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "ec093dd0-1629-41a7-8ce9-e0a52a06d4a0",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-0241f79681ba9c51a",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-3241f79483ds3d32b",
+                "ImageLocation": "038885041153/imageTest",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "imageTest",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-09dc83b13d328a589",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:00 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "ec093dd0-1629-41a7-8ce9-e0a52a06d4a0"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "ec093dd0-1629-41a7-8ce9-e0a52a06d4a0",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-3241f79483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-e241frt483ds3d32b",
+                "ImageLocation": "038885041153/temp-test-image",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-56dr83b13e46ha58o",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:00 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "ec093dd0-1629-41a7-8ce9-e0a52a06d4a0"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "ec093dd0-1629-41a7-8ce9-e0a52a06d4a0",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-e241frt483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-dab1frt483ds3d420",
+                "ImageLocation": "038885041153/testImageName",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "testImageName",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-fgdr83b13e46has8o",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:08 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "1d624302-b6de-4ec9-adc8-049a693f1fa4"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "1d624302-b6de-4ec9-adc8-049a693f1fa4",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-dab1frt483ds3d420",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-0241f79681ba9c51a",
+                "ImageLocation": "038885041153/temp-test-image",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-0df9bb0cf8e176ee9",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:08 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "1d624302-b6de-4ec9-adc8-049a693f1fa4"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "1d624302-b6de-4ec9-adc8-049a693f1fa4",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-0241f79681ba9c51a",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-3241f79483ds3d32b",
+                "ImageLocation": "038885041153/imageTest",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "imageTest",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-09dc83b13d328a589",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:08 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "1d624302-b6de-4ec9-adc8-049a693f1fa4"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "1d624302-b6de-4ec9-adc8-049a693f1fa4",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-3241f79483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-e241frt483ds3d32b",
+                "ImageLocation": "038885041153/temp-test-image",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-56dr83b13e46ha58o",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:08 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "1d624302-b6de-4ec9-adc8-049a693f1fa4"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "1d624302-b6de-4ec9-adc8-049a693f1fa4",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-e241frt483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-dab1frt483ds3d420",
+                "ImageLocation": "038885041153/testImageName",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "testImageName",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-fgdr83b13e46has8o",
+                "SriovNetSupport": "simple",
+                "State": "available",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1965",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:28:02 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "c41e91a0-2254-43d9-ad53-7703d4bfea4d"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "c41e91a0-2254-43d9-ad53-7703d4bfea4d",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-dab1frt483ds3d420",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-0241f79681ba9c51a",
+                "ImageLocation": "038885041153/temp-test-image",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-0df9bb0cf8e176ee9",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:25 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "8fe66d56-99c0-4f6d-bdeb-fcf44d0f74ad"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "8fe66d56-99c0-4f6d-bdeb-fcf44d0f74ad",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-0241f79681ba9c51a",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-3241f79483ds3d32b",
+                "ImageLocation": "038885041153/imageTest",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "imageTest",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-09dc83b13d328a589",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:25 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "8fe66d56-99c0-4f6d-bdeb-fcf44d0f74ad"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "8fe66d56-99c0-4f6d-bdeb-fcf44d0f74ad",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-3241f79483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-e241frt483ds3d32b",
+                "ImageLocation": "038885041153/temp-test-image",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-56dr83b13e46ha58o",
+                "SriovNetSupport": "simple",
+                "State": "available",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1965",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:28:02 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "c41e91a0-2254-43d9-ad53-7703d4bfea4d"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "c41e91a0-2254-43d9-ad53-7703d4bfea4d",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-e241frt483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ImageId": "ami-dab1frt483ds3d420",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-0241f79681ba9c51a",
+                "ImageLocation": "038885041153/temp-test-image",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-0df9bb0cf8e176ee9",
+                "SriovNetSupport": "simple",
+                "State": "pending",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1963",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:26:57 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "56ee8440-dfdd-4644-a84e-79182724becf"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "56ee8440-dfdd-4644-a84e-79182724becf",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-0241f79681ba9c51a",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-3241f79483ds3d32b",
+                "ImageLocation": "038885041153/imageTest",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "imageTest",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-09dc83b13d328a589",
+                "SriovNetSupport": "simple",
+                "State": "available",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1965",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:28:02 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "c41e91a0-2254-43d9-ad53-7703d4bfea4d"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "c41e91a0-2254-43d9-ad53-7703d4bfea4d",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-3241f79483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ImageId": "ami-e241frt483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ImageId": "ami-dab1frt483ds3d420",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          {
+            "Images": [
+              {
+                "Architecture": "x86_64",
+                "BlockDeviceMappings": [
+                  {
+                    "DeviceName": "/dev/xvda",
+                    "Ebs": {
+                      "DeleteOnTermination": true,
+                      "Encrypted": false,
+                      "Iops": 3000,
+                      "SnapshotId": "snap-02a760352c6baf2c5",
+                      "Throughput": 125,
+                      "VolumeSize": 8,
+                      "VolumeType": "gp3"
+                    }
+                  }
+                ],
+                "BootMode": "uefi-preferred",
+                "CreationDate": "2023-11-08T19:25:54.000Z",
+                "EnaSupport": true,
+                "Hypervisor": "xen",
+                "ImageId": "ami-0241f79681ba9c51a",
+                "ImageLocation": "038885041153/temp-test-image",
+                "ImageType": "machine",
+                "ImdsSupport": "v2.0",
+                "Name": "temp-test-image",
+                "OwnerId": "038885041153",
+                "PlatformDetails": "Linux/UNIX",
+                "Public": false,
+                "RootDeviceName": "/dev/xvda",
+                "RootDeviceType": "ebs",
+                "SourceInstanceId": "i-0df9bb0cf8e176ee9",
+                "SriovNetSupport": "simple",
+                "State": "available",
+                "UsageOperation": "RunInstances",
+                "VirtualizationType": "hvm"
+              }
+            ],
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "1965",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:28:02 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "c41e91a0-2254-43d9-ad53-7703d4bfea4d"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "c41e91a0-2254-43d9-ad53-7703d4bfea4d",
+              "RetryAttempts": 0
+            }
+          },
+          {
+            "ImageId": "ami-0241f79681ba9c51a",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ImageId": "ami-3241f79483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          null,
+          {
+            "ImageId": "ami-e241frt483ds3d32b",
+            "ResponseMetadata": {
+              "HTTPHeaders": {
+                "cache-control": "no-cache, no-store",
+                "content-length": "242",
+                "content-type": "text/xml;charset=UTF-8",
+                "date": "Wed, 08 Nov 2023 19:25:54 GMT",
+                "server": "AmazonEC2",
+                "strict-transport-security": "max-age=31536000; includeSubDomains",
+                "x-amzn-requestid": "0cee3b08-17d0-40e2-ad4a-16145416eda5"
+              },
+              "HTTPStatusCode": 200,
+              "RequestId": "0cee3b08-17d0-40e2-ad4a-16145416eda5",
+              "RetryAttempts": 0
+            }
+          }
+        ],
+        "output": null
+      }
+    ]
+  }
+]

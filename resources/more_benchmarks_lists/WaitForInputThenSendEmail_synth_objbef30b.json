@@ -1,0 +1,28 @@
+[
+  {
+    "name": "f?_5",
+    "constraints": [
+      {
+        "inputs": [
+          true,
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mi lorem, ultricies sit amet nunc non, aliquet sodales felis. Sed tempor felis nec lectus ullamcorper ultricies. "
+        ],
+        "output": "james@example.com"
+      },
+      {
+        "inputs": [
+          true,
+          "Phasellus a est orci. "
+        ],
+        "output": "recipient@gmail.com"
+      },
+      {
+        "inputs": [
+          true,
+          "Here is a sample JSON structure that could be used as input to the Google API to send an email"
+        ],
+        "output": "recipient@example.com"
+      }
+    ]
+  }
+]

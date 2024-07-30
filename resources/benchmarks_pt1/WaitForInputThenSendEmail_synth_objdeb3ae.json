@@ -1,0 +1,79 @@
+[
+  {
+    "name": "_fb?",
+    "constraints": [
+      {
+        "inputs": [
+          ""
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          ""
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          ""
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mi lorem, ultricies sit amet nunc non, aliquet sodales felis. Sed tempor felis nec lectus ullamcorper ultricies. "
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          ""
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          ""
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          null
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          "Phasellus a est orci. "
+        ],
+        "output": true
+      },
+      {
+        "inputs": [
+          ""
+        ],
+        "output": false
+      },
+      {
+        "inputs": [
+          null
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          null
+        ],
+        "output": null
+      },
+      {
+        "inputs": [
+          "Here is a sample JSON structure that could be used as input to the Google API to send an email"
+        ],
+        "output": true
+      }
+    ]
+  }
+]

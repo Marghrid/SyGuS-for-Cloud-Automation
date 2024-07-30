@@ -1,0 +1,84 @@
+[
+  {
+    "name": "f?_12",
+    "constraints": [
+      {
+        "inputs": [
+          "synthesis-table-2",
+          "synthesis-table-3"
+        ],
+        "output": {
+          "itemId": {
+            "S": "x1"
+          }
+        }
+      },
+      {
+        "inputs": [
+          "synthesis-table",
+          "synthesis-table-2"
+        ],
+        "output": {
+          "itemId": {
+            "S": "x3"
+          }
+        }
+      },
+      {
+        "inputs": [
+          "synthesis-table-3",
+          "synthesis-table"
+        ],
+        "output": {
+          "itemId": {
+            "S": "x3"
+          }
+        }
+      },
+      {
+        "inputs": [
+          "synthesis-table",
+          "synthesis-table-3"
+        ],
+        "output": {
+          "itemId": {
+            "S": "x2"
+          }
+        }
+      },
+      {
+        "inputs": [
+          "synthesis-table-2",
+          "synthesis-table"
+        ],
+        "output": {
+          "itemId": {
+            "S": "x2"
+          }
+        }
+      },
+      {
+        "inputs": [
+          "synthesis-table-2",
+          "synthesis-table-3"
+        ],
+        "output": {
+          "itemId": {
+            "S": "x1"
+          }
+        }
+      },
+      {
+        "inputs": [
+          "synthesis-table",
+          "synthesis-table-2"
+        ],
+        "output": {
+          "itemId": {
+            "S": "x1"
+          }
+        }
+      }
+    ]
+  }
+]

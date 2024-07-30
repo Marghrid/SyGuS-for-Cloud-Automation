@@ -3,7 +3,7 @@ import subprocess
 from collections import deque
 from typing import Any
 
-from synthesizer.encoder.arithmetic_to_cvc5 import get_arithmetic_start_symbol
+from synthesizer.encoder.arithmetic_to_cvc5 import get_arithmetic_input_type, get_arithmetic_start_symbol
 from synthesizer.util import get_timeout_command_prefix, human_time, SyntDecl
 
 
@@ -38,7 +38,7 @@ class Arithmetic2RosetteEncoder:
 (require rosette/lib/synthax)
 (require (file "{os.getcwd()}/resources/synthesis/synthesis_arith_lang.rkt"))\n\n"""
 
-    def build_general_rosette_grammar(self):
+    def build_general_rosette_grammar(self, in_type: str):
         s = f"""
 (define-grammar (json-selector x)
   [SyntBool
@@ -49,15 +49,45 @@ class Arithmetic2RosetteEncoder:
         s += """
   ]
 """
-        s += f"""
+        if in_type == 'Int':
+            s += f"""
   [SyntInt (choose 
-    (index x (SyntInt))
+    (list-ref x (SyntInt))
     (+ (SyntInt) (SyntInt))
+    (- (SyntInt) (SyntInt))
     (* (SyntInt) (SyntInt))
+    (power (SyntInt) (choose 2 3 4 5 6))
     (abs (SyntInt))
     (?? integer?)
   )]"""
-        s += '\n  )\n\n'
+            s += '\n  )\n\n'
+        elif in_type == 'Real':
+            s += f"""
+  [SyntReal (choose 
+    (list-ref x (SyntInt))
+    (+ (SyntReal) (SyntReal))
+    (- (SyntReal) (SyntReal))
+    (* (SyntInt) (SyntReal))
+    (* (SyntReal) (SyntReal))
+    (/ (SyntReal) (SyntReal))
+    (/ (SyntReal) (SyntInt))
+    (/ (SyntInt) (SyntReal))
+    (/ (SyntInt) (SyntInt))
+    (power (SyntReal) (choose 2 3 4 5 6))
+    (abs (SyntReal))
+  )]"""
+            s += f"""
+  [SyntInt (choose 
+    (+ (SyntInt) (SyntInt))
+    (- (SyntInt) (SyntInt))
+    (* (SyntInt) (SyntInt))
+    (power (SyntInt) (choose 2 3 4 5 6))
+    (abs (SyntInt))
+    (?? integer?)
+  )]"""
+            s += '\n  )\n\n'
+        else:
+            raise NotImplementedError(f'Grammar not implemented for {in_type}.')
         return s
 
     def build_rosette_samples(self, synt_decl):
@@ -67,11 +97,15 @@ class Arithmetic2RosetteEncoder:
         s += '\n'
         return s
 
-    def build_rosette_synthesis_query(self, synt_decl, depth: int, start_symb: str):
+    def build_rosette_synthesis_query(self, synt_decl, depth: int, start_symb: str, in_type: str):
         assert depth is not None
         asserts = []
         f_name = synt_decl["name"]
         for ctr_idx, ctr in enumerate(synt_decl["constraints"]):
+            if (in_type == 'Real' and not isinstance(ctr['output'], bool) and
+                    isinstance(ctr['output'], int)):
+                # If the output is int (not Bool) but inputs were floats, convert output to float
+                ctr['output'] = float(ctr['output'])
             asserts.append(f'(assert (equal? ({f_name} sample{ctr_idx}) {self.to_racket(ctr["output"])}))')
 
         asserts_str = ('\n' + ' ' * 10).join(asserts)
@@ -96,7 +130,7 @@ class Arithmetic2RosetteEncoder:
         return s
 
     def parse_rosette_output_aux(self, tokens: deque):
-        two_arg_functions = ['child', 'index', 'descendant', 'syntEq', '*', '+']
+        two_arg_functions = ['child', 'list-ref', 'descendant', 'syntEq', '*', '+']
         one_arg_functions = ['not', 'empty?', 'abs']
         token = tokens.popleft()
         if token[0] == '(':
@@ -144,7 +178,7 @@ class Arithmetic2RosetteEncoder:
             elif f_name == 'descendant':
                 a0, a1 = f_args
                 return f'{self.rosette_to_jsonpath(a0)}..{a1}'
-            elif f_name == 'index':
+            elif f_name == 'index' or f_name == 'list-ref':
                 a0, a1 = f_args
                 return f'{self.rosette_to_jsonpath(a0)}[{a1}]'
             elif f_name == 'syntEq':
@@ -163,7 +197,7 @@ class Arithmetic2RosetteEncoder:
                 a0, a1 = f_args
                 return f'({self.rosette_to_jsonpath(a0)} {f_name} {self.rosette_to_jsonpath(a1)})'
             else:
-                raise NotImplementedError(f'to_jsonpath not implemented for operation {f_name}.')
+                raise NotImplementedError(f'rosette_to_jsonpath not implemented for operation {f_name}.')
         elif ast == input_name:
             return '$'
         if isinstance(ast, str):
@@ -176,12 +210,14 @@ class Arithmetic2RosetteEncoder:
         return self.rosette_to_jsonpath(ast)
 
     def get_query(self, synt_decl: SyntDecl, depth: int):
+        in_type = get_arithmetic_input_type(synt_decl['constraints'])
+        start_symbol = get_arithmetic_start_symbol(synt_decl['constraints'], in_type)
+
         rosette_text = ''
         rosette_text += self.rosette_file_preamble()
-        rosette_text += self.build_general_rosette_grammar()
+        rosette_text += self.build_general_rosette_grammar(in_type)
         rosette_text += self.build_rosette_samples(synt_decl)
-        start_symbol = get_arithmetic_start_symbol(synt_decl['constraints'])
-        rosette_text += self.build_rosette_synthesis_query(synt_decl, depth, start_symbol)
+        rosette_text += self.build_rosette_synthesis_query(synt_decl, depth, start_symbol, in_type)
         return rosette_text
 
     def run_command(self, racket_filename: str, timeout: int, depth: int) -> str:
@@ -205,9 +241,9 @@ class Arithmetic2RosetteEncoder:
                 try:
                     racket_out = self.convert_rosette_to_jsonpath(racket_out)
                 except Exception as e:
-                    subprocess.run(['subl', racket_filename])
+                    # subprocess.run(['subl', racket_filename])
                     raise RuntimeError(
-                        f'Something wrong with racket output to {" ".join(racket_command)}: {e}\n'
+                        f'Something wrong with racket output to:\n{" ".join(racket_command)}\n{e}\n'
                         f'stdout: {result.stdout}\n'
                         f'stderr: {result.stderr}\n')
             if len(result.stderr) > 0:

@@ -9,20 +9,13 @@ from synthesizer.util import human_time, SynthesisSolver
 
 
 def main(instances_dir: str, synthesis_timeout: int):
-    # solvers = (SynthesisSolver.CVC5, SynthesisSolver.Rosette)
+    solvers = (SynthesisSolver.CVC5, SynthesisSolver.Rosette)
     # solvers = (SynthesisSolver.CVC5,)
-    solvers = (SynthesisSolver.Rosette,)
+    # solvers = (SynthesisSolver.Rosette,)
 
     synthesis_problems = []
     for filename in glob.glob(f"{instances_dir}*.json"):
         for solver in solvers:
-            # Edit below to solve a specific instance:
-            # if 'retry_until_example' not in filename:
-            #     continue
-            # if 'StopInstancesCond_synth_obj585a2b' not in filename:
-            #     continue
-            # if solver.name == 'CVC5':
-            #     continue
             print(f'Solving {filename} with {solver.name}')
             with open(filename, 'r') as f:
                 synt_decls = json.load(f)
@@ -33,13 +26,6 @@ def main(instances_dir: str, synthesis_timeout: int):
                                        synthesis_timeout,
                                        False  # use_metadata
                                        ))
-
-            # decls = 0
-            # num_input_output_pairs = 0
-            # for decl in synt_decls:
-            #     decls += 1
-            #     num_input_output_pairs += len(decl['constraints'])
-    # print('On average, each decl has', num_input_output_pairs / decls, 'input-output pairs.')
 
     for synthesis_problem in synthesis_problems:
         start_time = time.perf_counter()
@@ -63,6 +49,6 @@ def main(instances_dir: str, synthesis_timeout: int):
 if __name__ == '__main__':
     # instances_dir = 'resources/json_solver_benchmarks/'
     # instances_dir = 'resources/hand_built/'
-    instances_dir = 'resources/arithmetic/6'
+    instances_dir = 'resources/arithmetic/'
     synthesis_timeout = 5 * 60
     main(instances_dir, synthesis_timeout)
