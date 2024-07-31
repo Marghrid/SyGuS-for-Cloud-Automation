@@ -4,6 +4,7 @@ import hashlib
 import os
 import signal
 import sys
+import time
 from typing import Any
 
 Solution = dict[str, int | str]
@@ -17,6 +18,7 @@ def handler(signum, frame):
     for pid in active_children:
         print(f"Killing subprocess {pid}")
         os.kill(pid, signal.SIGINT)
+        os.kill(pid, signal.SIGKILL)
     sys.exit(128 + signum)
 
 
