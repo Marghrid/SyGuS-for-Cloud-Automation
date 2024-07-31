@@ -1,9 +1,11 @@
 import re
+import signal
 import subprocess
 from collections import deque
 from typing import Any
 
-from synthesizer.util import get_timeout_command_prefix, human_time, SyntDecl
+# noinspection PyUnresolvedReferences
+from synthesizer.util import active_children, get_timeout_command_prefix, handler, human_time, SyntDecl
 
 
 def get_arithmetic_start_symbol(ctrs: list[dict[str, Any]], in_type: str) -> str:
@@ -157,22 +159,25 @@ class Arithmetic2CVC5Encoder:
       (is_empty SyntList)
       (not SyntBool)
       (< SyntInt SyntInt)
+      (> SyntInt SyntInt)
+      (<= SyntInt SyntInt)
+      (>= SyntInt SyntInt)
+      (= SyntInt SyntInt)"""
+
+        if in_type == 'Real':
+            synth_bool_definition += """
       (< SyntInt SyntReal)
       (< SyntReal SyntReal)
       (< SyntReal SyntInt)
-      (> SyntInt SyntInt)
       (> SyntInt SyntReal)
       (> SyntReal SyntReal)
       (> SyntReal SyntInt)
-      (<= SyntInt SyntInt)
       (<= SyntInt SyntReal)
       (<= SyntReal SyntReal)
       (<= SyntReal SyntInt)
-      (>= SyntInt SyntInt)
       (>= SyntInt SyntReal)
       (>= SyntReal SyntReal)
       (>= SyntReal SyntInt)
-      (= SyntInt SyntInt)
       (= SyntReal SyntReal)"""
         synth_bool_definition += '\n    ))'
         non_terminals['(SyntBool Bool)'] = synth_bool_definition
@@ -389,29 +394,34 @@ class Arithmetic2CVC5Encoder:
         :param timeout: Synthesis timeout in seconds
         :return: solution in jsonpath format
         """
+        global active_children
+        signal.signal(signal.SIGINT, handler)
+        signal.signal(signal.SIGTERM, handler)
         cvc5_command = get_timeout_command_prefix(timeout) + ['cvc5', cvc5_filename]
         try:
-            result = subprocess.run(cvc5_command, capture_output=True, text=True, timeout=timeout)
+            process = subprocess.Popen(cvc5_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            active_children.add(process.pid)
+            stdout, stderr = process.communicate(timeout=timeout)
+            active_children.discard(process.pid)
 
-            if 'unsat' in result.stdout or 'infeasible' in result.stdout:
+            if 'unsat' in stdout or 'infeasible' in stdout:
                 cvc5_out = '(unsat)'
-            elif 'error' in result.stdout or 'error' in result.stderr:
-                # subprocess.run(['subl', cvc5_filename])
+            elif 'error' in stdout or 'error' in stderr:
                 raise RuntimeError(f'Error in CVC5 '
                                    f'{" ".join(cvc5_command)}:\n'
-                                   f'stdout: {result.stdout}\n'
-                                   f'stderr: {result.stderr}')
+                                   f'stdout: {stdout}\n'
+                                   f'stderr: {stderr}')
             else:
-                cvc5_out = "\n".join(result.stdout.split('\n'))
+                cvc5_out = "\n".join(stdout.split('\n'))
                 try:
                     cvc5_out = self.convert_cvc5_to_jsonpath(cvc5_out)
                 except RuntimeError as e:
                     raise RuntimeError(
                         f'Something wrong with CVC5 output to '
                         f'{" ".join(cvc5_command)}:\n'
-                        f'stdout: {result.stdout}\n{e}')
-            if len(result.stderr) > 0:
-                print('CVC5 call stderr:', result.stderr)
+                        f'stdout: {stdout}\n{e}')
+            if len(stderr) > 0:
+                print('CVC5 call stderr:', stderr)
             return cvc5_out
 
         except subprocess.TimeoutExpired:

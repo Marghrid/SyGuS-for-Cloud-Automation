@@ -1,10 +1,12 @@
 import os
+import signal
 import subprocess
 from collections import deque
 from typing import Any
 
 from synthesizer.encoder.arithmetic_to_cvc5 import get_arithmetic_input_type, get_arithmetic_start_symbol
-from synthesizer.util import get_timeout_command_prefix, human_time, SyntDecl
+# noinspection PyUnresolvedReferences
+from synthesizer.util import active_children, get_timeout_command_prefix, handler, human_time, SyntDecl
 
 
 class Arithmetic2RosetteEncoder:
@@ -46,20 +48,22 @@ class Arithmetic2RosetteEncoder:
       (empty? x)
       (not (SyntBool))
       (= (SyntInt) (SyntInt))
-      (= (SyntReal) (SyntReal))
       (< (SyntInt) (SyntInt))
+      (<= (SyntInt) (SyntInt))
+      (> (SyntInt) (SyntInt))
+      (>= (SyntInt) (SyntInt))"""
+        if in_type == 'Real':
+            s += """
+      (= (SyntReal) (SyntReal))
       (< (SyntInt) (SyntReal))
       (< (SyntReal) (SyntInt))
       (< (SyntReal) (SyntReal))
-      (<= (SyntInt) (SyntInt))
       (<= (SyntInt) (SyntReal))
       (<= (SyntReal) (SyntInt))
       (<= (SyntReal) (SyntReal))
-      (> (SyntInt) (SyntInt))
       (> (SyntInt) (SyntReal))
       (> (SyntReal) (SyntInt))
       (> (SyntReal) (SyntReal))
-      (>= (SyntInt) (SyntInt))
       (>= (SyntInt) (SyntReal))
       (>= (SyntReal) (SyntInt))
       (>= (SyntReal) (SyntReal))"""
@@ -245,27 +249,32 @@ class Arithmetic2RosetteEncoder:
         :param timeout: Synthesis timeout in seconds
         :return: solution in jsonpath format
         """
+        global active_children
+        signal.signal(signal.SIGINT, handler)
+        signal.signal(signal.SIGTERM, handler)
         racket_command = get_timeout_command_prefix(timeout) + ['racket', racket_filename]
         try:
-            result = subprocess.run(racket_command, capture_output=True, text=True, timeout=timeout)
+            process = subprocess.Popen(racket_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            active_children.add(process.pid)
+            stdout, stderr = process.communicate(timeout=timeout)
+            active_children.discard(process.pid)
 
-            if 'unsat' in result.stdout:
+            if 'unsat' in stdout:
                 if depth is None:
                     racket_out = '(unsat)'
                 else:
                     racket_out = f'(unsat d={depth})'
             else:
-                racket_out = "\n".join(result.stdout.split('\n')[1:])
+                racket_out = "\n".join(stdout.split('\n')[1:])
                 try:
                     racket_out = self.convert_rosette_to_jsonpath(racket_out)
                 except Exception as e:
-                    # subprocess.run(['subl', racket_filename])
                     raise RuntimeError(
                         f'Something wrong with racket output to:\n{" ".join(racket_command)}\n{e}\n'
-                        f'stdout: {result.stdout}\n'
-                        f'stderr: {result.stderr}\n')
-            if len(result.stderr) > 0:
-                print('racket call stderr:', result.stderr)
+                        f'stdout: {stdout}\n'
+                        f'stderr: {stderr}\n')
+            if len(stderr) > 0:
+                print('racket call stderr:', stderr)
             return racket_out
 
         except subprocess.TimeoutExpired:

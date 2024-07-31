@@ -1,10 +1,23 @@
 import datetime
 import enum
 import hashlib
+import os
+import signal
+import sys
 from typing import Any
 
 Solution = dict[str, int | str]
 SyntDecl = dict[str:Any]
+
+# Active children are the PID of children processes currently running
+active_children: set[int] = set()
+
+
+def handler(signum, frame):
+    for pid in active_children:
+        print(f"Killing subprocess {pid}")
+        os.kill(pid, signal.SIGINT)
+    sys.exit(128 + signum)
 
 
 def human_time(total_seconds: int | float) -> str:

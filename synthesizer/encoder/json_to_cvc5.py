@@ -1,9 +1,11 @@
+import signal
 import subprocess
 from collections import deque
 from typing import Any
 
 from synthesizer.encoder.json_to_rosette import get_json_start_symbol
-from synthesizer.util import get_timeout_command_prefix, human_time
+# noinspection PyUnresolvedReferences
+from synthesizer.util import active_children, get_timeout_command_prefix, handler, human_time
 
 
 class Json2CVC5Encoder:
@@ -261,11 +263,11 @@ class Json2CVC5Encoder:
         ))'''
 
         non_terminals_list = list(sorted(non_terminals.items()))
-        start_symbol_pair = tuple(filter(lambda p: start_symb in p[0], non_terminals_list))
-        assert len(start_symbol_pair) == 1, (
-            f'Expected to find exactly one start symbol, but found {start_symbol_pair}.\n '
+        start_symbol_pair_t = tuple(filter(lambda p: start_symb in p[0], non_terminals_list))
+        assert len(start_symbol_pair_t) == 1, (
+            f'Expected to find exactly one start symbol, but found {start_symbol_pair_t}.\n '
             f'Looking for {start_symb} in {non_terminals.keys()}')
-        start_symbol_pair = start_symbol_pair[0]
+        start_symbol_pair = start_symbol_pair_t[0]
         non_terminals_list.remove(start_symbol_pair)
         non_terminals_list.insert(0, start_symbol_pair)
 
@@ -400,28 +402,34 @@ class Json2CVC5Encoder:
         :param timeout: Synthesis timeout in seconds
         :return: solution in jsonpath format
         """
+        global active_children
+        signal.signal(signal.SIGINT, handler)
+        signal.signal(signal.SIGTERM, handler)
         cvc5_command = get_timeout_command_prefix(timeout) + ['cvc5', cvc5_filename]
         try:
-            result = subprocess.run(cvc5_command, capture_output=True, text=True, timeout=timeout)
+            process = subprocess.Popen(cvc5_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            active_children.add(process.pid)
+            stdout, stderr = process.communicate(timeout=timeout)
+            active_children.discard(process.pid)
 
-            if 'unsat' in result.stdout or 'infeasible' in result.stdout:
+            if 'unsat' in stdout or 'infeasible' in stdout:
                 cvc5_out = '(unsat)'
-            elif 'error' in result.stdout or 'error' in result.stderr:
+            elif 'error' in stdout or 'error' in stderr:
                 raise RuntimeError(f'Error in CVC5 '
                                    f'{" ".join(cvc5_command)}:\n'
-                                   f'stdout: {result.stdout}\n'
-                                   f'stderr: {result.stderr}')
+                                   f'stdout: {stdout}\n'
+                                   f'stderr: {stderr}')
             else:
-                cvc5_out = "\n".join(result.stdout.split('\n'))
+                cvc5_out = "\n".join(stdout.split('\n'))
                 try:
                     cvc5_out = self.convert_cvc5_to_jsonpath(cvc5_out)
                 except RuntimeError as e:
                     raise RuntimeError(
                         f'Something wrong with CVC5 output to '
                         f'{" ".join(cvc5_command)}:\n'
-                        f'stdout: {result.stdout}\n{e}')
-            if len(result.stderr) > 0:
-                print('CVC5 call stderr:', result.stderr)
+                        f'stdout: {stdout}\n{e}')
+            if len(stderr) > 0:
+                print('CVC5 call stderr:', stderr)
             return cvc5_out
 
         except subprocess.TimeoutExpired:

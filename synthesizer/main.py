@@ -14,6 +14,8 @@ def main(instances_dir: str, synthesis_timeout: int):
     # solvers = (SynthesisSolver.Rosette,)
 
     synthesis_problems = []
+    if len(glob.glob(f"{instances_dir}*.json")) == 0:
+        raise RuntimeError(f'No instances found in {instances_dir}*.json')
     for filename in glob.glob(f"{instances_dir}*.json"):
         for solver in solvers:
             print(f'Solving {filename} with {solver.name}')
@@ -49,6 +51,6 @@ def main(instances_dir: str, synthesis_timeout: int):
 if __name__ == '__main__':
     # instances_dir = 'resources/json_solver_benchmarks/'
     # instances_dir = 'resources/hand_built/'
-    instances_dir = 'resources/arithmetic/11'
+    instances_dir = 'resources/arithmetic/00'
     synthesis_timeout = 5 * 60
     main(instances_dir, synthesis_timeout)
