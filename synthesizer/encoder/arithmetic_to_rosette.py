@@ -43,8 +43,26 @@ class Arithmetic2RosetteEncoder:
 (define-grammar (json-selector x)
   [SyntBool
     (choose
-     (empty? x)
-     (not (SyntBool))"""
+      (empty? x)
+      (not (SyntBool))
+      (= (SyntInt) (SyntInt))
+      (= (SyntReal) (SyntReal))
+      (< (SyntInt) (SyntInt))
+      (< (SyntInt) (SyntReal))
+      (< (SyntReal) (SyntInt))
+      (< (SyntReal) (SyntReal))
+      (<= (SyntInt) (SyntInt))
+      (<= (SyntInt) (SyntReal))
+      (<= (SyntReal) (SyntInt))
+      (<= (SyntReal) (SyntReal))
+      (> (SyntInt) (SyntInt))
+      (> (SyntInt) (SyntReal))
+      (> (SyntReal) (SyntInt))
+      (> (SyntReal) (SyntReal))
+      (>= (SyntInt) (SyntInt))
+      (>= (SyntInt) (SyntReal))
+      (>= (SyntReal) (SyntInt))
+      (>= (SyntReal) (SyntReal))"""
         s += '\n    )'
         s += """
   ]

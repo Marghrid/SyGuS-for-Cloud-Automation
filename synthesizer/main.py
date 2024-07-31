@@ -49,6 +49,6 @@ def main(instances_dir: str, synthesis_timeout: int):
 if __name__ == '__main__':
     # instances_dir = 'resources/json_solver_benchmarks/'
     # instances_dir = 'resources/hand_built/'
-    instances_dir = 'resources/arithmetic/'
+    instances_dir = 'resources/arithmetic/11'
     synthesis_timeout = 5 * 60
     main(instances_dir, synthesis_timeout)

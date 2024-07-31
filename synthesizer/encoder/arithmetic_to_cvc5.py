@@ -155,7 +155,25 @@ class Arithmetic2CVC5Encoder:
         synth_bool_definition = """
     (SyntBool Bool (
       (is_empty SyntList)
-      (not SyntBool)"""
+      (not SyntBool)
+      (< SyntInt SyntInt)
+      (< SyntInt SyntReal)
+      (< SyntReal SyntReal)
+      (< SyntReal SyntInt)
+      (> SyntInt SyntInt)
+      (> SyntInt SyntReal)
+      (> SyntReal SyntReal)
+      (> SyntReal SyntInt)
+      (<= SyntInt SyntInt)
+      (<= SyntInt SyntReal)
+      (<= SyntReal SyntReal)
+      (<= SyntReal SyntInt)
+      (>= SyntInt SyntInt)
+      (>= SyntInt SyntReal)
+      (>= SyntReal SyntReal)
+      (>= SyntReal SyntInt)
+      (= SyntInt SyntInt)
+      (= SyntReal SyntReal)"""
         synth_bool_definition += '\n    ))'
         non_terminals['(SyntBool Bool)'] = synth_bool_definition
 
@@ -261,7 +279,7 @@ class Arithmetic2CVC5Encoder:
         return s
 
     def parse_cvc5_output_aux(self, tokens: deque):
-        two_arg_functions = ['get_idx_list', '=', 'nth_list', '+', '*', '-', '/', 'powi', 'powr']
+        two_arg_functions = ['get_idx_list', '=', 'nth_list', '+', '*', '-', '/', 'powi', 'powr', '>=', '<=', '>', '<']
         one_arg_functions = ['not', 'empty', 'is_empty', 'abs']
         token = tokens.popleft()
         if token == '(-' and re.fullmatch(r'\d+\)', tokens[0]):
