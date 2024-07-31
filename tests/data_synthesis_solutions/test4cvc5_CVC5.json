@@ -1,0 +1,30 @@
+[
+  {
+    "name": "f0",
+    "solution": "(timeout 1m0s)",
+    "solve time": 60.008322959001816,
+    "solve time (h)": "1m0s",
+    "keys": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "lvl0",
+      "v",
+      "x"
+    ],
+    "values": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "depth": null,
+    "solver": "CVC5",
+    "is subproblem": false,
+    "comment": "",
+    "instance": "test4cvc5"
+  }
+]

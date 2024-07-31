@@ -1,0 +1,29 @@
+[
+  {
+    "name": "f0",
+    "solution": "$[0].a",
+    "solve time": 2.2708722080024017,
+    "solve time (h)": "2.3s",
+    "keys": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "v",
+      "x"
+    ],
+    "values": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "depth": 2,
+    "solver": "Rosette",
+    "is subproblem": false,
+    "comment": "",
+    "instance": "test2rosette"
+  }
+]
