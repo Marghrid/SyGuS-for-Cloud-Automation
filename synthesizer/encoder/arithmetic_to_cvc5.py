@@ -8,14 +8,19 @@ from synthesizer.util import get_timeout_command_prefix, human_time, SyntDecl
 
 def get_arithmetic_start_symbol(ctrs: list[dict[str, Any]], in_type: str) -> str:
     """ Returns the start symbol for the arithmetic grammar, depending on the type of the outputs. """
-    if all(isinstance(ctr["output"], bool) for ctr in ctrs):
+    if all(isinstance(ctr['output'], bool) for ctr in ctrs):
         start_symb = 'SyntBool'
-    elif all(isinstance(ctr["output"], int) for ctr in ctrs) and in_type == 'Real':
+    elif all(isinstance(ctr['output'], int) for ctr in ctrs) and in_type == 'Real':
         # If the output is an int, but the input is real, we need to use the real start symbol
         start_symb = 'SyntReal'
-    elif all(isinstance(ctr["output"], int) for ctr in ctrs):
+    elif all((isinstance(ctr['output'], int) and not isinstance(ctr['output'], bool))
+             or isinstance(ctr['output'], float)
+             for ctr in ctrs) and in_type == 'Real':
+        # If some outputs are ints, but at least one is real, we need to use the real start symbol
+        start_symb = 'SyntReal'
+    elif all(isinstance(ctr['output'], int) for ctr in ctrs):
         start_symb = 'SyntInt'
-    elif all(isinstance(ctr["output"], float) for ctr in ctrs):
+    elif all(isinstance(ctr['output'], float) for ctr in ctrs):
         start_symb = 'SyntReal'
     else:
         raise NotImplementedError(f'Which start symbol for '
@@ -30,7 +35,7 @@ def get_arithmetic_input_type(ctrs: list[dict[str, Any]]) -> str:
     elif all(all(isinstance(i, int) for i in ctr["inputs"]) for ctr in ctrs):
         in_type = 'Int'
     else:
-        raise NotImplementedError(f'Which start symbol for '
+        raise NotImplementedError(f'Which input type for '
                                   f'{[ctr["output"].__class__.__name__ for ctr in ctrs]}')
     return in_type
 
