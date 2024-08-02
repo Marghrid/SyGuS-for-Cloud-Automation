@@ -90,15 +90,19 @@ def preprocess(synt_decl: SyntDecl, use_metadata: bool = True) -> tuple[SyntDecl
 
 def write_and_solve_arithmetic_synthesis_problem(
         synt_decl: SyntDecl, depth: int | None, instance_name: str,
-        synthesis_solver: SynthesisSolver, synthesis_timeout: int, comment: str) -> Solution:
+        synthesis_solver: SynthesisSolver, synthesis_timeout: int,
+        use_ite=True, comment: str = '') -> Solution:
     """
     Auxiliary function that, given information about a synthesis instance,
     writes a synthesis query in synthesis_solver language to a file and solves it.
     :param synt_decl: The synthesis problem, read from the instance file.
     :param depth: The maximum depth of the synthesized program. Not used for CVC5.
-    :param instance_name: The instance name.
+    :param instance_name: The instance name, used to name the synthesis and solution files.
     :param synthesis_solver: The synthesis solver to use.
     :param synthesis_timeout: Synthesis timeout in seconds
+    :param use_ite: Whether to use ite in the encoding. Only relevant for
+    Arithmetic DSL. Ignored otherwise.
+    :param comment: A comment string describing the changes that were made so far.
     :return:
     """
     global valid_sat_subproblem_solutions
@@ -111,6 +115,7 @@ def write_and_solve_arithmetic_synthesis_problem(
     elif synthesis_solver == SynthesisSolver.CVC5:
         assert depth is None
         encoder = Arithmetic2CVC5Encoder()
+        encoder.use_ite = use_ite
         synthesis_text = encoder.get_query(synt_decl)
         extension = 'sl'
     else:
@@ -163,7 +168,7 @@ def write_and_solve_json_synthesis_problem(
     :param keys: The strings that should be considered for SyntK.
     :param values: The strings that should be considered for SyntVal.
     :param depth: The maximum depth of the synthesized program. Not used for CVC5.
-    :param instance_name: The instance name.
+    :param instance_name: The instance name, used to name the synthesis and solution files.
     :param synthesis_solver: The synthesis solver to use.
     :param synthesis_timeout: Synthesis timeout in seconds
     :param use_metadata: Whether metadata fields should be used for synthesis.
@@ -230,17 +235,18 @@ def synthesize_data_transforms(
         synt_decls: list[SyntDecl],
         solver: SynthesisSolver,
         synthesis_timeout: int,
-        use_metadata: bool = True) \
+        use_metadata: bool = True,
+        use_ite: bool = True) \
         -> list[Solution]:
     """
     Given synthesis function declarations, with a name and a list of constraints,
     synthesize a JSONPath expression for each undefined function.
-    :param instance_name: The instance name, which will be used to name auxiliary
-       synthesis file and solution file.
+    :param instance_name: The instance name, which will be used to name synthesis and solution files.
     :param synt_decls: Input read from the json file.
     :param solver: The synthesis solver to use.
     :param synthesis_timeout: Max synthesis time in seconds.
     :param use_metadata: Whether metadata should be used as input to the synthesis
+    :param use_ite: Whether to use ite in the encoding. Only relevant for Arithmetic DSL. Ignored otherwise.
     :return solution dictionary
     """
     global valid_sat_subproblem_solutions
@@ -267,7 +273,7 @@ def synthesize_data_transforms(
         # Given the problem type, we call the appropriate synthesis function
         if is_arithmetic:
             synthesize_arithmetic_function(all_solutions, instance_name, solutions_dir, solver, synt_decl,
-                                           synthesis_timeout, comment)
+                                           synthesis_timeout, use_ite, comment)
         else:
             synthesize_json_function(all_solutions, instance_name, solutions_dir, solver, synt_decl, synthesis_timeout,
                                      use_metadata, comment)
@@ -278,16 +284,18 @@ def synthesize_data_transforms(
 def synthesize_arithmetic_function(
         all_solutions: list[Solution], instance_name: str, solutions_dir: str,
         solver: SynthesisSolver, synt_decl: SyntDecl, synthesis_timeout: int,
-        comment: str):
+        use_ite: bool = False, comment: str = ''):
     """
     Given a single synthesis function declaration, synthesize an arithmetic expression for it.
-    :param all_solutions: previous solutions
-    :param instance_name:
-    :param solutions_dir:
-    :param solver:
-    :param synt_decl:
-    :param synthesis_timeout:
-    :param comment:
+    :param all_solutions: The list of all previously found solutions to the
+    synthesis problem.
+    :param instance_name: The instance name, used to name the synthesis and solution files.
+    :param solutions_dir: The directory where the solutions are saved.
+    :param solver: The synthesis solver to use. Rosette or CVC5.
+    :param synt_decl: The synthesis problem.
+    :param synthesis_timeout: in seconds.
+    :param use_ite: Whether to use ite in the encoding. Only relevant for Arithmetic DSL. Ignored otherwise.
+    :param comment: A comment string describing the changes that were made so far.
     :return:
     """
     if solver == SynthesisSolver.Rosette:
@@ -297,14 +305,14 @@ def synthesize_arithmetic_function(
     else:
         raise NotImplementedError(f'Synthesis solver {solver} not implemented.')
 
-    synthesis_problems = [(synt_decl, depth, instance_name, solver, synthesis_timeout, comment)
+    synthesis_problems = [(synt_decl, depth, instance_name, solver, synthesis_timeout, use_ite, comment)
                           for depth in depths]
     while len(synthesis_problems) > 0:
         task = synthesis_problems.pop(0)
         try:
             solution = write_and_solve_arithmetic_synthesis_problem(*task)
         except RuntimeError as e:
-            print(f'Error in {task[1]}: {e}')
+            print(f'Error in {task[3]}: {e}')
             continue
         all_solutions.append(solution)
         solution_filename = f'{instance_name}_{solver.name}.json'

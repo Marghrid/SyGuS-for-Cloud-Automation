@@ -5,7 +5,8 @@ from collections import deque
 from typing import Any
 
 # noinspection PyUnresolvedReferences
-from synthesizer.util import active_children, get_timeout_command_prefix, handler, human_time, SyntDecl
+from synthesizer.util import active_children, get_timeout_command_prefix, handler, human_time, \
+    remove_let_expressions_smt2, SyntDecl
 
 
 def get_arithmetic_start_symbol(ctrs: list[dict[str, Any]], in_type: str) -> str:
@@ -45,6 +46,9 @@ def get_arithmetic_input_type(ctrs: list[dict[str, Any]]) -> str:
 class Arithmetic2CVC5Encoder:
     """ Encodes arithmetic synthesis problems into CVC5 (SMTLib) SyGuS format. """
 
+    def __init__(self):
+        self.use_ite = True
+
     def get_cvc5_list(self, lst: list[Any]):
         """ Returns a string representation of a list for CVC5. """
         if len(lst) == 0:
@@ -74,11 +78,11 @@ class Arithmetic2CVC5Encoder:
         """ Returns the preamble for a CVC5 file, with all necessary functions and types definitions. """
         return f"""(set-logic ALL)
 (set-option :produce-models true)
-
+ ; I experimented with these options but it made no difference:
 ; (set-option :sygus-enum smart)
-(set-option :sygus-eval-unfold single)
-(set-option :sygus-grammar-cons simple)
-(set-option :sygus-pbe true)
+; (set-option :sygus-eval-unfold single)
+; (set-option :sygus-grammar-cons simple)
+; (set-option :sygus-pbe true)
 
 (declare-datatype NumList (
     (il_nil)
@@ -191,7 +195,8 @@ class Arithmetic2CVC5Encoder:
       (* SyntInt SyntInt)
       (powi SyntInt SyntInt)
       (abs SyntInt)
-      (Constant Int) """
+      (Constant Int)
+      {'' if self.use_ite else '; '}(ite SyntBool SyntInt SyntInt)"""
             synth_int_definition += '\n    ))'
             non_terminals['(SyntInt Int)'] = synth_int_definition
 
@@ -208,7 +213,8 @@ class Arithmetic2CVC5Encoder:
       (/ SyntInt SyntInt)
       (powr SyntReal SyntInt)
       (abs SyntReal)
-      (nth_list SyntList SyntInt)"""
+      (nth_list SyntList SyntInt)
+      {'' if self.use_ite else '; '}(ite SyntBool SyntReal SyntReal)"""
             synth_real_definition += '\n    ))'
             non_terminals['(SyntReal Real)'] = synth_real_definition
 
@@ -219,6 +225,7 @@ class Arithmetic2CVC5Encoder:
       (* SyntInt SyntInt)
       (powi SyntInt SyntInt)
       (abs SyntInt)
+      {'' if self.use_ite else '; '}(ite SyntBool SyntInt SyntInt)
       (Constant Int)"""
             synth_int_definition += '\n    ))'
             non_terminals['(SyntInt Int)'] = synth_int_definition
@@ -287,24 +294,43 @@ class Arithmetic2CVC5Encoder:
         two_arg_functions = ['get_idx_list', '=', 'nth_list', '+', '*', '-', '/', 'powi', 'powr', '>=', '<=', '>', '<']
         one_arg_functions = ['not', 'empty', 'is_empty', 'abs']
         token = tokens.popleft()
-        if token == '(-' and re.fullmatch(r'\d+\)', tokens[0]):
-            return -int(tokens.popleft()[:-1])
+        m = re.fullmatch(r'\d+(\)+)', tokens[0])
+        if token == '(-' and m is not None:
+            return -int(tokens.popleft()[:-(len(m.groups()[0]))])
         if token[0] == '(':
             func_name = token[1:]
             if func_name in one_arg_functions:
                 arg0 = self.parse_cvc5_output_aux(tokens)
-                return (func_name, (arg0))
+                return func_name, arg0
             elif func_name in two_arg_functions:
                 arg0 = self.parse_cvc5_output_aux(tokens)
                 arg1 = self.parse_cvc5_output_aux(tokens)
-                return (func_name, (arg0, arg1))
-            if func_name == 'choose':
+                return func_name, (arg0, arg1)
+            elif func_name == 'choose':
                 # ignore
                 return self.parse_cvc5_output_aux(tokens)
+            elif func_name == 'ite':
+                cnd = self.parse_cvc5_output_aux(tokens)
+                if len(tokens) == 0:
+                    raise RuntimeError(f'Expected more tokens after ite condition {cnd}')
+                th = self.parse_cvc5_output_aux(tokens)
+                if len(tokens) == 0:
+                    raise RuntimeError(f'Expected more tokens after ite then-branch {th}')
+                el = self.parse_cvc5_output_aux(tokens)
+                return func_name, (cnd, th, el)
         if 'x' in token:
             return 'x'
-        if token[-1] == ')':
-            return eval(token.replace(')', ''))
+        elif token == ')':
+            if len(tokens) > 0:
+                return self.parse_cvc5_output_aux(tokens)
+            else:
+                # skip the closing bracket
+                return None
+        elif token[-1] == ')':
+            try:
+                return eval(token.replace(')', ''))
+            except SyntaxError:
+                pass
         try:
             return int(token)
         except ValueError:
@@ -313,7 +339,7 @@ class Arithmetic2CVC5Encoder:
             except ValueError:
                 pass
 
-        raise NotImplementedError(f'Handle parsing "{token}", {tokens}')
+        raise NotImplementedError(f'parse_cvc5_output_aux does not handle parsing "{token}", {tokens}')
 
     def parse_cvc5_output(self, solver_output: str):
         tokens = deque(solver_output.split())
@@ -328,8 +354,10 @@ class Arithmetic2CVC5Encoder:
         token = tokens.popleft()  # x
         token = tokens.popleft()  # x type, Json
         token = tokens.popleft()  # return type, start symb
-
-        return self.parse_cvc5_output_aux(tokens)
+        try:
+            return self.parse_cvc5_output_aux(tokens)
+        except RuntimeError:
+            raise RuntimeError(f'Empty output from CVC5.')
 
     def cvc5_to_jsonpath(self, ast):
         input_name = 'x'
@@ -360,6 +388,9 @@ class Arithmetic2CVC5Encoder:
             elif f_name in ('+', '-', '*', '/', '==', '>=', '<=', '>', '<'):
                 a0, a1 = f_args
                 return f'({self.cvc5_to_jsonpath(a0)} {f_name} {self.cvc5_to_jsonpath(a1)})'
+            elif f_name == 'ite':
+                a0, a1, a2 = f_args
+                return f'({self.cvc5_to_jsonpath(a0)} ? {self.cvc5_to_jsonpath(a1)} : {self.cvc5_to_jsonpath(a2)})'
             else:
                 raise NotImplementedError(f'cvc5_to_jsonpath not implemented for operation {f_name}.')
         elif ast == input_name:
@@ -412,14 +443,17 @@ class Arithmetic2CVC5Encoder:
                                    f'stdout: {stdout}\n'
                                    f'stderr: {stderr}')
             else:
-                cvc5_out = "\n".join(stdout.split('\n'))
+                cvc5_out = '\n'.join(stdout.split('\n'))
+                cvc5_out = remove_let_expressions_smt2(cvc5_out)
                 try:
                     cvc5_out = self.convert_cvc5_to_jsonpath(cvc5_out)
                 except RuntimeError as e:
                     raise RuntimeError(
                         f'Something wrong with CVC5 output to '
                         f'{" ".join(cvc5_command)}:\n'
-                        f'stdout: {stdout}\n{e}')
+                        f'stdout: {'\n'.join(stdout.split('\n'))}\n'
+                        f'after processing: {cvc5_out}\n'
+                        f'{e}')
             if len(stderr) > 0:
                 print('CVC5 call stderr:', stderr)
             return cvc5_out

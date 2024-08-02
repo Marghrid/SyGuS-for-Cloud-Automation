@@ -5,7 +5,8 @@ from typing import Any
 
 from synthesizer.encoder.json_to_rosette import get_json_start_symbol
 # noinspection PyUnresolvedReferences
-from synthesizer.util import active_children, get_timeout_command_prefix, handler, human_time
+from synthesizer.util import active_children, get_timeout_command_prefix, handler, human_time, \
+    remove_let_expressions_smt2
 
 
 class Json2CVC5Encoder:
@@ -421,6 +422,7 @@ class Json2CVC5Encoder:
                                    f'stderr: {stderr}')
             else:
                 cvc5_out = "\n".join(stdout.split('\n'))
+                cvc5_out = remove_let_expressions_smt2(cvc5_out)
                 try:
                     cvc5_out = self.convert_cvc5_to_jsonpath(cvc5_out)
                 except RuntimeError as e:

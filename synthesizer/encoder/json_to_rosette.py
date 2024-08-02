@@ -157,7 +157,7 @@ class Json2RosetteEncoder():
         if token[-1] == ')':
             return eval(token.replace(')', ''))
 
-        raise NotImplementedError(f'Handle parsing {token}')
+        raise NotImplementedError(f'parse_rosette_output_aux does not handle {token}')
 
     def parse_rosette_output(self, rosette: str):
         tokens = deque(rosette.split())

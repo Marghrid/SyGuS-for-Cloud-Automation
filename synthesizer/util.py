@@ -4,7 +4,7 @@ import hashlib
 import os
 import signal
 import sys
-import time
+from collections import deque
 from typing import Any
 
 Solution = dict[str, int | str]
@@ -72,3 +72,51 @@ def get_synthesis_filename(depth: int, func_name: str, instance_name: str, keys:
 
 def get_timeout_command_prefix(timeout: int) -> list[str]:
     return ['timeout', '-k', str(timeout + 2), str(timeout + 1)]
+
+
+def get_index_of_closing_bracket(str, opening_idx):
+    # If input is invalid.
+    if str[opening_idx] != '(':
+        return -1
+
+    d = deque()  # stack
+    for k in range(opening_idx, len(str)):
+        if str[k] == ')':
+            d.popleft()  # Pop an opening bracket for every closing bracket
+        elif str[k] == '(':
+            d.append(str[opening_idx])  # Push starting brackets
+        if not d:  # If deque becomes empty
+            return k
+
+    return -1
+
+
+def remove_let_expressions_smt2(smt2_solution):
+    while '(let' in smt2_solution:
+        let_idx = smt2_solution.index('(let')
+        closing_bracket = get_index_of_closing_bracket(smt2_solution, let_idx)
+        let_expression_complete = smt2_solution[let_idx:closing_bracket + 1]
+        # let expression is of the form (let ((var1 val1) (var2 val2) ...) body)
+        # the goal is to replace the let expression with body, where all
+        # occurrences of var1, var2, ... are replaced by val1, val2, ....
+        let_expression = let_expression_complete[1:-1]  # remove the outer brackets
+        opening_bracket = let_expression.index('(')
+        closing_bracket = get_index_of_closing_bracket(let_expression, 4)
+        bindings_str = let_expression[opening_bracket + 1:closing_bracket]
+        body = let_expression[closing_bracket + 1:]
+        bindings = []
+        while len(bindings_str) > 0:
+            assert bindings_str[0] == '('
+            closing_bracket = get_index_of_closing_bracket(bindings_str, 0)
+            binding = bindings_str[1:closing_bracket]
+            bindings_str = bindings_str[closing_bracket + 1:]
+            var, val = binding.split(' ', 1)
+            bindings.append((var, val))
+
+        for var, val in bindings:
+            body = body.replace(var, val)
+        assert let_expression_complete in smt2_solution
+        smt2_solution = smt2_solution.replace(let_expression_complete, body)
+        for var, val in bindings:
+            assert var not in smt2_solution
+    return smt2_solution

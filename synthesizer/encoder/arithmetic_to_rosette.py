@@ -80,6 +80,7 @@ class Arithmetic2RosetteEncoder:
     (* (SyntInt) (SyntInt))
     (power (SyntInt) (choose 2 3 4 5 6))
     (abs (SyntInt))
+    (if (SyntBool) (SyntInt) (SyntInt))
     (?? integer?)
   )]"""
             s += '\n  )\n\n'
@@ -97,6 +98,7 @@ class Arithmetic2RosetteEncoder:
     (/ (SyntInt) (SyntInt))
     (power (SyntReal) (choose 2 3 4 5 6))
     (abs (SyntReal))
+    (if (SyntBool) (SynthReal) (SynthReal))
   )]"""
             s += f"""
   [SyntInt (choose 
@@ -105,6 +107,7 @@ class Arithmetic2RosetteEncoder:
     (* (SyntInt) (SyntInt))
     (power (SyntInt) (choose 2 3 4 5 6))
     (abs (SyntInt))
+    (if (SyntBool) (SynthInt) (SynthInt))
     (?? integer?)
   )]"""
             s += '\n  )\n\n'
@@ -164,7 +167,7 @@ class Arithmetic2RosetteEncoder:
                 arg0 = self.parse_rosette_output_aux(tokens)
                 arg1 = self.parse_rosette_output_aux(tokens)
                 return func_name, (arg0, arg1)
-            if func_name == 'choose':
+            elif func_name == 'choose':
                 # ignore
                 return self.parse_rosette_output_aux(tokens)
         if 'x' in token:
@@ -177,7 +180,7 @@ class Arithmetic2RosetteEncoder:
         except ValueError:
             pass
 
-        raise NotImplementedError(f'Handle parsing {token}')
+        raise NotImplementedError(f'parse_rosette_output_aux does not handle {token}')
 
     def parse_rosette_output(self, rosette: str):
         tokens = deque(rosette.split())
