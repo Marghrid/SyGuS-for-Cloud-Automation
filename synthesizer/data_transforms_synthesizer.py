@@ -1,7 +1,7 @@
 import json
-import multiprocessing
 import multiprocessing.dummy  # So it uses threads, not processes
 import os.path
+import signal
 import tempfile
 import time
 
@@ -10,7 +10,7 @@ from synthesizer.encoder.arithmetic_to_rosette import Arithmetic2RosetteEncoder
 from synthesizer.encoder.json_to_cvc5 import Json2CVC5Encoder
 from synthesizer.encoder.json_to_rosette import Json2RosetteEncoder
 from synthesizer.to_synthesis import get_synthesis_indices, get_synthesis_keys, get_synthesis_values
-from synthesizer.util import get_synthesis_filename, human_time, Solution, SyntDecl, SynthesisSolver
+from synthesizer.util import get_synthesis_filename, handler, human_time, Solution, SyntDecl, SynthesisSolver
 
 # Where each subproblem thread saves its positive solution
 valid_sat_subproblem_solutions: list[Solution] = []
@@ -385,6 +385,11 @@ def synthesize_json_function(all_solutions, instance_name, solutions_dir, solver
         for depth in depths]
     valid_sat_subproblem_solutions = []  # clear list from previous runs
     timeout_or_unsat_complete_problem_solution = None  # clear list from previous runs
+
+    # Signal handling outside threads:
+    signal.signal(signal.SIGINT, handler)
+    signal.signal(signal.SIGTERM, handler)
+
     # Start processes solving subproblems
     with multiprocessing.dummy.Pool(processes=num_processes - 1) as subproblems_pool:
         async_result_subproblems = subproblems_pool.starmap_async(

@@ -1,5 +1,4 @@
 import re
-import signal
 import subprocess
 from collections import deque
 from typing import Any
@@ -426,8 +425,11 @@ class Arithmetic2CVC5Encoder:
         :return: solution in jsonpath format
         """
         global active_children
-        signal.signal(signal.SIGINT, handler)
-        signal.signal(signal.SIGTERM, handler)
+        # Cannot handle signals here when running with threads (i.e., with
+        # multiprocessing.dummy.) If the implementation changes to use processes
+        # instead, uncomment the following two lines to re-enable signal handling.
+        # signal.signal(signal.SIGINT, handler)
+        # signal.signal(signal.SIGTERM, handler)
         cvc5_command = get_timeout_command_prefix(timeout) + ['cvc5', cvc5_filename]
         try:
             process = subprocess.Popen(cvc5_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)

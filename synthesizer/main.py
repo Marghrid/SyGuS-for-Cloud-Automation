@@ -8,8 +8,8 @@ from synthesizer.util import human_time, SynthesisSolver
 
 
 def main(instances_dir: str, synthesis_timeout: int):
-    # solvers = (SynthesisSolver.CVC5, SynthesisSolver.Rosette)
-    solvers = (SynthesisSolver.CVC5,)
+    solvers = (SynthesisSolver.CVC5, SynthesisSolver.Rosette)
+    # solvers = (SynthesisSolver.CVC5,)
     # solvers = (SynthesisSolver.Rosette,)
 
     synthesis_problems = []
@@ -44,6 +44,8 @@ def main(instances_dir: str, synthesis_timeout: int):
 if __name__ == '__main__':
     # instances_dir = 'resources/json_solver_benchmarks/'
     # instances_dir = 'resources/hand_built/'
-    instances_dir = 'resources/arithmetic/'
+    # instances_dir = 'resources/arithmetic/'
+    # instances_dir = 'resources/sample'
+    instances_dir = 'resources/*/'
     synthesis_timeout = 5 * 60
     main(instances_dir, synthesis_timeout)
