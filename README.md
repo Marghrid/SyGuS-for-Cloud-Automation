@@ -1,3 +1,3 @@
-# Rosette-for-Cloud-Automation
+# SyGuS-for-Cloud-Automation
 
-Rosette synthesis for Cloud Automation functions
+This repository implements Syren's SyGuS solving module, as described in the paper Program Synthesis From Partial Traces [PLDI'25].
